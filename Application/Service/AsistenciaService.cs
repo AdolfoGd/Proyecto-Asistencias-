@@ -27,5 +27,27 @@ namespace Application.Service
             });
 
         }
-}
+        public async Task NuevaAsistencia(AsistenciaDTO a)
+        {
+            var asistencia = new Domain.Entities.Asistencia
+            {
+                IdSesion = a.IdSesion,
+                Carnet = a.Carnet,
+                Estado = a.Estado,
+
+            };
+            await _asistenciaRepository.NuevaAsistenciaAsync(asistencia);
+        }
+        public async Task EditarAsistencia(AsistenciaDTO a)
+        {
+            var asistencia = new Domain.Entities.Asistencia
+            {
+                IdAsistencia = a.IdAsistencia,
+                IdSesion = a.IdSesion,
+                Carnet = a.Carnet,
+                Estado = a.Estado,
+            };
+            await _asistenciaRepository.EditarAsistenciaAsync(asistencia);
+        }
+    }   
 }

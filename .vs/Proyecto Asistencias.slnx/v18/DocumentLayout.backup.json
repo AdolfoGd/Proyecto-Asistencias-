@@ -1,7 +1,120 @@
 {
   "Version": 1,
   "WorkspaceRootPath": "C:\\Users\\DELL LATITUDE\\source\\repos\\Proyecto Asistencias\\",
-  "Documents": [],
+  "Documents": [
+    {
+      "AbsoluteMoniker": "D:0:0:{F80C4E72-27A0-12B5-0634-DD5C11CFB0C1}|Application\\Application.csproj|c:\\users\\dell latitude\\source\\repos\\proyecto asistencias\\application\\dtos\\sesion de clasedto.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{F80C4E72-27A0-12B5-0634-DD5C11CFB0C1}|Application\\Application.csproj|solutionrelative:application\\dtos\\sesion de clasedto.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{F80C4E72-27A0-12B5-0634-DD5C11CFB0C1}|Application\\Application.csproj|c:\\users\\dell latitude\\source\\repos\\proyecto asistencias\\application\\dtos\\matriculasdto.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{F80C4E72-27A0-12B5-0634-DD5C11CFB0C1}|Application\\Application.csproj|solutionrelative:application\\dtos\\matriculasdto.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{F80C4E72-27A0-12B5-0634-DD5C11CFB0C1}|Application\\Application.csproj|c:\\users\\dell latitude\\source\\repos\\proyecto asistencias\\application\\dtos\\gruposdto.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{F80C4E72-27A0-12B5-0634-DD5C11CFB0C1}|Application\\Application.csproj|solutionrelative:application\\dtos\\gruposdto.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{F80C4E72-27A0-12B5-0634-DD5C11CFB0C1}|Application\\Application.csproj|c:\\users\\dell latitude\\source\\repos\\proyecto asistencias\\application\\dtos\\estudiantedto.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{F80C4E72-27A0-12B5-0634-DD5C11CFB0C1}|Application\\Application.csproj|solutionrelative:application\\dtos\\estudiantedto.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{F80C4E72-27A0-12B5-0634-DD5C11CFB0C1}|Application\\Application.csproj|c:\\users\\dell latitude\\source\\repos\\proyecto asistencias\\application\\dtos\\empleadodto.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{F80C4E72-27A0-12B5-0634-DD5C11CFB0C1}|Application\\Application.csproj|solutionrelative:application\\dtos\\empleadodto.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{F80C4E72-27A0-12B5-0634-DD5C11CFB0C1}|Application\\Application.csproj|c:\\users\\dell latitude\\source\\repos\\proyecto asistencias\\application\\dtos\\asistenciadto.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{F80C4E72-27A0-12B5-0634-DD5C11CFB0C1}|Application\\Application.csproj|solutionrelative:application\\dtos\\asistenciadto.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{ABA3F542-59E7-CDD3-52A7-C71F658301AE}|Infraestructure\\Infraestructure.csproj|c:\\users\\dell latitude\\source\\repos\\proyecto asistencias\\infraestructure\\repository\\estudianterepository.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{ABA3F542-59E7-CDD3-52A7-C71F658301AE}|Infraestructure\\Infraestructure.csproj|solutionrelative:infraestructure\\repository\\estudianterepository.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{ABA3F542-59E7-CDD3-52A7-C71F658301AE}|Infraestructure\\Infraestructure.csproj|c:\\users\\dell latitude\\source\\repos\\proyecto asistencias\\infraestructure\\repository\\empladorepository.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{ABA3F542-59E7-CDD3-52A7-C71F658301AE}|Infraestructure\\Infraestructure.csproj|solutionrelative:infraestructure\\repository\\empladorepository.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{ABA3F542-59E7-CDD3-52A7-C71F658301AE}|Infraestructure\\Infraestructure.csproj|c:\\users\\dell latitude\\source\\repos\\proyecto asistencias\\infraestructure\\repository\\docentesrepository.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{ABA3F542-59E7-CDD3-52A7-C71F658301AE}|Infraestructure\\Infraestructure.csproj|solutionrelative:infraestructure\\repository\\docentesrepository.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{ABA3F542-59E7-CDD3-52A7-C71F658301AE}|Infraestructure\\Infraestructure.csproj|c:\\users\\dell latitude\\source\\repos\\proyecto asistencias\\infraestructure\\repository\\asistenciarepository.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{ABA3F542-59E7-CDD3-52A7-C71F658301AE}|Infraestructure\\Infraestructure.csproj|solutionrelative:infraestructure\\repository\\asistenciarepository.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{ABA3F542-59E7-CDD3-52A7-C71F658301AE}|Infraestructure\\Infraestructure.csproj|c:\\users\\dell latitude\\source\\repos\\proyecto asistencias\\infraestructure\\database\\dbconnectionfactory.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{ABA3F542-59E7-CDD3-52A7-C71F658301AE}|Infraestructure\\Infraestructure.csproj|solutionrelative:infraestructure\\database\\dbconnectionfactory.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{E528BBC3-1C26-8C35-F682-23718816ADCD}|Domain\\Domain.csproj|c:\\users\\dell latitude\\source\\repos\\proyecto asistencias\\domain\\entities\\sesion de clase.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{E528BBC3-1C26-8C35-F682-23718816ADCD}|Domain\\Domain.csproj|solutionrelative:domain\\entities\\sesion de clase.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{E528BBC3-1C26-8C35-F682-23718816ADCD}|Domain\\Domain.csproj|c:\\users\\dell latitude\\source\\repos\\proyecto asistencias\\domain\\entities\\matriculas.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{E528BBC3-1C26-8C35-F682-23718816ADCD}|Domain\\Domain.csproj|solutionrelative:domain\\entities\\matriculas.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{E528BBC3-1C26-8C35-F682-23718816ADCD}|Domain\\Domain.csproj|c:\\users\\dell latitude\\source\\repos\\proyecto asistencias\\domain\\entities\\grupos.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{E528BBC3-1C26-8C35-F682-23718816ADCD}|Domain\\Domain.csproj|solutionrelative:domain\\entities\\grupos.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{E528BBC3-1C26-8C35-F682-23718816ADCD}|Domain\\Domain.csproj|c:\\users\\dell latitude\\source\\repos\\proyecto asistencias\\domain\\entities\\estudiante.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{E528BBC3-1C26-8C35-F682-23718816ADCD}|Domain\\Domain.csproj|solutionrelative:domain\\entities\\estudiante.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{E528BBC3-1C26-8C35-F682-23718816ADCD}|Domain\\Domain.csproj|c:\\users\\dell latitude\\source\\repos\\proyecto asistencias\\domain\\entities\\empleado.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{E528BBC3-1C26-8C35-F682-23718816ADCD}|Domain\\Domain.csproj|solutionrelative:domain\\entities\\empleado.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{E528BBC3-1C26-8C35-F682-23718816ADCD}|Domain\\Domain.csproj|c:\\users\\dell latitude\\source\\repos\\proyecto asistencias\\domain\\entities\\docentes.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{E528BBC3-1C26-8C35-F682-23718816ADCD}|Domain\\Domain.csproj|solutionrelative:domain\\entities\\docentes.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{E528BBC3-1C26-8C35-F682-23718816ADCD}|Domain\\Domain.csproj|c:\\users\\dell latitude\\source\\repos\\proyecto asistencias\\domain\\entities\\asistencia.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{E528BBC3-1C26-8C35-F682-23718816ADCD}|Domain\\Domain.csproj|solutionrelative:domain\\entities\\asistencia.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{F80C4E72-27A0-12B5-0634-DD5C11CFB0C1}|Application\\Application.csproj|c:\\users\\dell latitude\\source\\repos\\proyecto asistencias\\application\\service\\estudianteservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{F80C4E72-27A0-12B5-0634-DD5C11CFB0C1}|Application\\Application.csproj|solutionrelative:application\\service\\estudianteservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{F80C4E72-27A0-12B5-0634-DD5C11CFB0C1}|Application\\Application.csproj|c:\\users\\dell latitude\\source\\repos\\proyecto asistencias\\application\\service\\empleadoservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{F80C4E72-27A0-12B5-0634-DD5C11CFB0C1}|Application\\Application.csproj|solutionrelative:application\\service\\empleadoservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{F80C4E72-27A0-12B5-0634-DD5C11CFB0C1}|Application\\Application.csproj|c:\\users\\dell latitude\\source\\repos\\proyecto asistencias\\application\\service\\docentesservices.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{F80C4E72-27A0-12B5-0634-DD5C11CFB0C1}|Application\\Application.csproj|solutionrelative:application\\service\\docentesservices.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{F80C4E72-27A0-12B5-0634-DD5C11CFB0C1}|Application\\Application.csproj|c:\\users\\dell latitude\\source\\repos\\proyecto asistencias\\application\\service\\asistenciaservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{F80C4E72-27A0-12B5-0634-DD5C11CFB0C1}|Application\\Application.csproj|solutionrelative:application\\service\\asistenciaservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{F80C4E72-27A0-12B5-0634-DD5C11CFB0C1}|Application\\Application.csproj|c:\\users\\dell latitude\\source\\repos\\proyecto asistencias\\application\\interface\\iestudianterepository.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{F80C4E72-27A0-12B5-0634-DD5C11CFB0C1}|Application\\Application.csproj|solutionrelative:application\\interface\\iestudianterepository.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{F80C4E72-27A0-12B5-0634-DD5C11CFB0C1}|Application\\Application.csproj|c:\\users\\dell latitude\\source\\repos\\proyecto asistencias\\application\\interface\\iempleadorepository.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{F80C4E72-27A0-12B5-0634-DD5C11CFB0C1}|Application\\Application.csproj|solutionrelative:application\\interface\\iempleadorepository.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{F80C4E72-27A0-12B5-0634-DD5C11CFB0C1}|Application\\Application.csproj|c:\\users\\dell latitude\\source\\repos\\proyecto asistencias\\application\\interface\\iasistenciarepository.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{F80C4E72-27A0-12B5-0634-DD5C11CFB0C1}|Application\\Application.csproj|solutionrelative:application\\interface\\iasistenciarepository.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{F80C4E72-27A0-12B5-0634-DD5C11CFB0C1}|Application\\Application.csproj|c:\\users\\dell latitude\\source\\repos\\proyecto asistencias\\application\\interface\\idocentesrepository.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{F80C4E72-27A0-12B5-0634-DD5C11CFB0C1}|Application\\Application.csproj|solutionrelative:application\\interface\\idocentesrepository.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{E528BBC3-1C26-8C35-F682-23718816ADCD}|Domain\\Domain.csproj|c:\\users\\dell latitude\\source\\repos\\proyecto asistencias\\domain\\domain.csproj||{FA3CD31E-987B-443A-9B81-186104E8DAC1}|",
+      "RelativeMoniker": "D:0:0:{E528BBC3-1C26-8C35-F682-23718816ADCD}|Domain\\Domain.csproj|solutionrelative:domain\\domain.csproj||{FA3CD31E-987B-443A-9B81-186104E8DAC1}|"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{F80C4E72-27A0-12B5-0634-DD5C11CFB0C1}|Application\\Application.csproj|c:\\users\\dell latitude\\source\\repos\\proyecto asistencias\\application\\dtos\\docentesdto.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{F80C4E72-27A0-12B5-0634-DD5C11CFB0C1}|Application\\Application.csproj|solutionrelative:application\\dtos\\docentesdto.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    }
+  ],
   "DocumentGroupContainers": [
     {
       "Orientation": 0,
@@ -9,11 +122,375 @@
       "DocumentGroups": [
         {
           "DockedWidth": 200,
-          "SelectedChildIndex": -1,
+          "SelectedChildIndex": 6,
           "Children": [
             {
               "$type": "Bookmark",
               "Name": "ST:0:0:{40ea2e6b-2121-4bb8-a43e-c83c04b51041}"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 5,
+              "Title": "AsistenciaDTO.cs",
+              "DocumentMoniker": "C:\\Users\\DELL LATITUDE\\source\\repos\\Proyecto Asistencias\\Application\\DTOs\\AsistenciaDTO.cs",
+              "RelativeDocumentMoniker": "Application\\DTOs\\AsistenciaDTO.cs",
+              "ToolTip": "C:\\Users\\DELL LATITUDE\\source\\repos\\Proyecto Asistencias\\Application\\DTOs\\AsistenciaDTO.cs",
+              "RelativeToolTip": "Application\\DTOs\\AsistenciaDTO.cs",
+              "ViewState": "AgIAAAYAAAAAAAAAAAAAAA4AAAA+AAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-06-30T00:53:54.115Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 4,
+              "Title": "EmpleadoDTO.cs",
+              "DocumentMoniker": "C:\\Users\\DELL LATITUDE\\source\\repos\\Proyecto Asistencias\\Application\\DTOs\\EmpleadoDTO.cs",
+              "RelativeDocumentMoniker": "Application\\DTOs\\EmpleadoDTO.cs",
+              "ToolTip": "C:\\Users\\DELL LATITUDE\\source\\repos\\Proyecto Asistencias\\Application\\DTOs\\EmpleadoDTO.cs",
+              "RelativeToolTip": "Application\\DTOs\\EmpleadoDTO.cs",
+              "ViewState": "AgIAABYAAAAAAAAAAAAmwCAAAAA+AAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-06-30T00:54:24.81Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 3,
+              "Title": "EstudianteDTO.cs",
+              "DocumentMoniker": "C:\\Users\\DELL LATITUDE\\source\\repos\\Proyecto Asistencias\\Application\\DTOs\\EstudianteDTO.cs",
+              "RelativeDocumentMoniker": "Application\\DTOs\\EstudianteDTO.cs",
+              "ToolTip": "C:\\Users\\DELL LATITUDE\\source\\repos\\Proyecto Asistencias\\Application\\DTOs\\EstudianteDTO.cs",
+              "RelativeToolTip": "Application\\DTOs\\EstudianteDTO.cs",
+              "ViewState": "AgIAAB0AAAAAAAAAAAAcwCYAAAA+AAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-06-30T00:55:20.041Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 2,
+              "Title": "GruposDTO.cs",
+              "DocumentMoniker": "C:\\Users\\DELL LATITUDE\\source\\repos\\Proyecto Asistencias\\Application\\DTOs\\GruposDTO.cs",
+              "RelativeDocumentMoniker": "Application\\DTOs\\GruposDTO.cs",
+              "ToolTip": "C:\\Users\\DELL LATITUDE\\source\\repos\\Proyecto Asistencias\\Application\\DTOs\\GruposDTO.cs",
+              "RelativeToolTip": "Application\\DTOs\\GruposDTO.cs",
+              "ViewState": "AgIAAAMAAAAAAAAAAAAAABMAAAAsAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-06-30T00:55:39.631Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 1,
+              "Title": "MatriculasDTO.cs",
+              "DocumentMoniker": "C:\\Users\\DELL LATITUDE\\source\\repos\\Proyecto Asistencias\\Application\\DTOs\\MatriculasDTO.cs",
+              "RelativeDocumentMoniker": "Application\\DTOs\\MatriculasDTO.cs",
+              "ToolTip": "C:\\Users\\DELL LATITUDE\\source\\repos\\Proyecto Asistencias\\Application\\DTOs\\MatriculasDTO.cs",
+              "RelativeToolTip": "Application\\DTOs\\MatriculasDTO.cs",
+              "ViewState": "AgIAAAYAAAAAAAAAAAAAABQAAAABAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-06-30T00:56:18.03Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 0,
+              "Title": "Sesion de ClaseDTO.cs",
+              "DocumentMoniker": "C:\\Users\\DELL LATITUDE\\source\\repos\\Proyecto Asistencias\\Application\\DTOs\\Sesion de ClaseDTO.cs",
+              "RelativeDocumentMoniker": "Application\\DTOs\\Sesion de ClaseDTO.cs",
+              "ToolTip": "C:\\Users\\DELL LATITUDE\\source\\repos\\Proyecto Asistencias\\Application\\DTOs\\Sesion de ClaseDTO.cs",
+              "RelativeToolTip": "Application\\DTOs\\Sesion de ClaseDTO.cs",
+              "ViewState": "AgIAAAIAAAAAAAAAAAAiwBcAAAAaAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-06-30T00:56:32.8Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 6,
+              "Title": "EstudianteRepository.cs",
+              "DocumentMoniker": "C:\\Users\\DELL LATITUDE\\source\\repos\\Proyecto Asistencias\\Infraestructure\\Repository\\EstudianteRepository.cs",
+              "RelativeDocumentMoniker": "Infraestructure\\Repository\\EstudianteRepository.cs",
+              "ToolTip": "C:\\Users\\DELL LATITUDE\\source\\repos\\Proyecto Asistencias\\Infraestructure\\Repository\\EstudianteRepository.cs",
+              "RelativeToolTip": "Infraestructure\\Repository\\EstudianteRepository.cs",
+              "ViewState": "AgIAAAgAAAAAAAAAAAAiwBQAAAAJAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-07-01T03:58:10.606Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 7,
+              "Title": "EmpladoRepository.cs",
+              "DocumentMoniker": "C:\\Users\\DELL LATITUDE\\source\\repos\\Proyecto Asistencias\\Infraestructure\\Repository\\EmpladoRepository.cs",
+              "RelativeDocumentMoniker": "Infraestructure\\Repository\\EmpladoRepository.cs",
+              "ToolTip": "C:\\Users\\DELL LATITUDE\\source\\repos\\Proyecto Asistencias\\Infraestructure\\Repository\\EmpladoRepository.cs",
+              "RelativeToolTip": "Infraestructure\\Repository\\EmpladoRepository.cs",
+              "ViewState": "AgIAAAsAAAAAAAAAAAAUwBQAAAAJAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-07-01T01:46:11.384Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 8,
+              "Title": "DocentesRepository.cs",
+              "DocumentMoniker": "C:\\Users\\DELL LATITUDE\\source\\repos\\Proyecto Asistencias\\Infraestructure\\Repository\\DocentesRepository.cs",
+              "RelativeDocumentMoniker": "Infraestructure\\Repository\\DocentesRepository.cs",
+              "ToolTip": "C:\\Users\\DELL LATITUDE\\source\\repos\\Proyecto Asistencias\\Infraestructure\\Repository\\DocentesRepository.cs",
+              "RelativeToolTip": "Infraestructure\\Repository\\DocentesRepository.cs",
+              "ViewState": "AgIAABYAAAAAAAAAAAA0wCAAAAAJAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-07-01T00:50:59.976Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 9,
+              "Title": "AsistenciaRepository.cs",
+              "DocumentMoniker": "C:\\Users\\DELL LATITUDE\\source\\repos\\Proyecto Asistencias\\Infraestructure\\Repository\\AsistenciaRepository.cs",
+              "RelativeDocumentMoniker": "Infraestructure\\Repository\\AsistenciaRepository.cs",
+              "ToolTip": "C:\\Users\\DELL LATITUDE\\source\\repos\\Proyecto Asistencias\\Infraestructure\\Repository\\AsistenciaRepository.cs",
+              "RelativeToolTip": "Infraestructure\\Repository\\AsistenciaRepository.cs",
+              "ViewState": "AgIAABoAAAAAAAAAAAAIwCgAAAAJAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-06-30T02:20:31.26Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 10,
+              "Title": "DBConnectionFactory.cs",
+              "DocumentMoniker": "C:\\Users\\DELL LATITUDE\\source\\repos\\Proyecto Asistencias\\Infraestructure\\DataBase\\DBConnectionFactory.cs",
+              "RelativeDocumentMoniker": "Infraestructure\\DataBase\\DBConnectionFactory.cs",
+              "ToolTip": "C:\\Users\\DELL LATITUDE\\source\\repos\\Proyecto Asistencias\\Infraestructure\\DataBase\\DBConnectionFactory.cs",
+              "RelativeToolTip": "Infraestructure\\DataBase\\DBConnectionFactory.cs",
+              "ViewState": "AgIAAAYAAAAAAAAAAAAAABcAAAAEAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-06-30T02:23:10.497Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 11,
+              "Title": "Sesion de Clase.cs",
+              "DocumentMoniker": "C:\\Users\\DELL LATITUDE\\source\\repos\\Proyecto Asistencias\\Domain\\Entities\\Sesion de Clase.cs",
+              "RelativeDocumentMoniker": "Domain\\Entities\\Sesion de Clase.cs",
+              "ToolTip": "C:\\Users\\DELL LATITUDE\\source\\repos\\Proyecto Asistencias\\Domain\\Entities\\Sesion de Clase.cs",
+              "RelativeToolTip": "Domain\\Entities\\Sesion de Clase.cs",
+              "ViewState": "AgIAABMAAAAAAAAAAAAAABoAAAAtAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-06-29T23:33:27.982Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 12,
+              "Title": "Matriculas.cs",
+              "DocumentMoniker": "C:\\Users\\DELL LATITUDE\\source\\repos\\Proyecto Asistencias\\Domain\\Entities\\Matriculas.cs",
+              "RelativeDocumentMoniker": "Domain\\Entities\\Matriculas.cs",
+              "ToolTip": "C:\\Users\\DELL LATITUDE\\source\\repos\\Proyecto Asistencias\\Domain\\Entities\\Matriculas.cs",
+              "RelativeToolTip": "Domain\\Entities\\Matriculas.cs",
+              "ViewState": "AgIAAAMAAAAAAAAAAAAAABEAAAA+AAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-06-29T23:22:50.546Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 13,
+              "Title": "Grupos.cs",
+              "DocumentMoniker": "C:\\Users\\DELL LATITUDE\\source\\repos\\Proyecto Asistencias\\Domain\\Entities\\Grupos.cs",
+              "RelativeDocumentMoniker": "Domain\\Entities\\Grupos.cs",
+              "ToolTip": "C:\\Users\\DELL LATITUDE\\source\\repos\\Proyecto Asistencias\\Domain\\Entities\\Grupos.cs",
+              "RelativeToolTip": "Domain\\Entities\\Grupos.cs",
+              "ViewState": "AgIAAAYAAAAAAAAAAAAAAA8AAAA+AAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-06-29T23:20:56.547Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 14,
+              "Title": "Estudiante.cs",
+              "DocumentMoniker": "C:\\Users\\DELL LATITUDE\\source\\repos\\Proyecto Asistencias\\Domain\\Entities\\Estudiante.cs",
+              "RelativeDocumentMoniker": "Domain\\Entities\\Estudiante.cs",
+              "ToolTip": "C:\\Users\\DELL LATITUDE\\source\\repos\\Proyecto Asistencias\\Domain\\Entities\\Estudiante.cs",
+              "RelativeToolTip": "Domain\\Entities\\Estudiante.cs",
+              "ViewState": "AgIAABkAAAAAAAAAAAAswCYAAABCAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-06-29T23:15:13.723Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 15,
+              "Title": "Empleado.cs",
+              "DocumentMoniker": "C:\\Users\\DELL LATITUDE\\source\\repos\\Proyecto Asistencias\\Domain\\Entities\\Empleado.cs",
+              "RelativeDocumentMoniker": "Domain\\Entities\\Empleado.cs",
+              "ToolTip": "C:\\Users\\DELL LATITUDE\\source\\repos\\Proyecto Asistencias\\Domain\\Entities\\Empleado.cs",
+              "RelativeToolTip": "Domain\\Entities\\Empleado.cs",
+              "ViewState": "AgIAABEAAAAAAAAAAAA0wB8AAAAzAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-06-29T23:28:15.588Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 16,
+              "Title": "Docentes.cs",
+              "DocumentMoniker": "C:\\Users\\DELL LATITUDE\\source\\repos\\Proyecto Asistencias\\Domain\\Entities\\Docentes.cs",
+              "RelativeDocumentMoniker": "Domain\\Entities\\Docentes.cs",
+              "ToolTip": "C:\\Users\\DELL LATITUDE\\source\\repos\\Proyecto Asistencias\\Domain\\Entities\\Docentes.cs",
+              "RelativeToolTip": "Domain\\Entities\\Docentes.cs",
+              "ViewState": "AgIAAAcAAAAAAAAAAAAxwCUAAAA5AAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-06-29T23:24:38.287Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 17,
+              "Title": "Asistencia.cs",
+              "DocumentMoniker": "C:\\Users\\DELL LATITUDE\\source\\repos\\Proyecto Asistencias\\Domain\\Entities\\Asistencia.cs",
+              "RelativeDocumentMoniker": "Domain\\Entities\\Asistencia.cs",
+              "ToolTip": "C:\\Users\\DELL LATITUDE\\source\\repos\\Proyecto Asistencias\\Domain\\Entities\\Asistencia.cs",
+              "RelativeToolTip": "Domain\\Entities\\Asistencia.cs",
+              "ViewState": "AgIAAAYAAAAAAAAAAAAAABMAAAArAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-06-29T23:30:15.59Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 18,
+              "Title": "EstudianteService.cs",
+              "DocumentMoniker": "C:\\Users\\DELL LATITUDE\\source\\repos\\Proyecto Asistencias\\Application\\Service\\EstudianteService.cs",
+              "RelativeDocumentMoniker": "Application\\Service\\EstudianteService.cs",
+              "ToolTip": "C:\\Users\\DELL LATITUDE\\source\\repos\\Proyecto Asistencias\\Application\\Service\\EstudianteService.cs",
+              "RelativeToolTip": "Application\\Service\\EstudianteService.cs",
+              "ViewState": "AgIAABAAAAAAAAAAAAAAwBcAAAAwAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-07-01T03:52:53.187Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 19,
+              "Title": "EmpleadoService.cs",
+              "DocumentMoniker": "C:\\Users\\DELL LATITUDE\\source\\repos\\Proyecto Asistencias\\Application\\Service\\EmpleadoService.cs",
+              "RelativeDocumentMoniker": "Application\\Service\\EmpleadoService.cs",
+              "ToolTip": "C:\\Users\\DELL LATITUDE\\source\\repos\\Proyecto Asistencias\\Application\\Service\\EmpleadoService.cs",
+              "RelativeToolTip": "Application\\Service\\EmpleadoService.cs",
+              "ViewState": "AgIAAAYAAAAAAAAAAAAAABkAAAAwAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-07-01T01:12:34.305Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 20,
+              "Title": "DocentesServices.cs",
+              "DocumentMoniker": "C:\\Users\\DELL LATITUDE\\source\\repos\\Proyecto Asistencias\\Application\\Service\\DocentesServices.cs",
+              "RelativeDocumentMoniker": "Application\\Service\\DocentesServices.cs",
+              "ToolTip": "C:\\Users\\DELL LATITUDE\\source\\repos\\Proyecto Asistencias\\Application\\Service\\DocentesServices.cs",
+              "RelativeToolTip": "Application\\Service\\DocentesServices.cs",
+              "ViewState": "AgIAAAMAAAAAAAAAAAAAABsAAAAyAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-07-01T00:47:57.467Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 21,
+              "Title": "AsistenciaService.cs",
+              "DocumentMoniker": "C:\\Users\\DELL LATITUDE\\source\\repos\\Proyecto Asistencias\\Application\\Service\\AsistenciaService.cs",
+              "RelativeDocumentMoniker": "Application\\Service\\AsistenciaService.cs",
+              "ToolTip": "C:\\Users\\DELL LATITUDE\\source\\repos\\Proyecto Asistencias\\Application\\Service\\AsistenciaService.cs",
+              "RelativeToolTip": "Application\\Service\\AsistenciaService.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAADMAAAAIAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-06-30T01:14:08.4Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 22,
+              "Title": "IEstudianteRepository.cs",
+              "DocumentMoniker": "C:\\Users\\DELL LATITUDE\\source\\repos\\Proyecto Asistencias\\Application\\Interface\\IEstudianteRepository.cs",
+              "RelativeDocumentMoniker": "Application\\Interface\\IEstudianteRepository.cs",
+              "ToolTip": "C:\\Users\\DELL LATITUDE\\source\\repos\\Proyecto Asistencias\\Application\\Interface\\IEstudianteRepository.cs",
+              "RelativeToolTip": "Application\\Interface\\IEstudianteRepository.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAqwA8AAAABAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-07-01T03:48:11.999Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 23,
+              "Title": "IEmpleadoRepository.cs",
+              "DocumentMoniker": "C:\\Users\\DELL LATITUDE\\source\\repos\\Proyecto Asistencias\\Application\\Interface\\IEmpleadoRepository.cs",
+              "RelativeDocumentMoniker": "Application\\Interface\\IEmpleadoRepository.cs",
+              "ToolTip": "C:\\Users\\DELL LATITUDE\\source\\repos\\Proyecto Asistencias\\Application\\Interface\\IEmpleadoRepository.cs",
+              "RelativeToolTip": "Application\\Interface\\IEmpleadoRepository.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAoAAABdAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-07-01T01:11:06.381Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 24,
+              "Title": "IAsistenciaRepository.cs",
+              "DocumentMoniker": "C:\\Users\\DELL LATITUDE\\source\\repos\\Proyecto Asistencias\\Application\\Interface\\IAsistenciaRepository.cs",
+              "RelativeDocumentMoniker": "Application\\Interface\\IAsistenciaRepository.cs",
+              "ToolTip": "C:\\Users\\DELL LATITUDE\\source\\repos\\Proyecto Asistencias\\Application\\Interface\\IAsistenciaRepository.cs",
+              "RelativeToolTip": "Application\\Interface\\IAsistenciaRepository.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAUAAAAfAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-06-30T01:07:48.081Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 25,
+              "Title": "IDocentesRepository.cs",
+              "DocumentMoniker": "C:\\Users\\DELL LATITUDE\\source\\repos\\Proyecto Asistencias\\Application\\Interface\\IDocentesRepository.cs",
+              "RelativeDocumentMoniker": "Application\\Interface\\IDocentesRepository.cs",
+              "ToolTip": "C:\\Users\\DELL LATITUDE\\source\\repos\\Proyecto Asistencias\\Application\\Interface\\IDocentesRepository.cs",
+              "RelativeToolTip": "Application\\Interface\\IDocentesRepository.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAoAAABcAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-07-01T00:44:21.74Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 26,
+              "Title": "Domain",
+              "DocumentMoniker": "C:\\Users\\DELL LATITUDE\\source\\repos\\Proyecto Asistencias\\Domain\\Domain.csproj",
+              "RelativeDocumentMoniker": "Domain\\Domain.csproj",
+              "ToolTip": "C:\\Users\\DELL LATITUDE\\source\\repos\\Proyecto Asistencias\\Domain\\Domain.csproj",
+              "RelativeToolTip": "Domain\\Domain.csproj",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000758|",
+              "WhenOpened": "2026-07-01T01:55:01.056Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 27,
+              "Title": "DocentesDTO.cs",
+              "DocumentMoniker": "C:\\Users\\DELL LATITUDE\\source\\repos\\Proyecto Asistencias\\Application\\DTOs\\DocentesDTO.cs",
+              "RelativeDocumentMoniker": "Application\\DTOs\\DocentesDTO.cs",
+              "ToolTip": "C:\\Users\\DELL LATITUDE\\source\\repos\\Proyecto Asistencias\\Application\\DTOs\\DocentesDTO.cs",
+              "RelativeToolTip": "Application\\DTOs\\DocentesDTO.cs",
+              "ViewState": "AgIAABUAAAAAAAAAAAAQwBwAAAA+AAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-06-30T00:54:07.641Z",
+              "EditorCaption": ""
             }
           ]
         }

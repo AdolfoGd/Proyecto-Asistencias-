@@ -36,7 +36,7 @@ namespace Application.DTOs
         [Required(ErrorMessage = "Este campo es obligatorio")]
         public DateOnly AñoIngreso { get; set; }
         [Display(Name = "Ingrese la cantidad de faltas")]
-        [Required(ErrorMessage = "Este campo es obligatorio")]]
+        [Required(ErrorMessage = "Este campo es obligatorio")]
         public int CantidadFaltas { get; set; }
     }
 }

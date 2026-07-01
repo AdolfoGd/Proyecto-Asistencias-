@@ -30,7 +30,7 @@ namespace Domain.Entities
         public string? SegundoApellido { get; set; }
         [StringLength(30)]
         [Display(Name = "Ingrese su departamento")]
-        [Required(ErrorMessage = "Este campo es obligatorio")]]
+        [Required(ErrorMessage = "Este campo es obligatorio")]
         public string? Departamento { get; set; }
     }
 }

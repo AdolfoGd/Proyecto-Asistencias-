@@ -16,26 +16,28 @@ namespace Infraestructure.Repository
             _connectionFactory = connectionFactory;
         }
         
-        public Task ListarAsistenciaAsync()
+
+        Task<IEnumerable<Asistencia>> IAsistenciaRepository.ListarAsistenciaAsync()
+        {
+            throw new NotImplementedException();
+        }
+        Task<IEnumerable<Asistencia>> IAsistenciaRepository.ListarAsistenciaPorSesionAsync(int idSesion)
+        {
+            throw new NotImplementedException();
+        }
+        public Task NuevaAsistenciaAsync(Asistencia asistencia)
         {
             throw new NotImplementedException();
         }
 
-        public Task GuardarAsistencia(Asistencia asistencia)
+        public Task EditarAsistenciaAsync(Asistencia asistencia)
         {
             throw new NotImplementedException();
         }
-        public Task EditarAsistencia(Asistencia asistencia)
+
+        public Task EliminarAsistenciaAsync(int id)
         {
             throw new NotImplementedException();
-        }
-        public Task NuevaAsistencia(Asistencia asistencia)
-        {
-            throw new NotSupportedException();
-        }
-        public Task EliminarAsistencia(int id)
-        {
-            throw new NotSupportedException();
         }
     }
 }
