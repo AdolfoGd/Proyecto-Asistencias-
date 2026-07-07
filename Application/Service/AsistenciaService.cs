@@ -23,6 +23,7 @@ namespace Application.Service
                 IdSesion = a.IdSesion,
                 Carnet = a.Carnet,
                 Estado = a.Estado,
+                Hora_Registro = a.Hora_Registro
                 
             });
 
@@ -34,6 +35,7 @@ namespace Application.Service
                 IdSesion = a.IdSesion,
                 Carnet = a.Carnet,
                 Estado = a.Estado,
+                Hora_Registro = a.Hora_Registro
 
             };
             await _asistenciaRepository.NuevaAsistenciaAsync(asistencia);

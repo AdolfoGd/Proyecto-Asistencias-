@@ -1,0 +1,28 @@
+﻿@model IEnumerable<Application.DTOs.AsistenciaDTO>
+    
+
+@{
+    ViewData["Title"] = "Asistencias";
+}
+<h2>Asistencias</h2>
+<table class="table">
+    <thead>
+        <tr>
+            <th>Id Asistencia</th>
+            <th>Id Sesion</th>
+            <th>Carnet</th>
+            <th>Estado</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var asistencia in Model)
+        {
+            <tr>
+                <td>@asistencia.IdAsistencia</td>
+                <td>@asistencia.IdSesion</td>
+                <td>@asistencia.Carnet</td>
+                <td>@asistencia.Estado</td>
+            </tr>
+        }
+    </tbody>
+</table>

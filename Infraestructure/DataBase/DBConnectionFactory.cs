@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Data;
 using System.Text;
-using Microsoft.Data.Sqlite;
+using MySql.Data.MySqlClient;
 
 
 namespace Infraestructure.DataBase
@@ -18,7 +18,7 @@ namespace Infraestructure.DataBase
 
         public IDbConnection CreateConnection()
         {
-            return new SqliteConnection(_connectionString);
+            return new MySqlConnection(_connectionString);
         }
     }
     

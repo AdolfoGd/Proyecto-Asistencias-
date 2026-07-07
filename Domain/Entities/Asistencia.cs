@@ -18,5 +18,8 @@ namespace Domain.Entities
         [Display(Name ="Estado de asistencia")]
         [Required(ErrorMessage = "Este campo es obligatorio")]
         public string? Estado { get; set; }
+        [Display(Name = "Hora de Registro")]
+        [Required(ErrorMessage = "Este campo es obligatorio")]
+        public TimeOnly Hora_Registro { get; set; }
     }
 }
