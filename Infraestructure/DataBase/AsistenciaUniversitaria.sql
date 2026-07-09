@@ -3,15 +3,47 @@ USE AsistenciaUniversitaria;
 
 SET FOREIGN_KEY_CHECKS = 0;
 
-
 CREATE TABLE IF NOT EXISTS `Asistencia` (
 	`Id_Asistencia` INT AUTO_INCREMENT PRIMARY KEY,
 	`Id_Sesion` INT NOT NULL,
 	`Carnet_Usuario` VARCHAR(50) NOT NULL,
 	`Estado` VARCHAR(20) CHECK(`Estado` IN ('Presente', 'Ausente', 'Justificado', 'Tarde')),
-	`Hora_Registro` TIME DEFAULT (CURRENT_TIME),
+	`Hora_Registro` TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
 	FOREIGN KEY(`Id_Sesion`) REFERENCES `Sesiones_Clase`(`Id_Sesion`)
 );
+
+-- CRUD de ASISTENCIA
+DELIMITER //
+
+CREATE PROCEDURE sp_InsertarAsistencia(
+    IN p_id_sesion INT, 
+    IN p_carnet VARCHAR(50), 
+    IN p_estado VARCHAR(20)
+)
+BEGIN
+    INSERT INTO Asistencia (Id_Sesion, Carnet_Usuario, Estado) 
+    VALUES (p_id_sesion, p_carnet, p_estado);
+END //
+
+CREATE PROCEDURE sp_LeerAsistencias()
+BEGIN
+    SELECT * FROM Asistencia;
+END //
+
+CREATE PROCEDURE sp_ActualizarAsistencia(
+    IN p_id INT, 
+    IN p_estado VARCHAR(20)
+)
+BEGIN
+    UPDATE Asistencia 
+    SET Estado = p_estado, Hora_Registro = CURRENT_TIME() 
+    WHERE Id_Asistencia = p_id;
+END //
+
+CREATE PROCEDURE sp_EliminarAsistencia(IN p_id INT)
+BEGIN
+    DELETE FROM Asistencia WHERE Id_Asistencia = p_id;
+END //
 
 CREATE TABLE IF NOT EXISTS `Auditoria_Log` (
 	`Id_Log` INT AUTO_INCREMENT PRIMARY KEY,
@@ -20,6 +52,28 @@ CREATE TABLE IF NOT EXISTS `Auditoria_Log` (
 	`Dato_Identificador` VARCHAR(255),
 	`Fecha_Accion` TIMESTAMP DEFAULT CURRENT_TIMESTAMP
 );
+
+-- CRUD de AUDITORIA_LOG
+CREATE PROCEDURE sp_InsertarLog(
+    IN p_accion VARCHAR(50), 
+    IN p_tabla VARCHAR(50), 
+    IN p_identificador VARCHAR(255)
+)
+BEGIN
+    INSERT INTO Auditoria_Log (Accion, Tabla_Afectada, Dato_Identificador) 
+    VALUES (p_accion, p_tabla, p_identificador);
+END //
+
+CREATE PROCEDURE sp_LeerLogs()
+BEGIN
+    SELECT * FROM Auditoria_Log ORDER BY Fecha_Accion DESC;
+END //
+
+CREATE PROCEDURE sp_EliminarLog(IN p_id INT)
+BEGIN
+    DELETE FROM Auditoria_Log WHERE Id_Log = p_id;
+END //
+
 
 CREATE TABLE IF NOT EXISTS `Docentes` (
 	`Carnet` VARCHAR(50) PRIMARY KEY,
@@ -33,6 +87,38 @@ CREATE TABLE IF NOT EXISTS `Docentes` (
 	`Cantidad_Faltas` INT DEFAULT 0
 );
 
+-- CRUD de DOCENTES
+CREATE PROCEDURE sp_InsertarDocente(
+    IN p_carnet VARCHAR(50), IN p_pass VARCHAR(255), IN p_n1 VARCHAR(100), IN p_n2 VARCHAR(100),
+    IN p_app1 VARCHAR(100), IN p_app2 VARCHAR(100), IN p_cod VARCHAR(50), IN p_dept VARCHAR(100)
+)
+BEGIN
+    INSERT INTO Docentes (Carnet, Contrasena, Primer_Nombre, Segundo_Nombre, Primer_Apellido, Segundo_Apellido, Codigo_Empleado, Departamento) 
+    VALUES (p_carnet, p_pass, p_n1, p_n2, p_app1, p_app2, p_cod, p_dept);
+END //
+
+CREATE PROCEDURE sp_LeerDocentes()
+BEGIN
+    SELECT * FROM Docentes;
+END //
+
+CREATE PROCEDURE sp_ActualizarDocente(
+    IN p_carnet VARCHAR(50), IN p_pass VARCHAR(255), IN p_n1 VARCHAR(100), IN p_n2 VARCHAR(100),
+    IN p_app1 VARCHAR(100), IN p_app2 VARCHAR(100), IN p_dept VARCHAR(100), IN p_faltas INT
+)
+BEGIN
+    UPDATE Docentes 
+    SET Contrasena = p_pass, Primer_Nombre = p_n1, Segundo_Nombre = p_n2, 
+        Primer_Apellido = p_app1, Segundo_Apellido = p_app2, Departamento = p_dept, Cantidad_Faltas = p_faltas
+    WHERE Carnet = p_carnet;
+END //
+
+CREATE PROCEDURE sp_EliminarDocente(IN p_carnet VARCHAR(50))
+BEGIN
+    DELETE FROM Docentes WHERE Carnet = p_carnet;
+END //
+
+
 CREATE TABLE IF NOT EXISTS `Empleados` (
 	`Codigo_Empleado` VARCHAR(50) PRIMARY KEY,
 	`Contrasena` VARCHAR(255) NOT NULL,
@@ -42,6 +128,38 @@ CREATE TABLE IF NOT EXISTS `Empleados` (
 	`Segundo_Apellido` VARCHAR(100),
 	`Departamento` VARCHAR(100) NOT NULL
 );
+
+-- CRUD de EMPLEADOS
+CREATE PROCEDURE sp_InsertarEmpleado(
+    IN p_cod VARCHAR(50), IN p_pass VARCHAR(255), IN p_n1 VARCHAR(100), 
+    IN p_n2 VARCHAR(100), IN p_app1 VARCHAR(100), IN p_app2 VARCHAR(100), IN p_dept VARCHAR(100)
+)
+BEGIN
+    INSERT INTO Empleados (Codigo_Empleado, Contrasena, Primer_Nombre, Segundo_Nombre, Primer_Apellido, Segundo_Apellido, Departamento) 
+    VALUES (p_cod, p_pass, p_n1, p_n2, p_app1, p_app2, p_dept);
+END //
+
+CREATE PROCEDURE sp_LeerEmpleados()
+BEGIN
+    SELECT * FROM Empleados;
+END //
+
+CREATE PROCEDURE sp_ActualizarEmpleado(
+    IN p_cod VARCHAR(50), IN p_pass VARCHAR(255), IN p_n1 VARCHAR(100), 
+    IN p_n2 VARCHAR(100), IN p_app1 VARCHAR(100), IN p_app2 VARCHAR(100), IN p_dept VARCHAR(100)
+)
+BEGIN
+    UPDATE Empleados 
+    SET Contrasena = p_pass, Primer_Nombre = p_n1, Segundo_Nombre = p_n2, 
+        Primer_Apellido = p_app1, Segundo_Apellido = p_app2, Departamento = p_dept
+    WHERE Codigo_Empleado = p_cod;
+END //
+
+CREATE PROCEDURE sp_EliminarEmpleado(IN p_cod VARCHAR(50))
+BEGIN
+    DELETE FROM Empleados WHERE Codigo_Empleado = p_cod;
+END //
+
 
 CREATE TABLE IF NOT EXISTS `Estudiantes` (
 	`Carnet` VARCHAR(50) PRIMARY KEY,
@@ -55,12 +173,65 @@ CREATE TABLE IF NOT EXISTS `Estudiantes` (
 	`Cantidad_Faltas` INT DEFAULT 0
 );
 
+-- CRUD de ESTUDIANTES
+CREATE PROCEDURE sp_InsertarEstudiante(
+    IN p_carnet VARCHAR(50), IN p_pass VARCHAR(255), IN p_n1 VARCHAR(100), IN p_n2 VARCHAR(100),
+    IN p_app1 VARCHAR(100), IN p_app2 VARCHAR(100), IN p_carrera VARCHAR(100), IN p_anio INT
+)
+BEGIN
+    INSERT INTO Estudiantes (Carnet, Contrasena, Primer_Nombre, Segundo_Nombre, Primer_Apellido, Segundo_Apellido, Carrera, Anio_Ingreso) 
+    VALUES (p_carnet, p_pass, p_n1, p_n2, p_app1, p_app2, p_carrera, p_anio);
+END //
+
+CREATE PROCEDURE sp_LeerEstudiantes()
+BEGIN
+    SELECT * FROM Estudiantes;
+END //
+
+CREATE PROCEDURE sp_ActualizarEstudiante(
+    IN p_carnet VARCHAR(50), IN p_pass VARCHAR(255), IN p_n1 VARCHAR(100), IN p_n2 VARCHAR(100),
+    IN p_app1 VARCHAR(100), IN p_app2 VARCHAR(100), IN p_carrera VARCHAR(100), IN p_faltas INT
+)
+BEGIN
+    UPDATE Estudiantes 
+    SET Contrasena = p_pass, Primer_Nombre = p_n1, Segundo_Nombre = p_n2, 
+        Primer_Apellido = p_app1, Segundo_Apellido = p_app2, Carrera = p_carrera, Cantidad_Faltas = p_faltas
+    WHERE Carnet = p_carnet;
+END //
+
+CREATE PROCEDURE sp_EliminarEstudiante(IN p_carnet VARCHAR(50))
+BEGIN
+    DELETE FROM Estudiantes WHERE Carnet = p_carnet;
+END //
+
+
 CREATE TABLE IF NOT EXISTS `Estudiantes_Sancionados` (
 	`Carnet_Estudiante` VARCHAR(50) PRIMARY KEY,
 	`Cantidad_Faltas_Registradas` INT,
 	`Fecha_Sancion` TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
 	FOREIGN KEY(`Carnet_Estudiante`) REFERENCES `Estudiantes`(`Carnet`)
 );
+
+-- CRUD de ESTUDIANTES_SANCIONADOS
+CREATE PROCEDURE sp_InsertarSancionado(
+    IN p_carnet VARCHAR(50), 
+    IN p_faltas INT
+)
+BEGIN
+    REPLACE INTO Estudiantes_Sancionados (Carnet_Estudiante, Cantidad_Faltas_Registradas) 
+    VALUES (p_carnet, p_faltas);
+END //
+
+CREATE PROCEDURE sp_LeerSancionados()
+BEGIN
+    SELECT * FROM Estudiantes_Sancionados;
+END //
+
+CREATE PROCEDURE sp_EliminarSancionado(IN p_carnet VARCHAR(50))
+BEGIN
+    DELETE FROM Estudiantes_Sancionados WHERE Carnet_Estudiante = p_carnet;
+END //
+
 
 CREATE TABLE IF NOT EXISTS `Grupos` (
 	`Codigo_Grupo` VARCHAR(50) PRIMARY KEY,
@@ -70,6 +241,40 @@ CREATE TABLE IF NOT EXISTS `Grupos` (
 	FOREIGN KEY(`Carnet_Docente`) REFERENCES `Docentes`(`Carnet`)
 );
 
+-- CRUD de GRUPOS
+CREATE PROCEDURE sp_InsertarGrupo(
+    IN p_cod VARCHAR(50), 
+    IN p_asignatura VARCHAR(100), 
+    IN p_docente VARCHAR(50), 
+    IN p_seccion VARCHAR(50)
+)
+BEGIN
+    INSERT INTO Grupos (Codigo_Grupo, Id_Asignatura, Carnet_Docente, Seccion) 
+    VALUES (p_cod, p_asignatura, p_docente, p_seccion);
+END //
+
+CREATE PROCEDURE sp_LeerGrupos()
+BEGIN
+    SELECT * FROM Grupos;
+END //
+
+CREATE PROCEDURE sp_ActualizarGrupo(
+    IN p_cod VARCHAR(50), 
+    IN p_asignatura VARCHAR(100), 
+    IN p_docente VARCHAR(50), 
+    IN p_seccion VARCHAR(50)
+)
+BEGIN
+    UPDATE Grupos 
+    SET Id_Asignatura = p_asignatura, Carnet_Docente = p_docente, Seccion = p_seccion 
+    WHERE Codigo_Grupo = p_cod;
+END //
+
+CREATE PROCEDURE sp_EliminarGrupo(IN p_cod VARCHAR(50))
+BEGIN
+    DELETE FROM Grupos WHERE Codigo_Grupo = p_cod;
+END //
+
 CREATE TABLE IF NOT EXISTS `Matriculas` (
 	`Id_Matricula` INT AUTO_INCREMENT PRIMARY KEY,
 	`Carnet_Estudiante` VARCHAR(50) NOT NULL,
@@ -78,6 +283,37 @@ CREATE TABLE IF NOT EXISTS `Matriculas` (
 	FOREIGN KEY(`Carnet_Estudiante`) REFERENCES `Estudiantes`(`Carnet`),
 	FOREIGN KEY(`Codigo_Grupo`) REFERENCES `Grupos`(`Codigo_Grupo`)
 );
+
+-- CRUD de MATRICULAS
+CREATE PROCEDURE sp_InsertarMatricula(
+    IN p_carnet VARCHAR(50), 
+    IN p_grupo VARCHAR(50)
+)
+BEGIN
+    INSERT INTO Matriculas (Carnet_Estudiante, Codigo_Grupo) 
+    VALUES (p_carnet, p_grupo);
+END //
+
+CREATE PROCEDURE sp_LeerMatriculas()
+BEGIN
+    SELECT * FROM Matriculas;
+END //
+
+CREATE PROCEDURE sp_ActualizarMatricula(
+    IN p_id INT, 
+    IN p_carnet VARCHAR(50), 
+    IN p_grupo VARCHAR(50)
+)
+BEGIN
+    UPDATE Matriculas 
+    SET Carnet_Estudiante = p_carnet, Codigo_Grupo = p_grupo 
+    WHERE Id_Matricula = p_id;
+END //
+
+CREATE PROCEDURE sp_EliminarMatricula(IN p_id INT)
+BEGIN
+    DELETE FROM Matriculas WHERE Id_Matricula = p_id;
+END //
 
 CREATE TABLE IF NOT EXISTS `Sesiones_Clase` (
 	`Id_Sesion` INT AUTO_INCREMENT PRIMARY KEY,
@@ -89,10 +325,41 @@ CREATE TABLE IF NOT EXISTS `Sesiones_Clase` (
 	FOREIGN KEY(`Codigo_Grupo`) REFERENCES `Grupos`(`Codigo_Grupo`)
 );
 
+-- CRUDS de Sesiones de Clases
+CREATE PROCEDURE sp_InsertarSesion(
+    IN p_grupo VARCHAR(50), IN p_fecha DATE, 
+    IN p_tema VARCHAR(255), IN p_inicio TIME, IN p_fin TIME
+)
+BEGIN
+    INSERT INTO Sesiones_Clase (Codigo_Grupo, Fecha, Tema_Impartido, Hora_Inicio, Hora_Fin) 
+    VALUES (p_grupo, p_fecha, p_tema, p_inicio, p_fin);
+END //
 
+CREATE PROCEDURE sp_LeerSesiones()
+BEGIN
+    SELECT * FROM Sesiones_Clase;
+END //
+
+CREATE PROCEDURE sp_ActualizarSesion(
+    IN p_id INT, IN p_fecha DATE, 
+    IN p_tema VARCHAR(255), IN p_inicio TIME, IN p_fin TIME
+)
+BEGIN
+    UPDATE Sesiones_Clase 
+    SET Fecha = p_fecha, Tema_Impartido = p_tema, Hora_Inicio = p_inicio, Hora_Fin = p_fin 
+    WHERE Id_Sesion = p_id;
+END //
+
+CREATE PROCEDURE sp_EliminarSesion(IN p_id INT)
+BEGIN
+    DELETE FROM Sesiones_Clase WHERE Id_Sesion = p_id;
+END //
+DELIMITER ;
+
+-- Insercion de Datos
 
 INSERT INTO `Asistencia` (`Id_Asistencia`,`Id_Sesion`,`Carnet_Usuario`,`Estado`,`Hora_Registro`) VALUES 
-(1,1,'240871','Presente','09:11:36');
+(1,1,'240871','Presente','2026/07/09 09:11:36');
 
 INSERT INTO `Auditoria_Log` (`Id_Log`,`Accion`,`Tabla_Afectada`,`Dato_Identificador`,`Fecha_Accion`) VALUES 
 (1,'INSERT','Estudiantes','Carnet: 240871','2026-07-01 09:02:43'),
@@ -126,9 +393,7 @@ INSERT INTO `Sesiones_Clase` (`Id_Sesion`,`Codigo_Grupo`,`Fecha`,`Tema_Impartido
 (1,'MI08C','2026-06-01','Programacion con Vidal Deidad',NULL,NULL),
 (2,'MI08C','2026-06-02','Follada con Lovo',NULL,NULL),
 (3,'MI08C','2026-06-03','¿Travesti feo o Chica Linda? con Eduardo Alfonso de Contabilidad',NULL,NULL);
-
-
-
+-- Creación de Vistas
 CREATE VIEW vw_PerfilCompletoEstudiante AS
 SELECT 
     E.Carnet,
@@ -154,9 +419,9 @@ JOIN Sesiones_Clase S ON A.Id_Sesion = S.Id_Sesion
 JOIN Grupos G ON S.Codigo_Grupo = G.Codigo_Grupo
 JOIN Estudiantes E ON A.Carnet_Usuario = E.Carnet;
 
-
-
 DELIMITER $$
+
+-- Creacion de Triggers
 
 CREATE TRIGGER trg_ActualizarFaltasEstudiante
 AFTER INSERT ON Asistencia
@@ -196,4 +461,3 @@ BEGIN
 END$$
 
 DELIMITER ;
-
