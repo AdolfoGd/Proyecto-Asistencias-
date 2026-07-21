@@ -11,7 +11,7 @@ namespace Infraestructure.Repository
 {
     public class AsistenciaRepository : IAsistenciaRepository
     {
-        private readonly DBConnectionFactory _connectionFactory;
+        private readonly DBConnectionFactory _connectionFactory;        
 
         public AsistenciaRepository(DBConnectionFactory connectionFactory)
         {
@@ -25,8 +25,9 @@ namespace Infraestructure.Repository
             var lista = new List<Asistencia>();
             using (MySqlConnection conn = (MySqlConnection)_connectionFactory.CreateConnection())
             {
-                using (MySqlCommand cmd = new MySqlCommand("SELECT * FROM asistencia", conn))
+                using (MySqlCommand cmd = new MySqlCommand("sp_LeerAsistencias", conn))
                 {
+                    cmd.CommandType = CommandType.StoredProcedure;
                     await conn.OpenAsync();
                     using (var reader = await cmd.ExecuteReaderAsync())
                     {
@@ -37,8 +38,9 @@ namespace Infraestructure.Repository
                                 IdAsistencia = reader.GetInt32("Id_Asistencia"),
                                 IdSesion = reader.GetInt32("Id_Sesion"),
                                 Carnet = reader.GetInt32("Carnet_Usuario"),
-                                Estado = reader.GetString("Estado")
-                                
+                                Estado = reader.GetString("Estado"),
+                                Hora_Registro = TimeOnly.FromTimeSpan((TimeSpan)reader["Hora_Registro"])
+
                             };
                             lista.Add(asistencia);
                         }
@@ -48,17 +50,64 @@ namespace Infraestructure.Repository
 
 
         }
-        Task<IEnumerable<Asistencia>> IAsistenciaRepository.ListarAsistenciaPorSesionAsync(int idSesion)
+        async Task<IEnumerable<Asistencia>> IAsistenciaRepository.ListarAsistenciaPorSesionAsync(int idsesion)
         {
-            throw new NotImplementedException();
+            var lista = new List<Asistencia>();
+            using (MySqlConnection con = (MySqlConnection)_connectionFactory.CreateConnection())
+            {
+                using (MySqlCommand cmd = new MySqlCommand("sp_LeerAsistenciaPorSesion", con))
+                {
+              
+                    cmd.CommandType = CommandType.StoredProcedure;
+                    cmd.Parameters.AddWithValue("@idSesion", idsesion);
+
+                    await con.OpenAsync();
+                    using (var reader = await cmd.ExecuteReaderAsync())
+                    {
+                        while (await reader.ReadAsync())
+                        {
+                            var asistencia = new Asistencia
+                            {
+                                IdAsistencia = reader.GetInt32("IdAsistencia"),
+                                IdSesion = reader.GetInt32("IdSesion"),
+                                Carnet = reader.GetInt32("Carnet"),
+                                Estado = reader.GetString("Estado"),
+                                Hora_Registro = TimeOnly.FromTimeSpan((TimeSpan)reader["Hora_Registro"])
+                            };
+                            lista.Add(asistencia);
+                        }
+                    }
+                }
+                return lista;
+            }
         }
-        public Task NuevaAsistenciaAsync(Asistencia asistencia)
+        
+        public async Task NuevaAsistenciaAsync(Asistencia asistencia)
         {
-            throw new NotImplementedException();
+            using var con = (MySqlConnection)_connectionFactory.CreateConnection();
+            await con.OpenAsync();
+
+            try
+            {
+                using var cmd = new MySqlCommand("sp_InsertarAsistencia", con);
+                cmd.CommandType = CommandType.StoredProcedure;
+
+                cmd.Parameters.Add(new MySqlParameter("@p_id_sesion", asistencia.IdSesion));
+                cmd.Parameters.Add(new MySqlParameter("@p_carnet", asistencia.Carnet));
+                cmd.Parameters.Add(new MySqlParameter("@p_estado", asistencia.Estado));
+
+
+                await cmd.ExecuteNonQueryAsync();
+            }
+            catch(Exception ex)
+            {
+                throw new Exception(ex.Message);
+            }
         }
 
-        public Task EditarAsistenciaAsync(Asistencia asistencia)
+        public async Task EditarAsistenciaAsync(Asistencia asistencia)
         {
+           
             throw new NotImplementedException();
         }
 

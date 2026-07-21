@@ -1,5 +1,6 @@
 ﻿using Application.DTOs;
 using Application.Interface;
+using Domain.Entities;
 using System;
 using System.Collections.Generic;
 using System.Text;
@@ -28,6 +29,60 @@ namespace Application.Service
                 AñoIngreso = e.AñoIngreso,
                 CantidadFaltas = e.CantidadFaltas
             });
+        }
+        public async Task<IEnumerable<EstudianteDTO>> ListarEmpleadosPorDepartamento(string carnet)
+        {
+            var lista = await _estudianteRepository.ListarEstudiantesPorCarnetAsync(carnet);
+            return lista.Select(e => new EstudianteDTO
+            {
+                Carnet = e.Carnet,
+                Contraseña = e.Contraseña,
+                PrimerNombre = e.PrimerNombre,
+                SegundoNombre = e.SegundoNombre,
+                PrimerApellido = e.PrimerApellido,
+                SegundoApellido = e.SegundoApellido,
+                Carrera = e.Carrera,
+                AñoIngreso = e.AñoIngreso,
+                CantidadFaltas = e.CantidadFaltas
+            });
+        }
+        public async Task NuevoEstudiante(EstudianteDTO e)
+        {
+            var estudiante = new Estudiante
+            {
+                Carnet = e.Carnet,
+                Contraseña = e.Contraseña,
+                PrimerNombre = e.PrimerNombre,
+                SegundoNombre = e.SegundoNombre,
+                PrimerApellido = e.PrimerApellido,
+                SegundoApellido = e.SegundoApellido,
+                Carrera = e.Carrera,
+                AñoIngreso = e.AñoIngreso
+
+            };
+            await _estudianteRepository.GuardarEstudianteAsync(estudiante);
+        }
+        public async Task EditarEstudiante(EstudianteDTO e)
+        {
+            var estudiante = new Estudiante
+            {
+                Carnet = e.Carnet,
+                Contraseña = e.Contraseña,
+                PrimerNombre = e.PrimerNombre,
+                SegundoNombre = e.SegundoNombre,
+                PrimerApellido = e.PrimerApellido,
+                SegundoApellido = e.SegundoApellido,
+                Carrera = e.Carrera,
+                CantidadFaltas = e.CantidadFaltas
+            };
+            await _estudianteRepository.EditarEstudianteAsync(estudiante);
+        }
+        public async Task EliminarEstudiante(EstudianteDTO e)
+        {
+            var estudiante = new Estudiante 
+            {
+                Carnet = e.Carnet
+            };
         }
     }
 }

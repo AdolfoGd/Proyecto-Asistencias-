@@ -8,6 +8,18 @@ string connectionString = builder.Configuration.GetConnectionString("DefaultConn
 builder.Services.AddSingleton(new Infraestructure.DataBase.DBConnectionFactory(connectionString));
 builder.Services.AddScoped<IAsistenciaRepository, AsistenciaRepository>();
 builder.Services.AddScoped<AsistenciaService>();
+builder.Services.AddScoped<IDocentesRepository, DocentesRepository>();
+builder.Services.AddScoped<DocentesServices>();
+builder.Services.AddScoped<IEmpleadoRepository, EmpleadoRepository>();
+builder.Services.AddScoped<EmpleadoService>();
+builder.Services.AddScoped<IEstudianteRepository, EstudianteRepository>();
+builder.Services.AddScoped<EstudianteService>();
+builder.Services.AddScoped<IGruposRepository, GruposRepository>();
+builder.Services.AddScoped<GrupoService>();
+builder.Services.AddScoped<IMatriculaRepository, MatriculasRepository>();
+builder.Services.AddScoped<MatriculasService>();
+builder.Services.AddScoped<ISeseionDeClaseRepository, SesionDeClaseRepository>();
+builder.Services.AddScoped<SesionDeClaseRepository>();
 
 builder.Services.AddControllersWithViews();
 

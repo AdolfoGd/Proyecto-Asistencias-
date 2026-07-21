@@ -7,7 +7,7 @@ namespace Domain.Entities
 {
     public class Empleado
     {
-        public int CodigoEmpleado { get; set; }
+        public string? CodigoEmpleado { get; set; }
         [StringLength(15)]
         [Display(Name = "Ingrese la contraseña")]
         [Required(ErrorMessage = "Este campo es obligatorio")]

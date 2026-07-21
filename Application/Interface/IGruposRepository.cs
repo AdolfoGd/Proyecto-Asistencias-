@@ -8,7 +8,7 @@ namespace Application.Interface
     public interface IGruposRepository
     {
         public Task<IEnumerable<Grupos>> ListarGrupoAsync();
-        public Task<IEnumerable<Grupos>> ListarGrupoporCodigoAsync(int Codigogrupo);
+        public Task<IEnumerable<Grupos>> ListarGrupoporCodigoAsync(string Codigogrupo);
         Task GuardarGrupoAsync(Grupos grupo);
         Task EditarGrupoAsync(Grupos grupo);
         Task EliminarGrupoAsync(int id);

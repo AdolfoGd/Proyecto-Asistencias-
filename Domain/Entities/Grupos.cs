@@ -8,13 +8,13 @@ namespace Domain.Entities
 {
     public class Grupos
     {
-        public int CodidoGrupo {  get; set; }
+        public string? CodigoGrupo {  get; set; }
         [Display(Name = "Ingrese el Id de su Asignatura")]
         [Required(ErrorMessage = "Este campo es obligatorio")]
         public int IdAsignatura { get; set; }
         [Display(Name = "Ingrese su Id")]
         [Required(ErrorMessage = "Este campo es obligatorio")]
-        public int IdDocente { get; set; }
+        public string? IdDocente { get; set; }
         [StringLength(10)]
         [Display(Name = "Ingrese la seccion")]
         [Required(ErrorMessage = "Este campo es obligatorio")]

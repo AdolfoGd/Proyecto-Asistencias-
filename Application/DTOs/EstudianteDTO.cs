@@ -7,7 +7,7 @@ namespace Application.DTOs
 {
     public class EstudianteDTO
     {
-        public int Carnet { get; set; }
+        public string? Carnet { get; set; }
         [StringLength(15)]
         [Display(Name = "Ingrese la contraseña")]
         [Required(ErrorMessage = "La contraseña es obligatoria")]

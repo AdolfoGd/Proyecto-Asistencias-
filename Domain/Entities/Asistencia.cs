@@ -21,5 +21,7 @@ namespace Domain.Entities
         [Display(Name = "Hora de Registro")]
         [Required(ErrorMessage = "Este campo es obligatorio")]
         public TimeOnly Hora_Registro { get; set; }
+
+        
     }
 }

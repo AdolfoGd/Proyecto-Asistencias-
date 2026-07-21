@@ -13,7 +13,7 @@ namespace Domain.Entities
         public int IdEstudiante { get; set; }
         [Display(Name = "Ingrese su codigo de grupo")]
         [Required(ErrorMessage = "Este campo es obligatorio")]
-        public int CodidoGrupo { get; set; }
+        public string? CodigoGrupo { get; set; }
         [Display(Name = "Ingrese la fecha de registro")]
         [Required(ErrorMessage = "Este campo es obligatorio")]
         public DateOnly FechaRegistro { get; set; }

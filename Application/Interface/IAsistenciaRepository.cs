@@ -8,9 +8,10 @@ namespace Application.Interface
     public interface IAsistenciaRepository
     {
         Task<IEnumerable<Asistencia>> ListarAsistenciaAsync();
-        Task<IEnumerable<Asistencia>> ListarAsistenciaPorSesionAsync(int idSesion);
+        Task<IEnumerable<Asistencia>> ListarAsistenciaPorSesionAsync(int idsesion);
         Task NuevaAsistenciaAsync(Asistencia asistencia);
         Task EditarAsistenciaAsync(Asistencia asistencia);
         Task EliminarAsistenciaAsync(int id);
+      
     }
 }

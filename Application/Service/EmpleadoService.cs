@@ -30,5 +30,56 @@ namespace Application.Service
 
             });
         }
+        public async Task<IEnumerable<EmpleadoDTO>> ListarEmpleadosPorDepartamento(string departamento)
+        {
+            var lista = await _empleadoRepository.ListarEmpleadosPorDepartamentoAsync(departamento);
+            return lista.Select(e => new EmpleadoDTO
+            {
+                CodigoEmpleado = e.CodigoEmpleado,
+                Contraseña = e.Contraseña,
+                PrimerNombre = e.PrimerNombre,
+                SegundoNombre = e.SegundoNombre,
+                PrimerApellido = e.PrimerApellido,
+                SegundoApellido = e.SegundoApellido,
+                Departamento = e.Departamento
+            });
+        }
+        public async Task NuevoEmpleado(EmpleadoDTO e)
+        {
+            var empleado = new Empleado
+            {
+                CodigoEmpleado = e.CodigoEmpleado,
+                Contraseña = e.Contraseña,
+                PrimerNombre = e.PrimerNombre,
+                SegundoNombre = e.SegundoNombre,
+                PrimerApellido = e.PrimerApellido,
+                SegundoApellido = e.SegundoApellido,
+                Departamento = e.Departamento
+
+            };
+            await _empleadoRepository.GuardarEmpleadoAsync(empleado);
+        }
+        public async Task EditarEmpleado(EmpleadoDTO e)
+        {
+            var empleado = new Empleado
+            {
+                CodigoEmpleado = e.CodigoEmpleado,
+                Contraseña = e.Contraseña,
+                PrimerNombre = e.PrimerNombre,
+                SegundoNombre = e.SegundoNombre,
+                PrimerApellido = e.PrimerApellido,
+                SegundoApellido = e.SegundoApellido,
+                Departamento = e.Departamento
+            };
+            await _empleadoRepository.EditarEmpleadoAsync(empleado);
+        }
+        public async Task EliminarEmpleado(EmpleadoDTO e)
+        {
+            var empleado = new Empleado
+            {
+                CodigoEmpleado = e.CodigoEmpleado
+            };
+        }
+
     }
 }

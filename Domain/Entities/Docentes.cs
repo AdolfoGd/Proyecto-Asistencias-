@@ -7,7 +7,7 @@ namespace Domain.Entities
 {
     public class Docentes
     {
-        public int Carnet {  get; set; }
+        public string? Carnet {  get; set; }
         [StringLength(15)]
         [Display(Name = "Ingrese la contraseña")]
         [Required(ErrorMessage = "Este campo es obligatorio")]
@@ -30,7 +30,7 @@ namespace Domain.Entities
         public string? SegundoApellido { get; set; }
         [Display(Name = "Ingrese su codigo")]
         [Required(ErrorMessage = "Este campo es obligatorio")]
-        public int CodigoEmpleado { get; set; }
+        public string? CodigoEmpleado { get; set; }
         [StringLength(25)]
         [Display(Name = "Ingrese su departamento")]
         [Required(ErrorMessage = "Este campo es obligatorio")]
