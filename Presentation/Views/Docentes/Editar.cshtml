@@ -1,0 +1,65 @@
+﻿@model Application.DTOs.DocentesDTO
+@{
+    ViewData["Title"] = "Editar Docente";
+}
+
+<div class="d-flex justify-content-between align-items-center mb-4">
+    <div>
+        <h2 class="fw-bold text-dark mb-0"><i class="bi bi-pencil-square text-warning me-2"></i>Editar Docente <span class="badge bg-secondary fs-6 align-middle ms-2">Modo Prueba</span></h2>
+        <p class="text-muted fs-6 mb-0">Modifique los datos del registro. Los cambios no tocarán la base de datos.</p>
+    </div>
+</div>
+
+<div class="card border-0 shadow-sm rounded-3 bg-white">
+    <div class="card-body p-4">
+        <form asp-action="Editar" method="post">
+            @Html.AntiForgeryToken()
+            <div class="row g-4">
+
+                <!-- Carnet (Lector / Clave) -->
+                <div class="col-md-6">
+                    <label asp-for="Carnet" class="form-label fw-semibold text-secondary">Carnet</label>
+                    <input asp-for="Carnet" type="text" class="form-control bg-light" readonly />
+                </div>
+
+                <!-- Código Empleado -->
+                <div class="col-md-6">
+                    <label asp-for="CodigoEmpleado" class="form-label fw-semibold text-secondary">Código de Empleado</label>
+                    <input asp-for="CodigoEmpleado" type="text" class="form-control" required />
+                </div>
+
+                <!-- Primer Nombre -->
+                <div class="col-md-6">
+                    <label asp-for="PrimerNombre" class="form-label fw-semibold text-secondary">Primer Nombre</label>
+                    <input asp-for="PrimerNombre" type="text" class="form-control" required />
+                </div>
+
+                <!-- Primer Apellido -->
+                <div class="col-md-6">
+                    <label asp-for="PrimerApellido" class="form-label fw-semibold text-secondary">Primer Apellido</label>
+                    <input asp-for="PrimerApellido" type="text" class="form-control" required />
+                </div>
+                <div class="col-md-12">
+                    <label asp-for="Departamento" class="form-label fw-semibold text-secondary">Departamento Asignado</label>
+                    <select asp-for="Departamento" class="form-select" required>
+                        <option value="">Seleccione un departamento...</option>
+                        <option value="Ingeniería en Sistemas">Ingeniería en Sistemas</option>
+                        <option value="Finanzas">Finanzas</option>
+                        <option value="Administración">Administración</option>
+                        <option value="Ciencias Básicas">Ciencias Básicas</option>
+                    </select>
+                </div>
+
+            </div>
+
+            <hr class="my-4 text-muted" />
+
+            <div class="d-flex gap-2">
+                <button type="submit" class="btn btn-warning fw-bold px-4">
+                    <i class="bi bi-check-circle me-2"></i> Guardar Cambios
+                </button>
+                <a asp-action="Index" class="btn btn-outline-secondary px-4">Cancelar</a>
+            </div>
+        </form>
+    </div>
+</div>
