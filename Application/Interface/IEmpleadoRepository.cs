@@ -11,7 +11,6 @@ namespace Application.Interface
         Task<IEnumerable<Empleado>> ListarEmpleadosPorDepartamentoAsync(string departamento);
         Task GuardarEmpleadoAsync(Empleado empleado);
         Task EditarEmpleadoAsync(Empleado empleado);
-        Task NuevoEmpleado(Empleado empleado);
         Task EliminarEmpleadoAsync(int id);
     }
 }

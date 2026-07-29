@@ -79,12 +79,9 @@ namespace Application.Service
             };
             await _docentesRepository.EditarDocentesAsync(docentes);
         }
-        public async Task EliminarAsistencia(DocentesDTO d)
+        public async Task EliminarDocente(int carnet)
         {
-            var docentes = new Docentes
-            {
-                Carnet = d.Carnet
-            };
+            await _docentesRepository.EliminarDocentesAsync(carnet);
         }
 
 

@@ -113,14 +113,36 @@ namespace Infraestructure.Repository
             }
         }
 
-        public Task EditarDocentesAsync(Docentes docentes)
+        public async Task EditarDocentesAsync(Docentes docentes)
         {
-            throw new NotImplementedException();
+            using var con = (MySqlConnection)_connectionFactory.CreateConnection();
+            await con.OpenAsync();
+            using (MySqlCommand cmd = new MySqlCommand("sp_ActualizarDocente", con))
+            {
+                cmd.CommandType = CommandType.StoredProcedure;
+                cmd.Parameters.Add(new MySqlParameter("@carnet ", docentes.Carnet));
+                cmd.Parameters.Add(new MySqlParameter("@contraseña", docentes.Contraseña));
+                cmd.Parameters.Add(new MySqlParameter("@primerNombre", docentes.PrimerNombre));
+                cmd.Parameters.Add(new MySqlParameter("@egundoNombre", docentes.SegundoNombre));
+                cmd.Parameters.Add(new MySqlParameter("@primerApellido", docentes.PrimerApellido));
+                cmd.Parameters.Add(new MySqlParameter("@segundoApellido", docentes.SegundoApellido));
+                cmd.Parameters.Add(new MySqlParameter("@departamento", docentes.Departamento));
+                cmd.Parameters.Add(new MySqlParameter("@cantidadFaltas", docentes.CantidadFaltas));
+                await cmd.ExecuteNonQueryAsync();
+            }
         }
 
-        public Task EliminarDocentesAsync(int id)
+        public async Task EliminarDocentesAsync(int carnet)
         {
-            throw new NotImplementedException();
+            using var con = (MySqlConnection)_connectionFactory.CreateConnection();
+            await con.OpenAsync();
+            using (MySqlCommand cmd = new MySqlCommand("sp_EliminarDocente", con))
+            {
+                cmd.CommandType = CommandType.StoredProcedure;
+                cmd.Parameters.AddWithValue("@id", carnet);
+
+                await cmd.ExecuteNonQueryAsync();
+            }
         }
     }
 }

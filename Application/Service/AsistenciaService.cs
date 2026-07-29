@@ -54,7 +54,7 @@ namespace Application.Service
             };
             await _asistenciaRepository.NuevaAsistenciaAsync(asistencia);
         }
-        public async Task EditarAsistencia(AsistenciaDTO a)
+        public async Task EditarAsistencia(int idAsistencia, AsistenciaDTO a)
         {
             var asistencia = new Asistencia
             {
@@ -64,12 +64,9 @@ namespace Application.Service
             };
             await _asistenciaRepository.EditarAsistenciaAsync(asistencia);
         }
-        public async Task EliminarAsistencia(AsistenciaDTO a)
+        public async Task EliminarAsistencia(int idAsistencia)
         {
-            var asistencia = new Asistencia
-            {
-                IdAsistencia = a.IdAsistencia
-            };
-        }
+            await _asistenciaRepository.EliminarAsistenciaAsync(idAsistencia);
+        } 
     }   
 }

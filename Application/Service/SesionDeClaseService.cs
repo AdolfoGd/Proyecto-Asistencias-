@@ -67,12 +67,9 @@ namespace Application.Service
             };
             await _sesionDeClaseRepository.EditarSesionDeClaseAsync(sesion);
         }
-        public async Task EliminarSesion(Sesion_de_ClaseDTO s)
+        public async Task EliminarSesion(int idsesion)
         {
-            var sesion = new Sesion_de_Classe
-            {
-                IdSesion = s.IdSesion
-            };
+            await _sesionDeClaseRepository.EliminarSesionDeClaseAsync(idsesion);
         }
     }
 }

@@ -55,10 +55,7 @@ namespace Presentation.Controllers
                 ModelState.AddModelError("", ex.Message);
                 return View(asistencia);
             }
-        }   
-
-        //construir con clean arquitecture los sig procesos la entidad mascotas minimo 5 propiedades due;o minimo 5 propiedades
-        //medicamento min 5 prop crear controller de listar e insertar vista de ambos la base de datos se llama sp listar mascotas
-        // con el nombre de igual manero en las clases mascotasnombre
+        }
+       
     }
 }

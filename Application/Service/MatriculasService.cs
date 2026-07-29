@@ -57,12 +57,9 @@ namespace Application.Service
             };
             await _matriculaRepository.EditarMatriculaAsync(matriculas);
         }
-        public async Task EliminarMatricula(MatriculasDTO m)
+        public async Task EliminarMatricula(int IdMatricula)
         {
-            var matriculas = new Matriculas
-            {
-                IdMatricula = m.IdMatricula
-            };
+            await _matriculaRepository.EliminarMatriculaAsync(IdMatricula);
         }
     }
 }

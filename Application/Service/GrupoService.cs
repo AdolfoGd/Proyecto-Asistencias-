@@ -61,12 +61,9 @@ namespace Application.Service
             };
             await _gruposRepository.EditarGrupoAsync(grupos);
         }
-        public async Task EliminarGrupo(GruposDTO g)
+        public async Task EliminarGrupo(string Codigogrupo)
         {
-            var grupos = new Grupos
-            {
-                CodigoGrupo = g.CodigoGrupo
-            };
+            await _gruposRepository.EliminarGrupoAsync(Codigogrupo);
         }
     }
 }

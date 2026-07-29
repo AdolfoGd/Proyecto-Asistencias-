@@ -11,7 +11,7 @@ namespace Application.Interface
         public Task<IEnumerable<Grupos>> ListarGrupoporCodigoAsync(string Codigogrupo);
         Task GuardarGrupoAsync(Grupos grupo);
         Task EditarGrupoAsync(Grupos grupo);
-        Task EliminarGrupoAsync(int id);
+        Task EliminarGrupoAsync(string Codigogrupo);
 
     }
 }

@@ -77,12 +77,9 @@ namespace Application.Service
             };
             await _estudianteRepository.EditarEstudianteAsync(estudiante);
         }
-        public async Task EliminarEstudiante(EstudianteDTO e)
+        public async Task EliminarEstudiante(int carnet)
         {
-            var estudiante = new Estudiante 
-            {
-                Carnet = e.Carnet
-            };
+            await _estudianteRepository.EliminarEstudianteAsync(carnet);
         }
     }
 }

@@ -73,12 +73,9 @@ namespace Application.Service
             };
             await _empleadoRepository.EditarEmpleadoAsync(empleado);
         }
-        public async Task EliminarEmpleado(EmpleadoDTO e)
+        public async Task EliminarEmpleado(int CodigoEmpleado)
         {
-            var empleado = new Empleado
-            {
-                CodigoEmpleado = e.CodigoEmpleado
-            };
+            await _empleadoRepository.EliminarEmpleadoAsync(CodigoEmpleado);
         }
 
     }

@@ -74,7 +74,8 @@ namespace Infraestructure.Repository
                 return lista;
             }
         }
-        public async Task NuevoEmpleado(Empleado empleado)
+    
+        public async Task GuardarEmpleadoAsync(Empleado empleado)
         {
             using var con = (MySqlConnection)_connectionFactory.CreateConnection();
             await con.OpenAsync();
@@ -100,19 +101,36 @@ namespace Infraestructure.Repository
                 throw new Exception(ex.Message);
             }
         }
-        public Task GuardarEmpleadoAsync(Empleado empleado)
+
+        public async Task EditarEmpleadoAsync(Empleado empleado)
         {
-            throw new NotImplementedException();
+            using var con = (MySqlConnection)_connectionFactory.CreateConnection();
+            await con.OpenAsync();
+            using (MySqlCommand cmd = new MySqlCommand("sp_ActualizarDocente", con))
+            {
+                cmd.CommandType = CommandType.StoredProcedure;
+                cmd.Parameters.Add(new MySqlParameter("@codigoEmpleado ", empleado.CodigoEmpleado));
+                cmd.Parameters.Add(new MySqlParameter("@contraseña", empleado.Contraseña));
+                cmd.Parameters.Add(new MySqlParameter("@primerNombre", empleado.PrimerNombre));
+                cmd.Parameters.Add(new MySqlParameter("@egundoNombre", empleado.SegundoNombre));
+                cmd.Parameters.Add(new MySqlParameter("@primerApellido", empleado.PrimerApellido));
+                cmd.Parameters.Add(new MySqlParameter("@segundoApellido", empleado.SegundoApellido));
+                cmd.Parameters.Add(new MySqlParameter("@departamento", empleado.Departamento));
+                await cmd.ExecuteNonQueryAsync();
+            }
         }
 
-        public Task EditarEmpleadoAsync(Empleado empleado)
+        public async Task EliminarEmpleadoAsync(int codigoempleado)
         {
-            throw new NotImplementedException();
-        }
+            using var con = (MySqlConnection)_connectionFactory.CreateConnection();
+            await con.OpenAsync();
+            using (MySqlCommand cmd = new MySqlCommand("sp_EliminarDocente", con))
+            {
+                cmd.CommandType = CommandType.StoredProcedure;
+                cmd.Parameters.AddWithValue("@id", codigoempleado);
 
-        public Task EliminarEmpleadoAsync(int id)
-        {
-            throw new NotImplementedException();
+                await cmd.ExecuteNonQueryAsync();
+            }
         }
 
     }

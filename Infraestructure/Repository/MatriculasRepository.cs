@@ -91,11 +91,28 @@ namespace Infraestructure.Repository
         }
         public async Task EditarMatriculaAsync(Matriculas matricula)
         {
-            throw new NotImplementedException();
+            using var con = (MySqlConnection)_connectionFactory.CreateConnection();
+            await con.OpenAsync();
+            using (MySqlCommand cmd = new MySqlCommand("sp_ActualizarMatricula", con))
+            {
+                cmd.CommandType = CommandType.StoredProcedure;
+                cmd.Parameters.Add(new MySqlParameter("@idMatricula ", matricula.IdMatricula));
+                cmd.Parameters.Add(new MySqlParameter("@idEstudiante", matricula.IdEstudiante));
+                cmd.Parameters.Add(new MySqlParameter("@codigoGrupo", matricula.CodigoGrupo));  
+                await cmd.ExecuteNonQueryAsync();
+            }
         }
-        public async Task EliminarMatriculaAsync(int id)
+        public async Task EliminarMatriculaAsync(int idmatricula)
         {
-            throw new NotImplementedException();
+            using var con = (MySqlConnection)_connectionFactory.CreateConnection();
+            await con.OpenAsync();
+            using (MySqlCommand cmd = new MySqlCommand("sp_EliminarMatricula", con))
+            {
+                cmd.CommandType = CommandType.StoredProcedure;
+                cmd.Parameters.AddWithValue("@id", idmatricula);
+
+                await cmd.ExecuteNonQueryAsync();
+            }
         }
 
         

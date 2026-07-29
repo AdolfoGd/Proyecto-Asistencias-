@@ -108,13 +108,35 @@ namespace Infraestructure.Repository
                 throw new Exception(ex.Message);
             }
         }
-        public Task EditarEstudianteAsync(Estudiante estudiante)
+        public async Task EditarEstudianteAsync(Estudiante estudiante)
         {
-            throw new NotImplementedException();
+            using var con = (MySqlConnection)_connectionFactory.CreateConnection();
+            await con.OpenAsync();
+            using (MySqlCommand cmd = new MySqlCommand("sp_ActualizarEstudiante", con))
+            {
+                cmd.CommandType = CommandType.StoredProcedure;
+                cmd.Parameters.Add(new MySqlParameter("@carnet ", estudiante.Carnet));
+                cmd.Parameters.Add(new MySqlParameter("@contraseña", estudiante.Contraseña));
+                cmd.Parameters.Add(new MySqlParameter("@primerNombre", estudiante.PrimerNombre));
+                cmd.Parameters.Add(new MySqlParameter("@egundoNombre", estudiante.SegundoNombre));
+                cmd.Parameters.Add(new MySqlParameter("@primerApellido", estudiante.PrimerApellido));
+                cmd.Parameters.Add(new MySqlParameter("@segundoApellido", estudiante.SegundoApellido));
+                cmd.Parameters.Add(new MySqlParameter("@carrera", estudiante.Carrera));
+                cmd.Parameters.Add(new MySqlParameter("@cantidadFaltas", estudiante.CantidadFaltas));
+                await cmd.ExecuteNonQueryAsync();
+            }
         }
-        public Task EliminarEstudianteAsync(int id)
+        public async Task EliminarEstudianteAsync(int carnet)
         {
-            throw new NotImplementedException();
+            using var con = (MySqlConnection)_connectionFactory.CreateConnection();
+            await con.OpenAsync();
+            using (MySqlCommand cmd = new MySqlCommand("sp_EliminarEstudiante", con))
+            {
+                cmd.CommandType = CommandType.StoredProcedure;
+                cmd.Parameters.AddWithValue("@id", carnet);
+
+                await cmd.ExecuteNonQueryAsync();
+            }
         }
         
     }

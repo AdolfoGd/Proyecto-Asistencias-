@@ -5,7 +5,6 @@ using MySql.Data.MySqlClient;
 using System.Data;
 using System;
 using System.Collections.Generic;
-using System.Data;
 using System.Text;
 
 namespace Infraestructure.Repository
@@ -103,12 +102,31 @@ namespace Infraestructure.Repository
 
         public async Task EditarSesionDeClaseAsync(Sesion_de_Classe sesionDeClase)
         {
-            throw new NotImplementedException();
+            using var con = (MySqlConnection)_connectionFactory.CreateConnection();
+            await con.OpenAsync();
+            using (MySqlCommand cmd = new MySqlCommand("sp_ActualizarSesion", con))
+            {
+                cmd.CommandType = CommandType.StoredProcedure;
+                cmd.Parameters.Add(new MySqlParameter("@idSesion ", sesionDeClase.Seccion));
+                cmd.Parameters.Add(new MySqlParameter("@codigoGrupo", sesionDeClase.CodigoGrupo));
+                cmd.Parameters.Add(new MySqlParameter("@temaImpartido", sesionDeClase.TemaImpartido));
+                cmd.Parameters.Add(new MySqlParameter("@fechaHoraInicio", sesionDeClase.FechaHoraInicio));
+                cmd.Parameters.Add(new MySqlParameter("@fechaHoraFin", sesionDeClase.FechaHoraFin));
+                await cmd.ExecuteNonQueryAsync();
+            }
         }
 
-        public async Task EliminarSesionDeClaseAsync(int id)
+        public async Task EliminarSesionDeClaseAsync(int idsesion)
         {
-            throw new NotImplementedException();
+            using var con = (MySqlConnection)_connectionFactory.CreateConnection();
+            await con.OpenAsync();
+            using (MySqlCommand cmd = new MySqlCommand("sp_EliminarSesion", con))
+            {
+                cmd.CommandType = CommandType.StoredProcedure;
+                cmd.Parameters.AddWithValue("@id", idsesion);
+
+                await cmd.ExecuteNonQueryAsync();
+            }
         }
     }
 

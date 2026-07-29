@@ -92,13 +92,31 @@ namespace Infraestructure.Repository
                 throw new Exception(ex.Message);
             }
         }
-        public Task EditarGrupoAsync(Grupos grupo)
+        public async Task EditarGrupoAsync(Grupos grupo)
         {
-            throw new NotImplementedException();
+            using var con = (MySqlConnection)_connectionFactory.CreateConnection();
+            await con.OpenAsync();
+            using (MySqlCommand cmd = new MySqlCommand("sp_ActualizarEstudiante", con))
+            {
+                cmd.CommandType = CommandType.StoredProcedure;
+                cmd.Parameters.Add(new MySqlParameter("@codigoGrupo ", grupo.CodigoGrupo));
+                cmd.Parameters.Add(new MySqlParameter("@idAsignatura", grupo.IdAsignatura));
+                cmd.Parameters.Add(new MySqlParameter("@idDocente", grupo.IdDocente));
+                cmd.Parameters.Add(new MySqlParameter("@seccion", grupo.Seccion));
+                await cmd.ExecuteNonQueryAsync();
+            }
         }
-        public Task EliminarGrupoAsync(int id)
+        async Task IGruposRepository.EliminarGrupoAsync(string Codigogrupo)
         {
-            throw new NotImplementedException();
+            using var con = (MySqlConnection)_connectionFactory.CreateConnection();
+            await con.OpenAsync();
+            using (MySqlCommand cmd = new MySqlCommand("sp_EliminarEstudiante", con))
+            {
+                cmd.CommandType = CommandType.StoredProcedure;
+                cmd.Parameters.AddWithValue("@id", Codigogrupo);
+
+                await cmd.ExecuteNonQueryAsync();
+            }
         }
     }
 }
