@@ -1,45 +1,78 @@
 ﻿@model Application.DTOs.AsistenciaDTO
+
 @{
-    ViewData["Title"] = "Nueva Asistencia";
+    ViewData["Title"] = "Registrar Nueva Asistencia";
 }
 
-<h2>Registrar Nueva Asistencia</h2>
-<hr />
+<div class="container py-4">
+    <div class="row justify-content-center">
+        <div class="col-md-8 col-lg-6">
+            <!-- Tarjeta Principal con Estilo Oscuro -->
+            <div class="card border-0 shadow-lg rounded-4 overflow-hidden" style="background-color: #1e293b; border: 1px solid #334155 !important;">
 
-<div class="row">
-    <div class="col-md-6">
-        <form asp-action="NuevoAsistencia" method="post">
-            <div asp-validation-summary="All" class="text-danger mb-3"></div>
-            <div class="form-group mb-3">
-                <label asp-for="IdSesion" class="control-label">ID de Sesión</label>
-                <input asp-for="IdSesion" type="number" class="form-control" placeholder="Ej. 101" required />
+                <!-- Encabezado de la Tarjeta -->
+                <div class="card-header py-3 px-4 border-bottom" style="background-color: #1e293b; border-color: #334155 !important;">
+                    <h4 class="fw-bold text-white mb-1">Registrar Nueva Asistencia</h4>
+                    <p class="text-secondary small mb-0">Ingresa los datos para registrar la asistencia del estudiante</p>
+                </div>
+
+                <!-- Cuerpo del Formulario -->
+                <div class="card-body p-4">
+                    <form asp-action="NuevoAsistencia" method="post">
+                        <div asp-validation-summary="All" class="text-danger mb-3 small"></div>
+
+                        <!-- ID Sesión -->
+                        <div class="mb-3">
+                            <label asp-for="IdSesion" class="form-label text-light fw-semibold">ID de Sesión</label>
+                            <div class="input-group">
+                                <span class="input-group-text border-end-0 text-secondary" style="background-color: #0f172a; border-color: #334155;">🆔</span>
+                                <input asp-for="IdSesion" type="number" class="form-control text-white border-start-0" placeholder="Ej. 101" required style="background-color: #0f172a; border-color: #334155;" />
+                            </div>
+                        </div>
+
+                        <!-- Carnet del Usuario -->
+                        <div class="mb-3">
+                            <label asp-for="Carnet" class="form-label text-light fw-semibold">Carnet del Usuario</label>
+                            <div class="input-group">
+                                <span class="input-group-text border-end-0 text-secondary" style="background-color: #0f172a; border-color: #334155;">🪪</span>
+                                <input asp-for="Carnet" type="number" class="form-control text-white border-start-0" placeholder="Ej. 2024001" required style="background-color: #0f172a; border-color: #334155;" />
+                            </div>
+                        </div>
+
+                        <!-- Estado -->
+                        <div class="mb-3">
+                            <label asp-for="Estado" class="form-label text-light fw-semibold">Estado de Asistencia</label>
+                            <select asp-for="Estado" class="form-select text-white" required style="background-color: #0f172a; border-color: #334155;">
+                                <option value="" disabled selected class="text-secondary">Seleccione un estado...</option>
+                                <option value="Presente">Presente</option>
+                                <option value="Ausente">Ausente</option>
+                                <option value="Tarde">Tarde</option>
+                                <option value="Justificado">Justificado</option>
+                            </select>
+                        </div>
+
+                        <!-- Hora de Registro -->
+                        <div class="mb-4">
+                            <label asp-for="Hora_Registro" class="form-label text-light fw-semibold">Hora de Registro</label>
+                            <div class="input-group">
+                                <span class="input-group-text border-end-0 text-secondary" style="background-color: #0f172a; border-color: #334155;">⏱️</span>
+                                <input asp-for="Hora_Registro" type="time" class="form-control text-white border-start-0" required style="background-color: #0f172a; border-color: #334155; color-scheme: dark;" />
+                            </div>
+                        </div>
+
+                        <!-- Botones de Acción -->
+                        <div class="d-flex justify-content-between align-items-center pt-2">
+                            <a asp-action="Index" class="btn btn-outline-light px-3 fw-semibold">
+                                Cancelar
+                            </a>
+                            <button type="submit" class="btn btn-success px-4 fw-semibold shadow-sm">
+                                Guardar Registro
+                            </button>
+                        </div>
+
+                    </form>
+                </div>
             </div>
-
-            <div class="form-group mb-3">
-                <label asp-for="Carnet" class="control-label">Carnet del Usuario</label>
-                <input asp-for="Carnet" type="number" class="form-control" placeholder="Ej. 2024001" required />
-            </div>
-
-            <div class="form-group mb-3">
-                <label asp-for="Estado" class="control-label">Estado</label>
-                <select asp-for="Estado" class="form-select">
-                    <option value="">Seleccione un estado...</option>
-                    <option value="Presente">Presente</option>
-                    <option value="Ausente">Ausente</option>
-                    <option value="Tarde">Tarde</option>
-                </select>
-            </div>
-
-            <div class="form-group mb-4">
-                <label asp-for="Hora_Registro" class="control-label">Hora de Registro</label>
-                <input asp-for="Hora_Registro" type="time" class="form-control" required />
-            </div>
-
-            <div class="form-group">
-                <button type="submit" class="btn btn-primary">Guardar Registro</button>
-                <a asp-action="Index" class="btn btn-secondary">Cancelar y volver a la lista</a>
-            </div>
-
-        </form>
+        </div>
     </div>
 </div>

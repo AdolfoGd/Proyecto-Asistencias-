@@ -54,19 +54,19 @@ namespace Application.Service
             };
             await _asistenciaRepository.NuevaAsistenciaAsync(asistencia);
         }
-        public async Task EditarAsistencia(int idAsistencia, AsistenciaDTO a)
+        public async Task EditarAsistencia(int idAsistencia, string estado )
         {
             var asistencia = new Asistencia
             {
-                IdAsistencia = a.IdAsistencia,
-                Estado = a.Estado,
-                Hora_Registro = a.Hora_Registro
+                IdAsistencia = idAsistencia,
+                Estado = estado
             };
-            await _asistenciaRepository.EditarAsistenciaAsync(asistencia);
+            await _asistenciaRepository.EditarAsistenciaAsync(asistencia, estado);
         }
         public async Task EliminarAsistencia(int idAsistencia)
         {
             await _asistenciaRepository.EliminarAsistenciaAsync(idAsistencia);
-        } 
+        }
+
     }   
 }

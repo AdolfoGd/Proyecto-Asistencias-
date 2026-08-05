@@ -1,6 +1,8 @@
 ﻿using Application.DTOs;
 using Application.Service;
+using Google.Protobuf.Collections;
 using Microsoft.AspNetCore.Mvc;
+using System.Linq;
 
 namespace Presentation.Controllers
 {
@@ -56,6 +58,52 @@ namespace Presentation.Controllers
                 return View(asistencia);
             }
         }
+
+        [HttpGet]
+        public async Task<IActionResult> Editar(int id)
+        {
+            var asistencia = await _service.ListarAsistenciasPorSesion(id);
+            var lista = asistencia.FirstOrDefault();
+
+            if (asistencia == null)
+            {
+                return NotFound();
+            }
+            return View(lista);
+        }
+
        
+        [HttpPost]
+        public async Task<IActionResult> Editar(int idAsistencia, string estado)
+        {
+            try
+            {
+                await _service.EditarAsistencia(idAsistencia,estado);
+                return RedirectToAction(nameof(Index));
+            }
+            catch (Exception ex)
+            {
+                ModelState.AddModelError("", "Error al editar: " + ex.Message);
+                var asistencia = await _service.ListarAsistenciasPorSesion(idAsistencia);
+                var lista = asistencia.FirstOrDefault();
+                return View(lista);
+            }
+        }
+
+        
+        [HttpPost]
+        public async Task<IActionResult> Eliminar(int id)
+        {
+            try
+            {
+                await _service.EliminarAsistencia(id);
+                return RedirectToAction(nameof(Index));
+            }
+            catch (Exception ex)
+            {
+                TempData["Error"] = "Error al eliminar: " + ex.Message;
+                return RedirectToAction(nameof(Index));
+            }
+        }
     }
 }

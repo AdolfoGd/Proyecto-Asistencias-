@@ -30,10 +30,6 @@ namespace Infraestructure.Repository
 
             await conn.OpenAsync();
             using var reader = await cmd.ExecuteReaderAsync();
-            while (await reader.ReadAsync())
-            {
-                lista.Add(MapearEstudiante(reader));
-            }
             return lista;
         }
 
@@ -49,10 +45,6 @@ namespace Infraestructure.Repository
 
             await conn.OpenAsync();
             using var reader = await cmd.ExecuteReaderAsync();
-            while (await reader.ReadAsync())
-            {
-                lista.Add(MapearEstudiante(reader));
-            }
             return lista;
         }
 
@@ -105,40 +97,18 @@ namespace Infraestructure.Repository
             using var conn = (MySqlConnection)_connectionFactory.CreateConnection();
             await conn.OpenAsync();
 
-            using var cmd = new MySqlCommand("sp_EliminarEstudiante", conn)
+            using (MySqlCommand cmd = new MySqlCommand("sp_EliminarDocente", conn))
             {
-                CommandType = CommandType.StoredProcedure
-            };
-            cmd.Parameters.AddWithValue("@carnet", carnet?.Trim());
+                cmd.CommandType = CommandType.StoredProcedure;
+                cmd.Parameters.AddWithValue("@id", carnet?.Trim());
 
-            await cmd.ExecuteNonQueryAsync();
+                await cmd.ExecuteNonQueryAsync();
+            }
+            ;
+            
         }
 
-        private static Estudiante MapearEstudiante(DbDataReader reader)
-        {
-            var mySqlReader = (MySqlDataReader)reader;
-            string carnet = mySqlReader.GetString(0);
-            string contrasena = mySqlReader.IsDBNull(1) ? string.Empty : mySqlReader.GetString(1);
-            string primerNombre = mySqlReader.GetString(2);
-            string? segundoNombre = mySqlReader.IsDBNull(3) ? null : mySqlReader.GetString(3);
-            string primerApellido = mySqlReader.GetString(4);
-            string? segundoApellido = mySqlReader.IsDBNull(5) ? null : mySqlReader.GetString(5);
-            string carrera = mySqlReader.GetString(6);
-            int anio = mySqlReader.GetInt32(7);
-            int cantidadFaltas = mySqlReader.GetInt32(8);
-
-            return new Estudiante
-            {
-                Carnet = carnet,
-                Contraseña = contrasena,
-                PrimerNombre = primerNombre,
-                SegundoNombre = segundoNombre,
-                PrimerApellido = primerApellido,
-                SegundoApellido = segundoApellido,
-                Carrera = carrera,
-                AñoIngreso = new DateOnly(anio, 1, 1),
-                CantidadFaltas = cantidadFaltas
-            };
-        }
+        
+        
     }
 }

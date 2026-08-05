@@ -1,70 +1,137 @@
 ﻿@model IEnumerable<Application.DTOs.AsistenciaDTO>
-    
 
 @{
-    ViewData["Title"] = "Asistencias";
+    ViewData["Title"] = "Gestión de Asistencias";
 }
 
+<div class="container-fluid py-4 min-vh-100" style="background-color: #0f172a; color: #e2e8f0;">
+    <!-- Encabezado Institucional -->
+    <div class="d-flex justify-content-between align-items-center mb-4 pb-3 border-bottom" style="border-color: #334155 !important;">
+        <div>
+            <h2 class="fw-bold text-white mb-1">Control de Asistencias</h2>
+            <p class="text-secondary small mb-0">Registro y monitoreo de asistencia académica</p>
+        </div>
+        <a asp-action="NuevoAsistencia" class="btn btn-success px-3 py-2 rounded-3 shadow-sm fw-semibold">
+            + Registrar Asistencia
+        </a>
+    </div>
 
-<h2>Asistencias</h2>
-<section class="row">
-    <aside class="col-lg-12">
-        <div class="mb-3">
-            <a asp-action="NuevoAsistencia" class="btn btn-success">
-                + Registrar Nueva Asistencia
-            </a>
-            <form asp-action="Index" method="get" class="d-flex gap-2">
-                <input type="number"
-                       name="idSesion"
-                       class="form-control"
-                       placeholder="Buscar por ID Sesión..."
-                       value="@ViewBag.IdSesionBuscada"
-                       style="width: 220px;" />
+    <!-- Contenedor Principal (Card Oscura) -->
+    <div class="card border-0 shadow-lg rounded-4 overflow-hidden" style="background-color: #1e293b; border: 1px solid #334155 !important;">
 
-                <button type="submit" class="btn btn-primary">Filtrar</button>
+        <!-- Barra Superior de Filtro -->
+        <div class="card-header py-3 border-bottom" style="background-color: #1e293b; border-color: #334155 !important;">
+            <form asp-action="Index" method="get" class="row g-2 align-items-center">
+                <div class="col-auto">
+                    <div class="input-group">
+                        <span class="input-group-text border-end-0 text-secondary" style="background-color: #0f172a; border-color: #334155;">
+                            🆔
+                        </span>
+                        <input type="number"
+                               name="idSesion"
+                               class="form-control text-white border-start-0"
+                               placeholder="Buscar por ID Sesión..."
+                               value="@ViewBag.IdSesionBuscada"
+                               style="background-color: #0f172a; border-color: #334155; max-width: 240px;" />
+                    </div>
+                </div>
+                <div class="col-auto">
+                    <button type="submit" class="btn btn-primary px-4 fw-semibold">Filtrar</button>
+                </div>
 
                 @if (ViewBag.IdSesionBuscada != null)
                 {
-                    <a asp-action="Index" class="btn btn-outline-secondary">Ver Todas</a>
+                    <div class="col-auto">
+                        <a asp-action="Index" class="btn btn-outline-light">Ver Todas</a>
+                    </div>
                 }
             </form>
         </div>
 
+        <!-- Tabla de Datos -->
         <div class="table-responsive">
-            <table class="table table-striped table-hover align-middle">
-                <thead class="table-dark">
+            <table class="table table-dark table-hover align-middle mb-0" style="--bs-table-bg: transparent; --bs-table-hover-bg: #334155;">
+                <thead class="text-uppercase small text-secondary fw-bold" style="border-bottom: 2px solid #334155;">
                     <tr>
-                        <th>ID Sesión</th>
-                        <th>Carnet Usuario</th>
-                        <th>Estado</th>
-                        <th>Hora de Registro</th>
+                        <th class="ps-4 py-3">ID Sesión</th>
+                        <th class="py-3">Carnet Usuario</th>
+                        <th class="py-3">Estado</th>
+                        <th class="py-3">Hora de Registro</th>
+                        <th class="text-center pe-4 py-3">Acciones</th>
                     </tr>
                 </thead>
-                <tbody>
+                <tbody class="border-top-0 text-white">
                     @if (Model != null && Model.Any())
                     {
                         @foreach (var item in Model)
                         {
-                            <tr>
-                                <td><strong>@item.IdSesion</strong></td>
-                                <td>@item.Carnet</td>
-                                <td>
-                                    <span class="badge @(item.Estado == "Presente" ? "bg-success" : item.Estado == "Tarde" ? "bg-warning text-dark" : "bg-danger")">
-                                        @item.Estado
+                            <tr style="border-bottom: 1px solid #2a3749;">
+                                <td class="ps-4">
+                                    <span class="badge border px-2 py-1 font-monospace" style="background-color: #0f172a; color: #38bdf8; border-color: #0284c7 !important;">
+                                        #@item.IdSesion
                                     </span>
                                 </td>
-                                <td>@item.Hora_Registro</td>
+                                <td>
+                                    <span class="fw-semibold text-light">@item.Carnet</span>
+                                </td>
+                                <td>
+                                    @if (item.Estado == "Presente")
+                                    {
+                                        <span class="badge bg-success-subtle text-success border border-success-subtle px-3 py-2 rounded-pill fw-semibold">
+                                            ● Presente
+                                        </span>
+                                    }
+                                    else if (item.Estado == "Tarde")
+                                    {
+                                        <span class="badge bg-warning-subtle text-warning-emphasis border border-warning-subtle px-3 py-2 rounded-pill fw-semibold">
+                                            ● Tarde
+                                        </span>
+                                    }
+                                    else if (item.Estado == "Justificado")
+                                    {
+                                        <span class="badge bg-info-subtle text-info-emphasis border border-info-subtle px-3 py-2 rounded-pill fw-semibold">
+                                            ● Justificado
+                                        </span>
+                                    }
+                                    else
+                                    {
+                                        <span class="badge bg-danger-subtle text-danger border border-danger-subtle px-3 py-2 rounded-pill fw-semibold">
+                                            ● Ausente
+                                        </span>
+                                    }
+                                </td>
+                                <td class="text-secondary small">
+                                    ⏱️ @item.Hora_Registro
+                                </td>
+                                <td class="text-center pe-4">
+                                    <div class="d-flex justify-content-center gap-2">
+                                        <a asp-action="Editar" asp-route-id="@item.IdAsistencia" class="btn btn-sm btn-outline-warning fw-semibold px-3">
+                                            Editar
+                                        </a>
+
+                                        <form asp-action="Eliminar" asp-route-id="@item.IdAsistencia" method="post" onsubmit="return confirm('¿Está seguro de eliminar esta asistencia?');" class="d-inline">
+                                            <button type="submit" class="btn btn-sm btn-outline-danger fw-semibold px-3">
+                                                Eliminar
+                                            </button>
+                                        </form>
+                                    </div>
+                                </td>
                             </tr>
                         }
                     }
                     else
                     {
                         <tr>
-                            <td colspan="4" class="text-center text-muted py-4">
-                                No se encontraron registros de asistencia para esta consulta.
+                            <td colspan="5" class="text-center text-secondary py-5">
+                                <div class="py-3">
+                                    <p class="fs-5 mb-1 text-light">No se encontraron registros</p>
+                                    <small class="text-secondary">Intenta ajustando el filtro de búsqueda o registra una nueva asistencia.</small>
+                                </div>
                             </td>
                         </tr>
                     }
                 </tbody>
             </table>
         </div>
+    </div>
+</div>

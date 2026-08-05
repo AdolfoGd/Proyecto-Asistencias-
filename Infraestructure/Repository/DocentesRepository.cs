@@ -95,14 +95,14 @@ namespace Infraestructure.Repository
                 using var cmd = new MySqlCommand("sp_InsertarDocente", con);
                 cmd.CommandType = CommandType.StoredProcedure;
 
-                cmd.Parameters.Add(new MySqlParameter("@p_carnet", docentes.Carnet));
-                cmd.Parameters.Add(new MySqlParameter("@p_pass", docentes.Contraseña));
-                cmd.Parameters.Add(new MySqlParameter("@p_n1", docentes.PrimerNombre));
-                cmd.Parameters.Add(new MySqlParameter("@p_n2", docentes.SegundoNombre));
-                cmd.Parameters.Add(new MySqlParameter("@p_app1", docentes.PrimerApellido));
-                cmd.Parameters.Add(new MySqlParameter("@p_app2", docentes.SegundoApellido));
-                cmd.Parameters.Add(new MySqlParameter("@p_cod", docentes.CodigoEmpleado));
-                cmd.Parameters.Add(new MySqlParameter("@p_dept", docentes.Departamento));
+                cmd.Parameters.Add(new MySqlParameter("@carnet", docentes.Carnet));
+                cmd.Parameters.Add(new MySqlParameter("@contrasena", docentes.Contraseña));
+                cmd.Parameters.Add(new MySqlParameter("@primerNombre", docentes.PrimerNombre));
+                cmd.Parameters.Add(new MySqlParameter("@segundoNombre", docentes.SegundoNombre));
+                cmd.Parameters.Add(new MySqlParameter("@primerApellido", docentes.PrimerApellido));
+                cmd.Parameters.Add(new MySqlParameter("@segundoApellido", docentes.SegundoApellido));
+                cmd.Parameters.Add(new MySqlParameter("@codigoEmpleado", docentes.CodigoEmpleado));
+                cmd.Parameters.Add(new MySqlParameter("@departamento", docentes.Departamento));
 
 
                 await cmd.ExecuteNonQueryAsync();
@@ -120,10 +120,10 @@ namespace Infraestructure.Repository
             using (MySqlCommand cmd = new MySqlCommand("sp_ActualizarDocente", con))
             {
                 cmd.CommandType = CommandType.StoredProcedure;
-                cmd.Parameters.Add(new MySqlParameter("@carnet ", docentes.Carnet));
-                cmd.Parameters.Add(new MySqlParameter("@contraseña", docentes.Contraseña));
+                cmd.Parameters.Add(new MySqlParameter("@carnet", docentes.Carnet));
+                cmd.Parameters.Add(new MySqlParameter("@contrasena", docentes.Contraseña));
                 cmd.Parameters.Add(new MySqlParameter("@primerNombre", docentes.PrimerNombre));
-                cmd.Parameters.Add(new MySqlParameter("@egundoNombre", docentes.SegundoNombre));
+                cmd.Parameters.Add(new MySqlParameter("@segundoNombre", docentes.SegundoNombre));
                 cmd.Parameters.Add(new MySqlParameter("@primerApellido", docentes.PrimerApellido));
                 cmd.Parameters.Add(new MySqlParameter("@segundoApellido", docentes.SegundoApellido));
                 cmd.Parameters.Add(new MySqlParameter("@departamento", docentes.Departamento));

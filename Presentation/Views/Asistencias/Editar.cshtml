@@ -1,0 +1,68 @@
+﻿@model Application.DTOs.AsistenciaDTO
+
+@{
+    ViewData["Title"] = "Editar Asistencia";
+}
+
+<div class="container py-4">
+    <div class="row justify-content-center">
+        <div class="col-md-8 col-lg-6">
+            <!-- Tarjeta Principal en Modo Oscuro -->
+            <div class="card border-0 shadow-lg rounded-4 overflow-hidden" style="background-color: #1e293b; border: 1px solid #334155 !important;">
+
+                <!-- Encabezado de la Tarjeta -->
+                <div class="card-header py-3 px-4 border-bottom" style="background-color: #1e293b; border-color: #334155 !important;">
+                    <h4 class="fw-bold text-white mb-1">Editar Asistencia</h4>
+                    <p class="text-secondary small mb-0">Modifica el estado del registro de asistencia seleccionado</p>
+                </div>
+
+                <!-- Cuerpo del Formulario -->
+                <div class="card-body p-4">
+                    <form asp-action="Editar" method="post">
+                        <!-- ID oculta que se envía al parámetro idAsistencia -->
+                        <input type="hidden" name="idAsistencia" value="@Model.IdAsistencia" />
+
+                        <!-- ID Sesión (Solo lectura) -->
+                        <div class="mb-3">
+                            <label class="form-label text-light fw-semibold">ID de Sesión</label>
+                            <div class="input-group">
+                                <span class="input-group-text border-end-0 text-secondary" style="background-color: #0f172a; border-color: #334155;">🆔</span>
+                                <input type="text" class="form-control text-secondary border-start-0" value="@Model.IdSesion" disabled style="background-color: #0f172a; border-color: #334155;" />
+                            </div>
+                        </div>
+
+                        <!-- Carnet Estudiante (Solo lectura) -->
+                        <div class="mb-3">
+                            <label class="form-label text-light fw-semibold">Carnet del Estudiante</label>
+                            <div class="input-group">
+                                <span class="input-group-text border-end-0 text-secondary" style="background-color: #0f172a; border-color: #334155;">🪪</span>
+                                <input type="text" class="form-control text-secondary border-start-0" value="@Model.Carnet" disabled style="background-color: #0f172a; border-color: #334155;" />
+                            </div>
+                        </div>
+
+                        <!-- Estado -->
+                        <div class="mb-4">
+                            <label class="form-label text-light fw-semibold">Estado de Asistencia</label>
+                            <select name="estado" class="form-select text-white" required style="background-color: #0f172a; border-color: #334155;">
+                                <option value="Presente" selected="@(Model.Estado == "Presente")">Presente</option>
+                                <option value="Tarde" selected="@(Model.Estado == "Tarde")">Tarde</option>
+                                <option value="Ausente" selected="@(Model.Estado == "Ausente")">Ausente</option>
+                                <option value="Justificado" selected="@(Model.Estado == "Justificado")">Justificado</option>
+                            </select>
+                        </div>
+
+                        <!-- Botones de Acción -->
+                        <div class="d-flex justify-content-between align-items-center pt-2">
+                            <a asp-action="Index" class="btn btn-outline-light px-3 fw-semibold">
+                                Cancelar
+                            </a>
+                            <button type="submit" class="btn btn-warning px-4 fw-semibold shadow-sm">
+                                Guardar Cambios
+                            </button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

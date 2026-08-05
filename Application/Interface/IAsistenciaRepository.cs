@@ -10,7 +10,7 @@ namespace Application.Interface
         Task<IEnumerable<Asistencia>> ListarAsistenciaAsync();
         Task<IEnumerable<Asistencia>> ListarAsistenciaPorSesionAsync(int idsesion);
         Task NuevaAsistenciaAsync(Asistencia asistencia);
-        Task EditarAsistenciaAsync(Asistencia asistencia);
+        Task EditarAsistenciaAsync(Asistencia asistencia, string estado);
         Task EliminarAsistenciaAsync(int id);
       
     }

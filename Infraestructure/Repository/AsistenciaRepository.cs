@@ -40,7 +40,7 @@ namespace Infraestructure.Repository
                                 IdSesion = reader.GetInt32("IdSesion"),
                                 Carnet = reader.GetInt32("Carnet"),
                                 Estado = reader.GetString("Estado"),
-                                Hora_Registro = TimeOnly.FromTimeSpan((TimeSpan)reader["Hora_Registro"])
+                                Hora_Registro = reader["Hora_Registro"] != DBNull.Value? TimeOnly.FromTimeSpan((TimeSpan)reader["Hora_Registro"]): null
 
                             };
                             lista.Add(asistencia);
@@ -106,7 +106,7 @@ namespace Infraestructure.Repository
             }
         }
 
-        public async Task EditarAsistenciaAsync(Asistencia asistencia)
+        public async Task EditarAsistenciaAsync(Asistencia asistencia, string estado)
         {
 
             using var con = (MySqlConnection)_connectionFactory.CreateConnection();
@@ -115,7 +115,7 @@ namespace Infraestructure.Repository
             {
                 cmd.CommandType = CommandType.StoredProcedure;
                 cmd.Parameters.AddWithValue("@idAsistencia", asistencia.IdAsistencia);
-                cmd.Parameters.AddWithValue("@estado", asistencia.Estado);
+                cmd.Parameters.AddWithValue("@estado", estado);
 
                 await cmd.ExecuteNonQueryAsync();
             }
