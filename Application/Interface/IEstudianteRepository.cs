@@ -1,7 +1,6 @@
 ﻿using Domain.Entities;
-using System;
 using System.Collections.Generic;
-using System.Text;
+using System.Threading.Tasks;
 
 namespace Application.Interface
 {
@@ -11,6 +10,6 @@ namespace Application.Interface
         Task<IEnumerable<Estudiante>> ListarEstudiantesPorCarnetAsync(string carnet);
         Task GuardarEstudianteAsync(Estudiante estudiante);
         Task EditarEstudianteAsync(Estudiante estudiante);
-        Task EliminarEstudianteAsync(int id);
+        Task EliminarEstudianteAsync(string carnet);
     }
 }

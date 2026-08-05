@@ -1,23 +1,23 @@
 {
   "format": 1,
   "restore": {
-    "C:\\Users\\DELL LATITUDE\\source\\repos\\Proyecto-Asistencias-\\Infraestructure\\Infraestructure.csproj": {}
+    "C:\\Users\\TECNOMAX\\source\\repos\\AdolfoGd\\Proyecto-Asistencias-\\Infraestructure\\Infraestructure.csproj": {}
   },
   "projects": {
-    "C:\\Users\\DELL LATITUDE\\source\\repos\\Proyecto-Asistencias-\\Application\\Application.csproj": {
+    "C:\\Users\\TECNOMAX\\source\\repos\\AdolfoGd\\Proyecto-Asistencias-\\Application\\Application.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\DELL LATITUDE\\source\\repos\\Proyecto-Asistencias-\\Application\\Application.csproj",
+        "projectUniqueName": "C:\\Users\\TECNOMAX\\source\\repos\\AdolfoGd\\Proyecto-Asistencias-\\Application\\Application.csproj",
         "projectName": "Application",
-        "projectPath": "C:\\Users\\DELL LATITUDE\\source\\repos\\Proyecto-Asistencias-\\Application\\Application.csproj",
-        "packagesPath": "C:\\Users\\DELL LATITUDE\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\DELL LATITUDE\\source\\repos\\Proyecto-Asistencias-\\Application\\obj\\",
+        "projectPath": "C:\\Users\\TECNOMAX\\source\\repos\\AdolfoGd\\Proyecto-Asistencias-\\Application\\Application.csproj",
+        "packagesPath": "C:\\Users\\TECNOMAX\\.nuget\\packages\\",
+        "outputPath": "C:\\Users\\TECNOMAX\\source\\repos\\AdolfoGd\\Proyecto-Asistencias-\\Application\\obj\\",
         "projectStyle": "PackageReference",
         "fallbackFolders": [
           "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
         ],
         "configFilePaths": [
-          "C:\\Users\\DELL LATITUDE\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Users\\TECNOMAX\\AppData\\Roaming\\NuGet\\NuGet.Config",
           "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.FallbackLocation.config",
           "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
         ],
@@ -26,6 +26,7 @@
         ],
         "sources": {
           "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\": {},
+          "C:\\Program Files\\dotnet\\library-packs": {},
           "https://api.nuget.org/v3/index.json": {}
         },
         "frameworks": {
@@ -33,8 +34,8 @@
             "framework": "net10.0",
             "targetAlias": "net10.0",
             "projectReferences": {
-              "C:\\Users\\DELL LATITUDE\\source\\repos\\Proyecto-Asistencias-\\Domain\\Domain.csproj": {
-                "projectPath": "C:\\Users\\DELL LATITUDE\\source\\repos\\Proyecto-Asistencias-\\Domain\\Domain.csproj"
+              "C:\\Users\\TECNOMAX\\source\\repos\\AdolfoGd\\Proyecto-Asistencias-\\Domain\\Domain.csproj": {
+                "projectPath": "C:\\Users\\TECNOMAX\\source\\repos\\AdolfoGd\\Proyecto-Asistencias-\\Domain\\Domain.csproj"
               }
             }
           }
@@ -355,20 +356,20 @@
         }
       }
     },
-    "C:\\Users\\DELL LATITUDE\\source\\repos\\Proyecto-Asistencias-\\Domain\\Domain.csproj": {
+    "C:\\Users\\TECNOMAX\\source\\repos\\AdolfoGd\\Proyecto-Asistencias-\\Domain\\Domain.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\DELL LATITUDE\\source\\repos\\Proyecto-Asistencias-\\Domain\\Domain.csproj",
+        "projectUniqueName": "C:\\Users\\TECNOMAX\\source\\repos\\AdolfoGd\\Proyecto-Asistencias-\\Domain\\Domain.csproj",
         "projectName": "Domain",
-        "projectPath": "C:\\Users\\DELL LATITUDE\\source\\repos\\Proyecto-Asistencias-\\Domain\\Domain.csproj",
-        "packagesPath": "C:\\Users\\DELL LATITUDE\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\DELL LATITUDE\\source\\repos\\Proyecto-Asistencias-\\Domain\\obj\\",
+        "projectPath": "C:\\Users\\TECNOMAX\\source\\repos\\AdolfoGd\\Proyecto-Asistencias-\\Domain\\Domain.csproj",
+        "packagesPath": "C:\\Users\\TECNOMAX\\.nuget\\packages\\",
+        "outputPath": "C:\\Users\\TECNOMAX\\source\\repos\\AdolfoGd\\Proyecto-Asistencias-\\Domain\\obj\\",
         "projectStyle": "PackageReference",
         "fallbackFolders": [
           "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
         ],
         "configFilePaths": [
-          "C:\\Users\\DELL LATITUDE\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Users\\TECNOMAX\\AppData\\Roaming\\NuGet\\NuGet.Config",
           "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.FallbackLocation.config",
           "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
         ],
@@ -377,6 +378,7 @@
         ],
         "sources": {
           "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\": {},
+          "C:\\Program Files\\dotnet\\library-packs": {},
           "https://api.nuget.org/v3/index.json": {}
         },
         "frameworks": {
@@ -702,20 +704,20 @@
         }
       }
     },
-    "C:\\Users\\DELL LATITUDE\\source\\repos\\Proyecto-Asistencias-\\Infraestructure\\Infraestructure.csproj": {
+    "C:\\Users\\TECNOMAX\\source\\repos\\AdolfoGd\\Proyecto-Asistencias-\\Infraestructure\\Infraestructure.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\DELL LATITUDE\\source\\repos\\Proyecto-Asistencias-\\Infraestructure\\Infraestructure.csproj",
+        "projectUniqueName": "C:\\Users\\TECNOMAX\\source\\repos\\AdolfoGd\\Proyecto-Asistencias-\\Infraestructure\\Infraestructure.csproj",
         "projectName": "Infraestructure",
-        "projectPath": "C:\\Users\\DELL LATITUDE\\source\\repos\\Proyecto-Asistencias-\\Infraestructure\\Infraestructure.csproj",
-        "packagesPath": "C:\\Users\\DELL LATITUDE\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\DELL LATITUDE\\source\\repos\\Proyecto-Asistencias-\\Infraestructure\\obj\\",
+        "projectPath": "C:\\Users\\TECNOMAX\\source\\repos\\AdolfoGd\\Proyecto-Asistencias-\\Infraestructure\\Infraestructure.csproj",
+        "packagesPath": "C:\\Users\\TECNOMAX\\.nuget\\packages\\",
+        "outputPath": "C:\\Users\\TECNOMAX\\source\\repos\\AdolfoGd\\Proyecto-Asistencias-\\Infraestructure\\obj\\",
         "projectStyle": "PackageReference",
         "fallbackFolders": [
           "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
         ],
         "configFilePaths": [
-          "C:\\Users\\DELL LATITUDE\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Users\\TECNOMAX\\AppData\\Roaming\\NuGet\\NuGet.Config",
           "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.FallbackLocation.config",
           "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
         ],
@@ -724,6 +726,7 @@
         ],
         "sources": {
           "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\": {},
+          "C:\\Program Files\\dotnet\\library-packs": {},
           "https://api.nuget.org/v3/index.json": {}
         },
         "frameworks": {
@@ -731,11 +734,11 @@
             "framework": "net10.0",
             "targetAlias": "net10.0",
             "projectReferences": {
-              "C:\\Users\\DELL LATITUDE\\source\\repos\\Proyecto-Asistencias-\\Application\\Application.csproj": {
-                "projectPath": "C:\\Users\\DELL LATITUDE\\source\\repos\\Proyecto-Asistencias-\\Application\\Application.csproj"
+              "C:\\Users\\TECNOMAX\\source\\repos\\AdolfoGd\\Proyecto-Asistencias-\\Application\\Application.csproj": {
+                "projectPath": "C:\\Users\\TECNOMAX\\source\\repos\\AdolfoGd\\Proyecto-Asistencias-\\Application\\Application.csproj"
               },
-              "C:\\Users\\DELL LATITUDE\\source\\repos\\Proyecto-Asistencias-\\Domain\\Domain.csproj": {
-                "projectPath": "C:\\Users\\DELL LATITUDE\\source\\repos\\Proyecto-Asistencias-\\Domain\\Domain.csproj"
+              "C:\\Users\\TECNOMAX\\source\\repos\\AdolfoGd\\Proyecto-Asistencias-\\Domain\\Domain.csproj": {
+                "projectPath": "C:\\Users\\TECNOMAX\\source\\repos\\AdolfoGd\\Proyecto-Asistencias-\\Domain\\Domain.csproj"
               }
             }
           }

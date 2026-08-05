@@ -1,72 +1,93 @@
-﻿using Microsoft.AspNetCore.Mvc;
-using Application.DTOs;
-using System.Collections.Generic;
+﻿using Application.Interface;
+using Domain.Entities;
+using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc;
 using System.Linq;
+using System.Threading.Tasks;
 
 namespace Presentation.Controllers
 {
+    [Authorize]
     public class DocentesController : Controller
     {
-        private static List<DocentesDTO> _docentesSimulados = new List<DocentesDTO>();
+        private readonly IDocentesRepository _docenteRepository;
+
+        public DocentesController(IDocentesRepository docenteRepository)
+        {
+            _docenteRepository = docenteRepository;
+        }
 
         [HttpGet]
-        public IActionResult Index()
+        [Authorize(Roles = "Estudiante,Administrador")]
+        public async Task<IActionResult> Index()
         {
-            return View(_docentesSimulados);
+            var docentes = await _docenteRepository.ListarDocentesAsync();
+            return View(docentes);
         }
+
+        // ACCIONES EXCLUSIVAS PARA ADMINISTRADOR
+
         [HttpGet]
-        public IActionResult Nuevo()
+        [Authorize(Roles = "Administrador")]
+        public IActionResult Create()
         {
-            return View();
+            return View("Nuevo");
         }
+
         [HttpPost]
+        [Authorize(Roles = "Administrador")]
         [ValidateAntiForgeryToken]
-        public IActionResult Nuevo(DocentesDTO nuevoDocente)
+        public async Task<IActionResult> Create(Docentes docente)
         {
-            ModelState.Clear();
-            nuevoDocente.CantidadFaltas = 0;
-            _docentesSimulados.Add(nuevoDocente);
-            return RedirectToAction(nameof(Index));
-        }
-
-        [HttpGet]
-        public IActionResult Editar(string id)
-        {
-            var docente = _docentesSimulados.FirstOrDefault(d => d.Carnet == id);
-
-            if (docente == null)
+            if (ModelState.IsValid)
             {
+                await _docenteRepository.GuardarDocentesAsync(docente);
                 return RedirectToAction(nameof(Index));
             }
 
-            return View(docente);
+            return View("Nuevo", docente);
         }
-        [HttpPost]
-        [ValidateAntiForgeryToken]
-        public IActionResult Editar(DocentesDTO docenteEditado)
-        {
-            ModelState.Clear();
 
-            var existente = _docentesSimulados.FirstOrDefault(d => d.Carnet == docenteEditado.Carnet);
-            if (existente != null)
+        [HttpGet]
+        [Authorize(Roles = "Administrador")]
+        public async Task<IActionResult> Edit(string id)
+        {
+            if (string.IsNullOrEmpty(id))
+                return NotFound();
+
+            var docentes = await _docenteRepository.ListarDocentesAsync();
+            var docente = docentes.FirstOrDefault(d => d.Carnet == id);
+
+            if (docente == null)
+                return NotFound();
+
+            return View("Editar", docente);
+        }
+
+        [HttpPost]
+        [Authorize(Roles = "Administrador")]
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> Edit(Docentes docente)
+        {
+            if (ModelState.IsValid)
             {
-                existente.CodigoEmpleado = docenteEditado.CodigoEmpleado;
-                existente.PrimerNombre = docenteEditado.PrimerNombre;
-                existente.PrimerApellido = docenteEditado.PrimerApellido;
-                existente.Departamento = docenteEditado.Departamento;
+                await _docenteRepository.EditarDocentesAsync(docente);
+                return RedirectToAction(nameof(Index));
             }
-
-            return RedirectToAction(nameof(Index));
+            return View("Editar", docente);
         }
 
         [HttpPost]
+        [Authorize(Roles = "Administrador")]
         [ValidateAntiForgeryToken]
-        public IActionResult Eliminar(string id)
+        public async Task<IActionResult> Delete(string id)
         {
-            var docente = _docentesSimulados.FirstOrDefault(d => d.Carnet == id);
-            if (docente != null)
+            if (string.IsNullOrEmpty(id))
+                return NotFound();
+
+            if (int.TryParse(id, out int docenteId))
             {
-                _docentesSimulados.Remove(docente);
+                await _docenteRepository.EliminarDocentesAsync(docenteId);
             }
 
             return RedirectToAction(nameof(Index));

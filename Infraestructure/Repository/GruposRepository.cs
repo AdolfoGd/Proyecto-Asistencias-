@@ -5,14 +5,18 @@ using MySql.Data.MySqlClient;
 using System;
 using System.Collections.Generic;
 using System.Data;
-using System.Text;
+using System.Threading.Tasks;
 
 namespace Infraestructure.Repository
 {
     public class GruposRepository : IGruposRepository
     {
+        private readonly DBConnectionFactory _connectionFactory;
 
-        private readonly DBConnectionFactory _connectionFactory; 
+        public GruposRepository(DBConnectionFactory connectionFactory)
+        {
+            _connectionFactory = connectionFactory;
+        }
 
         public async Task<IEnumerable<Grupos>> ListarGrupoAsync()
         {
@@ -29,39 +33,9 @@ namespace Infraestructure.Repository
                         {
                             var grupos = new Grupos
                             {
-                                CodigoGrupo = reader.GetString("CodigoGrupo"),
-                                IdAsignatura = reader.GetInt32("IdAsignatura"),
-                                IdDocente = reader.GetString("IdDocente"),
-                                Seccion = reader.GetString("Seccion") 
-                            };
-                            lista.Add(grupos);
-                        }
-                    }
-                }
-                return lista;
-            }
-        }
-        public async Task<IEnumerable<Grupos>> ListarGrupoporCodigoAsync(string Codigogrupo)
-        {
-            var lista = new List<Grupos>();
-            using (MySqlConnection con = (MySqlConnection)_connectionFactory.CreateConnection())
-            {
-                using (MySqlCommand cmd = new MySqlCommand("sp_LeerGrupoPorCodigo", con))
-                {
-
-                    cmd.CommandType = CommandType.StoredProcedure;
-                    cmd.Parameters.AddWithValue("@codigoGrupo", Codigogrupo);
-
-                    await con.OpenAsync();
-                    using (var reader = await cmd.ExecuteReaderAsync())
-                    {
-                        while (await reader.ReadAsync())
-                        {
-                            var grupos = new Grupos
-                            {
-                                CodigoGrupo = reader.GetString("CodigoGrupo"),
-                                IdAsignatura = reader.GetInt32("IdAsignatura"),
-                                IdDocente = reader.GetString("IdDocente"),
+                                CodigoGrupo = reader.GetString("CodidoGrupo"),
+                                IdAsignatura = reader.GetString("IdAsignatura"),
+                                IdDocente = reader.IsDBNull(reader.GetOrdinal("IdDocente")) ? null : reader.GetString("IdDocente"),
                                 Seccion = reader.GetString("Seccion")
                             };
                             lista.Add(grupos);
@@ -71,6 +45,37 @@ namespace Infraestructure.Repository
                 return lista;
             }
         }
+
+        public async Task<IEnumerable<Grupos>> ListarGrupoporCodigoAsync(string Codigogrupo)
+        {
+            var lista = new List<Grupos>();
+            using (MySqlConnection con = (MySqlConnection)_connectionFactory.CreateConnection())
+            {
+                using (MySqlCommand cmd = new MySqlCommand("sp_LeerGrupoPorCodigo", con))
+                {
+                    cmd.CommandType = CommandType.StoredProcedure;
+                    cmd.Parameters.AddWithValue("@codidoGrupo", Codigogrupo);
+
+                    await con.OpenAsync();
+                    using (var reader = await cmd.ExecuteReaderAsync())
+                    {
+                        while (await reader.ReadAsync())
+                        {
+                            var grupos = new Grupos
+                            {
+                                CodigoGrupo = reader.GetString("CodidoGrupo"),
+                                IdAsignatura = reader.GetString("IdAsignatura"), // Corregido a GetString
+                                IdDocente = reader.IsDBNull(reader.GetOrdinal("IdDocente")) ? null : reader.GetString("IdDocente"),
+                                Seccion = reader.GetString("Seccion")
+                            };
+                            lista.Add(grupos);
+                        }
+                    }
+                }
+                return lista;
+            }
+        }
+
         public async Task GuardarGrupoAsync(Grupos grupo)
         {
             using var con = (MySqlConnection)_connectionFactory.CreateConnection();
@@ -81,7 +86,7 @@ namespace Infraestructure.Repository
                 using var cmd = new MySqlCommand("sp_InsertarGrupo", con);
                 cmd.CommandType = CommandType.StoredProcedure;
 
-                cmd.Parameters.Add(new MySqlParameter("@codigoGrupo", grupo.CodigoGrupo));
+                cmd.Parameters.Add(new MySqlParameter("@codidoGrupo", grupo.CodigoGrupo));
                 cmd.Parameters.Add(new MySqlParameter("@idAsignatura", grupo.IdAsignatura));
                 cmd.Parameters.Add(new MySqlParameter("@idDocente", grupo.IdDocente));
                 cmd.Parameters.Add(new MySqlParameter("@seccion", grupo.Seccion));
@@ -92,25 +97,29 @@ namespace Infraestructure.Repository
                 throw new Exception(ex.Message);
             }
         }
+
         public async Task EditarGrupoAsync(Grupos grupo)
         {
             using var con = (MySqlConnection)_connectionFactory.CreateConnection();
             await con.OpenAsync();
-            using (MySqlCommand cmd = new MySqlCommand("sp_ActualizarEstudiante", con))
+
+            using (MySqlCommand cmd = new MySqlCommand("sp_ActualizarGrupo", con))
             {
                 cmd.CommandType = CommandType.StoredProcedure;
-                cmd.Parameters.Add(new MySqlParameter("@codigoGrupo ", grupo.CodigoGrupo));
+                cmd.Parameters.Add(new MySqlParameter("@codidoGrupo", grupo.CodigoGrupo));
                 cmd.Parameters.Add(new MySqlParameter("@idAsignatura", grupo.IdAsignatura));
                 cmd.Parameters.Add(new MySqlParameter("@idDocente", grupo.IdDocente));
                 cmd.Parameters.Add(new MySqlParameter("@seccion", grupo.Seccion));
                 await cmd.ExecuteNonQueryAsync();
             }
         }
-        async Task IGruposRepository.EliminarGrupoAsync(string Codigogrupo)
+
+        public async Task EliminarGrupoAsync(string Codigogrupo)
         {
             using var con = (MySqlConnection)_connectionFactory.CreateConnection();
             await con.OpenAsync();
-            using (MySqlCommand cmd = new MySqlCommand("sp_EliminarEstudiante", con))
+
+            using (MySqlCommand cmd = new MySqlCommand("sp_EliminarGrupo", con))
             {
                 cmd.CommandType = CommandType.StoredProcedure;
                 cmd.Parameters.AddWithValue("@id", Codigogrupo);

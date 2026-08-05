@@ -1,4 +1,5 @@
-﻿@model Application.DTOs.EstudianteDTO
+﻿@model Domain.Entities.Estudiante
+
 @{
     ViewData["Title"] = "Registrar Estudiante";
 }
@@ -12,7 +13,7 @@
 
 <div class="card border-0 shadow-sm rounded-3 bg-white">
     <div class="card-body p-4">
-        <form asp-action="Nuevo" method="post">
+        <form asp-action="Create" method="post">
             @Html.AntiForgeryToken()
             <div class="row g-3">
 
@@ -20,48 +21,63 @@
                 <div class="col-md-6">
                     <label asp-for="Carnet" class="form-label fw-semibold text-secondary">Carnet Estudiantil</label>
                     <input asp-for="Carnet" type="text" class="form-control" placeholder="Ej. 240871" required />
+                    <span asp-validation-for="Carnet" class="text-danger small"></span>
                 </div>
 
                 <!-- Contraseña -->
                 <div class="col-md-6">
                     <label asp-for="Contraseña" class="form-label fw-semibold text-secondary">Contraseña</label>
                     <input asp-for="Contraseña" type="password" class="form-control" placeholder="******" required />
+                    <span asp-validation-for="Contraseña" class="text-danger small"></span>
                 </div>
 
                 <!-- Primer Nombre -->
                 <div class="col-md-6">
                     <label asp-for="PrimerNombre" class="form-label fw-semibold text-secondary">Primer Nombre</label>
                     <input asp-for="PrimerNombre" type="text" class="form-control" placeholder="Ej. Gustavo" required />
+                    <span asp-validation-for="PrimerNombre" class="text-danger small"></span>
                 </div>
 
                 <!-- Segundo Nombre -->
                 <div class="col-md-6">
                     <label asp-for="SegundoNombre" class="form-label fw-semibold text-secondary">Segundo Nombre</label>
                     <input asp-for="SegundoNombre" type="text" class="form-control" placeholder="Ej. Adolfo" />
+                    <span asp-validation-for="SegundoNombre" class="text-danger small"></span>
                 </div>
 
                 <!-- Primer Apellido -->
                 <div class="col-md-6">
                     <label asp-for="PrimerApellido" class="form-label fw-semibold text-secondary">Primer Apellido</label>
                     <input asp-for="PrimerApellido" type="text" class="form-control" placeholder="Ej. Dávila" required />
+                    <span asp-validation-for="PrimerApellido" class="text-danger small"></span>
                 </div>
 
                 <!-- Segundo Apellido -->
                 <div class="col-md-6">
                     <label asp-for="SegundoApellido" class="form-label fw-semibold text-secondary">Segundo Apellido</label>
                     <input asp-for="SegundoApellido" type="text" class="form-control" placeholder="Ej. Maradiaga" />
+                    <span asp-validation-for="SegundoApellido" class="text-danger small"></span>
                 </div>
 
                 <!-- Carrera -->
                 <div class="col-md-6">
                     <label asp-for="Carrera" class="form-label fw-semibold text-secondary">Carrera Universitaria</label>
                     <input asp-for="Carrera" type="text" class="form-control" placeholder="Ej. Ingeniería en Sistemas" required />
+                    <span asp-validation-for="Carrera" class="text-danger small"></span>
                 </div>
 
                 <!-- Fecha de Ingreso -->
                 <div class="col-md-6">
                     <label asp-for="AñoIngreso" class="form-label fw-semibold text-secondary">Fecha / Año de Ingreso</label>
                     <input asp-for="AñoIngreso" type="date" class="form-control" required />
+                    <span asp-validation-for="AñoIngreso" class="text-danger small"></span>
+                </div>
+
+                <!-- Cantidad de Faltas -->
+                <div class="col-md-12">
+                    <label asp-for="CantidadFaltas" class="form-label fw-semibold text-secondary">Cantidad Inicial de Faltas</label>
+                    <input asp-for="CantidadFaltas" type="number" class="form-control" value="0" min="0" required />
+                    <span asp-validation-for="CantidadFaltas" class="text-danger small"></span>
                 </div>
 
             </div>

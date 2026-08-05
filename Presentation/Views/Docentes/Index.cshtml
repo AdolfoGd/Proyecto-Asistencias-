@@ -1,86 +1,107 @@
-﻿@model IEnumerable<Application.DTOs.DocentesDTO>
+﻿@model IEnumerable<Domain.Entities.Docentes>
+
 @{
     ViewData["Title"] = "Directorio de Docentes";
 }
 
-<div class="d-flex justify-content-between align-items-center mb-4">
-    <div>
-        <h2 class="fw-bold text-dark mb-0"><i class="bi bi-person-badge text-warning me-2"></i>Directorio de Docentes</h2>
-        <p class="text-muted fs-6 mb-0">Administre el personal académico, asigne departamentos y revise su récord.</p>
-    </div>
-    <a asp-action="Nuevo" class="btn btn-warning fw-bold shadow-sm px-4">
-        <i class="bi bi-person-plus-fill me-2"></i> Registrar Docente
-    </a>
-</div>
+<div class="container py-3">
+    <div class="d-flex justify-content-between align-items-center mb-4">
+        <div>
+            <h2 class="fw-bold mb-0 text-success">Directorio de Docentes</h2>
+            <p class="text-muted mb-0">
+                @if (User.IsInRole("Administrador"))
+                {
+                    <span>Administre el personal académico, asigne departamentos y revise su récord.</span>
+                }
+                else
+                {
+                    <span>Consulte el listado del personal académico (Modo Consulta)</span>
+                }
+            </p>
+        </div>
 
-<div class="card border-0 shadow-sm rounded-3 bg-white">
-    <div class="card-body p-0">
-        <div class="table-responsive">
-            <table class="table table-hover align-middle mb-0">
-                <thead class="bg-light text-secondary">
-                    <tr>
-                        <th class="px-4 py-3 fw-semibold">Carnet</th>
-                        <th class="py-3 fw-semibold">Nombre Completo</th>
-                        <th class="py-3 fw-semibold">Cód. Empleado</th>
-                        <th class="py-3 fw-semibold">Departamento</th>
-                        <th class="py-3 text-center fw-semibold">Faltas</th>
-                        <th class="px-4 py-3 text-end fw-semibold">Acciones</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    @if (Model != null && Model.Any())
-                    {
-                        foreach (var docente in Model)
+        @if (User.IsInRole("Administrador"))
+        {
+            <a asp-action="Create" class="btn btn-success fw-bold">
+                + Registrar Docente
+            </a>
+        }
+    </div>
+
+    <div class="card shadow-sm border-0">
+        <div class="card-body p-0">
+            <div class="table-responsive">
+                <table class="table table-hover align-middle mb-0">
+                    <thead class="table-light">
+                        <tr>
+                            <th class="ps-4">CARNET</th>
+                            <th>NOMBRE COMPLETO</th>
+                            <th>CÓD. EMPLEADO</th>
+                            <th>DEPARTAMENTO</th>
+                            <th>FALTAS</th>
+
+                            @if (User.IsInRole("Administrador"))
+                            {
+                                <th class="text-end pe-4">ACCIONES</th>
+                            }
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @if (Model != null && Model.Any())
+                        {
+                            foreach (var item in Model)
+                            {
+                                <tr>
+                                    <td class="ps-4">
+                                        <span class="badge bg-light text-dark border fw-bold">@item.Carnet</span>
+                                    </td>
+                                    <td>
+                                        <div class="d-flex align-items-center">
+                                            <div class="rounded-circle bg-success text-white d-flex align-items-center justify-content-center me-3 fw-bold" style="width: 36px; height: 36px;">
+                                                @(item.PrimerNombre?.Substring(0, 1))@(item.PrimerApellido?.Substring(0, 1))
+                                            </div>
+                                            <div>
+                                                <div class="fw-bold">@item.PrimerNombre @item.SegundoNombre @item.PrimerApellido @item.SegundoApellido</div>
+                                                <small class="text-muted">Docente Universitario</small>
+                                            </div>
+                                        </div>
+                                    </td>
+                                    <td><span class="fw-semibold">@item.CodigoEmpleado</span></td>
+                                    <td>@item.Departamento</td>
+                                    <td>
+                                        <span class="badge @(item.CantidadFaltas > 0 ? "bg-warning text-dark" : "bg-success")">
+                                            @item.CantidadFaltas Faltas
+                                        </span>
+                                    </td>
+
+                                    @if (User.IsInRole("Administrador"))
+                                    {
+                                        <td class="text-end pe-4">
+                                            <a asp-action="Edit" asp-route-id="@item.Carnet" class="btn btn-sm btn-outline-warning me-1 fw-bold">
+                                                Editar
+                                            </a>
+                                            <form asp-action="Delete" asp-route-id="@item.Carnet" method="post" class="d-inline" onsubmit="return confirm('¿Estás seguro de eliminar este docente?');">
+                                                @Html.AntiForgeryToken()
+                                                <button type="submit" class="btn btn-sm btn-outline-danger fw-bold">
+                                                    Eliminar
+                                                </button>
+                                            </form>
+                                        </td>
+                                    }
+                                </tr>
+                            }
+                        }
+                        else
                         {
                             <tr>
-                                <td class="px-4 py-3 fw-bold text-dark">@docente.Carnet</td>
-                                <td class="py-3 text-secondary">
-                                    @docente.PrimerNombre @docente.PrimerApellido
-                                </td>
-                                <td class="py-3">
-                                    <span class="badge bg-light text-dark border">@docente.CodigoEmpleado</span>
-                                </td>
-                                <td class="py-3">@docente.Departamento</td>
-                                <td class="py-3 text-center">
-                                    @if (docente.CantidadFaltas == 0)
-                                    {
-                                        <span class="badge bg-success-subtle text-success px-3 py-2 rounded-pill">Impecable</span>
-                                    }
-                                    else
-                                    {
-                                        <span class="badge bg-danger-subtle text-danger px-3 py-2 rounded-pill">@docente.CantidadFaltas Faltas</span>
-                                    }
-                                </td>
-                                <td class="px-4 py-3 text-end">
-                                    <div class="d-flex justify-content-end gap-1">
-                                        <a asp-action="Editar" asp-route-id="@docente.Carnet" class="btn btn-sm btn-outline-primary me-1" title="Editar">
-                                            <i class="bi bi-pencil"></i>
-                                        </a>
-                                        <form asp-action="Eliminar" asp-route-id="@docente.Carnet" method="post" class="d-inline" onsubmit="return confirm('¿Está seguro de que desea eliminar a este docente?');">
-                                            @Html.AntiForgeryToken()
-                                            <button type="submit" class="btn btn-sm btn-outline-danger" title="Eliminar">
-                                                <i class="bi bi-trash"></i>
-                                            </button>
-                                        </form>
-                                    </div>
+                                <td colspan="@(User.IsInRole("Administrador") ? 6 : 5)" class="text-center py-4 text-muted">
+                                    No hay docentes registrados en el sistema.
                                 </td>
                             </tr>
                         }
-                    }
-                    else
-                    {
-                        <tr>
-                            <td colspan="6" class="text-center py-5 text-muted">
-                                <div class="mb-3 text-warning opacity-50">
-                                    <i class="bi bi-inbox-fill" style="font-size: 3rem;"></i>
-                                </div>
-                                <h5>No hay docentes registrados</h5>
-                                <p class="mb-0">Haga clic en "Registrar Docente" para agregar el primero.</p>
-                            </td>
-                        </tr>
-                    }
-                </tbody>
-            </table>
+                    </tbody>
+                </table>
+            </div>
         </div>
     </div>
 </div>

@@ -1,8 +1,81 @@
 ﻿@{
-    ViewData["Title"] = "Home Page";
+    ViewData["Title"] = "Panel Principal";
 }
 
-<div class="text-center">
-    <h1 class="display-4">Welcome</h1>
-    <p>Learn about <a href="https://learn.microsoft.com/aspnet/core">building Web apps with ASP.NET Core</a>.</p>
+<div class="container py-4">
+    <div class="p-4 mb-4 bg-primary text-white rounded-3 shadow-sm">
+        <div class="container-fluid py-2">
+            <h1 class="display-6 fw-bold">Bienvenido, @User.Identity?.Name</h1>
+            <p class="col-md-8 fs-5 mb-0">
+                Sistema de Control Universitario y Gestión de Asistencias. Selecciona un módulo para consultar la información.
+            </p>
+        </div>
+    </div>
+
+    <div class="row row-cols-1 row-cols-md-3 g-4 mt-2">
+
+        <div class="col">
+            <div class="card h-100 shadow-sm border-0 border-top border-4 border-primary">
+                <div class="card-body text-center p-4">
+                    <div class="mb-3 text-primary">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="48" height="48" fill="currentColor" class="bi bi-people-fill" viewBox="0 0 16 16">
+                            <path d="M7 14s-1 0-1-1 1-4 5-4 5 3 5 4-1 1-1 1zm4-6a3 3 0 1 0 0-6 3 3 0 0 0 0 6m-5.784 6A2.238 2.238 0 0 1 5 13c0-1.355.68-2.75 1.936-3.72A6.325 6.325 0 0 0 5 9c-4 0-5 3-5 4s1 1 1 1zM4.5 8a2.5 2.5 0 1 0 0-5 2.5 2.5 0 0 0 0 5" />
+                        </svg>
+                    </div>
+                    <h4 class="card-title fw-bold">Estudiantes</h4>
+                    <p class="card-text text-muted">
+                        Consulta el listado general de estudiantes matriculados, sus carreras y registro de faltas.
+                    </p>
+                </div>
+                <div class="card-footer bg-transparent border-0 p-3 pt-0">
+                    <a asp-controller="Estudiantes" asp-action="Index" class="btn btn-primary w-100 fw-bold">
+                        Ver Estudiantes
+                    </a>
+                </div>
+            </div>
+        </div>
+
+        <div class="col">
+            <div class="card h-100 shadow-sm border-0 border-top border-4 border-success">
+                <div class="card-body text-center p-4">
+                    <div class="mb-3 text-success">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="48" height="48" fill="currentColor" class="bi bi-person-badge-fill" viewBox="0 0 16 16">
+                            <path d="M2 2a2 2 0 0 1 2-2h8a2 2 0 0 1 2 2v12a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2zm4.5 0a.5.5 0 0 0 0 1h3a.5.5 0 0 0 0-1zM8 11a3 3 0 1 0 0-6 3 3 0 0 0 0 6m5 2.755C12.146 12.825 10.623 12 8 12s-4.146.826-5 1.755V14a1 1 0 0 0 1 1h8a1 1 0 0 0 1-1z" />
+                        </svg>
+                    </div>
+                    <h4 class="card-title fw-bold">Docentes</h4>
+                    <p class="card-text text-muted">
+                        Consulta la lista del cuerpo docente, departamentos asignados y códigos de empleado.
+                    </p>
+                </div>
+                <div class="card-footer bg-transparent border-0 p-3 pt-0">
+                    <a asp-controller="Docentes" asp-action="Index" class="btn btn-success w-100 fw-bold">
+                        Ver Docentes
+                    </a>
+                </div>
+            </div>
+        </div>
+
+        <div class="col">
+            <div class="card h-100 shadow-sm border-0 border-top border-4 border-warning">
+                <div class="card-body text-center p-4">
+                    <div class="mb-3 text-warning">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="48" height="48" fill="currentColor" class="bi bi-calendar-check-fill" viewBox="0 0 16 16">
+                            <path d="M4 .5a.5.5 0 0 0-1 0V1H2a2 2 0 0 0-2 2v1h16V3a2 2 0 0 0-2-2h-1V.5a.5.5 0 0 0-1 0V1H4zm12 4H0v10a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2zm-5.146 5.146a.5.5 0 0 1 .708 0l2 2a.5.5 0 0 1-.708.708l-1.646-1.647-1.146 1.147a.5.5 0 0 1-.708-.708z" />
+                        </svg>
+                    </div>
+                    <h4 class="card-title fw-bold">Asistencias</h4>
+                    <p class="card-text text-muted">
+                        Consulta el registro diario de asistencias, sesiones de clase e inasistencias.
+                    </p>
+                </div>
+                <div class="card-footer bg-transparent border-0 p-3 pt-0">
+                    <a asp-controller="Asistencias" asp-action="Index" class="btn btn-warning text-dark w-100 fw-bold">
+                        Ver Asistencias
+                    </a>
+                </div>
+            </div>
+        </div>
+
+    </div>
 </div>
