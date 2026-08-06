@@ -1,0 +1,86 @@
+﻿@model Application.DTOs.DocentesDTO
+
+@{
+    ViewData["Title"] = "Editar Docente";
+}
+
+<div class="container py-4">
+    <div class="row justify-content-center">
+        <div class="col-md-10 col-lg-8">
+            <div class="card border-0 shadow-lg rounded-4 overflow-hidden" style="background-color: #1e293b; border: 1px solid #334155 !important;">
+
+                <div class="card-header py-3 px-4 border-bottom" style="background-color: #1e293b; border-color: #334155 !important;">
+                    <h4 class="fw-bold text-white mb-1">Editar Datos del Docente</h4>
+                    <p class="text-secondary small mb-0">Actualiza la información personal o académica del docente</p>
+                </div>
+
+                <div class="card-body p-4">
+                    <form asp-action="Editar" method="post">
+                        <div asp-validation-summary="ModelOnly" class="text-danger mb-3 small"></div>
+
+                        <!-- Fila 1: Código Empleado (Lectura) y Carnet -->
+                        <div class="row g-3 mb-3">
+                            <div class="col-md-6">
+                                <label asp-for="CodigoEmpleado" class="form-label text-light fw-semibold">Código de Empleado</label>
+                                <input asp-for="CodigoEmpleado" type="text" class="form-control text-secondary" readonly style="background-color: #0f172a; border-color: #334155;" />
+                            </div>
+                            <div class="col-md-6">
+                                <label asp-for="Carnet" class="form-label text-light fw-semibold">Carnet</label>
+                                <input asp-for="Carnet" type="text" class="form-control text-white" required style="background-color: #0f172a; border-color: #334155;" />
+                            </div>
+                        </div>
+
+                        <!-- Fila 2: Nombres -->
+                        <div class="row g-3 mb-3">
+                            <div class="col-md-6">
+                                <label asp-for="PrimerNombre" class="form-label text-light fw-semibold">Primer Nombre</label>
+                                <input asp-for="PrimerNombre" type="text" class="form-control text-white" required style="background-color: #0f172a; border-color: #334155;" />
+                            </div>
+                            <div class="col-md-6">
+                                <label asp-for="SegundoNombre" class="form-label text-light fw-semibold">Segundo Nombre</label>
+                                <input asp-for="SegundoNombre" type="text" class="form-control text-white" style="background-color: #0f172a; border-color: #334155;" />
+                            </div>
+                        </div>
+
+                        <!-- Fila 3: Apellidos -->
+                        <div class="row g-3 mb-3">
+                            <div class="col-md-6">
+                                <label asp-for="PrimerApellido" class="form-label text-light fw-semibold">Primer Apellido</label>
+                                <input asp-for="PrimerApellido" type="text" class="form-control text-white" required style="background-color: #0f172a; border-color: #334155;" />
+                            </div>
+                            <div class="col-md-6">
+                                <label asp-for="SegundoApellido" class="form-label text-light fw-semibold">Segundo Apellido</label>
+                                <input asp-for="SegundoApellido" type="text" class="form-control text-white" style="background-color: #0f172a; border-color: #334155;" />
+                            </div>
+                        </div>
+
+                        <!-- Fila 4: Departamento y Cantidad de Faltas -->
+                        <div class="row g-3 mb-3">
+                            <div class="col-md-6">
+                                <label asp-for="Departamento" class="form-label text-light fw-semibold">Departamento</label>
+                                <input asp-for="Departamento" type="text" class="form-control text-white" required style="background-color: #0f172a; border-color: #334155;" />
+                            </div>
+                            <div class="col-md-6">
+                                <label asp-for="CantidadFaltas" class="form-label text-light fw-semibold">Cantidad de Faltas</label>
+                                <input asp-for="CantidadFaltas" type="number" min="0" class="form-control text-white" required style="background-color: #0f172a; border-color: #334155;" />
+                            </div>
+                        </div>
+
+                        <!-- Fila 5: Contraseña -->
+                        <div class="mb-4">
+                            <label asp-for="Contraseña" class="form-label text-light fw-semibold">Contraseña</label>
+                            <input asp-for="Contraseña" type="password" class="form-control text-white" required style="background-color: #0f172a; border-color: #334155;" />
+                        </div>
+
+                        <!-- Botones -->
+                        <div class="d-flex justify-content-between align-items-center pt-2">
+                            <a asp-action="Index" class="btn btn-outline-light px-3 fw-semibold">Cancelar</a>
+                            <button type="submit" class="btn btn-warning px-4 fw-semibold shadow-sm">Guardar Cambios</button>
+                        </div>
+                    </form>
+                </div>
+
+            </div>
+        </div>
+    </div>
+</div>

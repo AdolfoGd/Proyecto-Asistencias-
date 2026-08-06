@@ -58,7 +58,7 @@ namespace Presentation.Controllers
                 return View(asistencia);
             }
         }
-
+        //metodo para editar
         [HttpGet]
         public async Task<IActionResult> Editar(int id)
         {
@@ -90,7 +90,7 @@ namespace Presentation.Controllers
             }
         }
 
-        
+        //metodo para eliminar
         [HttpPost]
         public async Task<IActionResult> Eliminar(int id)
         {

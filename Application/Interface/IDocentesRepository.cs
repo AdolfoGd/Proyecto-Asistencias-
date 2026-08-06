@@ -11,7 +11,7 @@ namespace Application.Interface
         Task<IEnumerable<Docentes>> ListarDocentesPorDepartamentoAsync(string departamento);
         Task GuardarDocentesAsync(Docentes docentes);
         Task EditarDocentesAsync(Docentes docentes);
-        Task EliminarDocentesAsync(int id);
+        Task EliminarDocentesAsync(string carnet);
 
 
     }

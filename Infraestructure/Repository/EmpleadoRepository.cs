@@ -10,6 +10,10 @@ namespace Infraestructure.Repository
     public class EmpleadoRepository : IEmpleadoRepository
     {
         private readonly DBConnectionFactory _connectionFactory;
+        public EmpleadoRepository(DBConnectionFactory connectionFactory)
+        {
+            _connectionFactory = connectionFactory;
+        }
 
         async Task<IEnumerable<Empleado>> IEmpleadoRepository.ListarEmpleadosAsync()
         {

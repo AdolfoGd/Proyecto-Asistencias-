@@ -12,6 +12,10 @@ namespace Infraestructure.Repository
     public class SesionDeClaseRepository : ISeseionDeClaseRepository
     {
         private readonly DBConnectionFactory _connectionFactory;
+        public SesionDeClaseRepository(DBConnectionFactory connectionFactory)
+        {
+            _connectionFactory = connectionFactory;
+        }
 
         public async Task<IEnumerable<Sesion_de_Classe>> ListarSesionDeClaseAsync()
         {

@@ -59,7 +59,7 @@ namespace Infraestructure.Repository
                 {
 
                     cmd.CommandType = CommandType.StoredProcedure;
-                    cmd.Parameters.AddWithValue("@departamento", departamento);
+                    cmd.Parameters.AddWithValue("@p_departamento", departamento);
 
                     await con.OpenAsync();
                     using (var reader = await cmd.ExecuteReaderAsync())
@@ -132,7 +132,7 @@ namespace Infraestructure.Repository
             }
         }
 
-        public async Task EliminarDocentesAsync(int carnet)
+        public async Task EliminarDocentesAsync(string carnet)
         {
             using var con = (MySqlConnection)_connectionFactory.CreateConnection();
             await con.OpenAsync();

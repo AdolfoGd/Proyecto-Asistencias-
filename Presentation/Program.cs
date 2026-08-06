@@ -60,7 +60,7 @@ app.MapStaticAssets();
 
 app.MapControllerRoute(
     name: "default",
-    pattern: "{controller=Asistencias}/{action=Index}/{id?}")
+    pattern: "{controller=Empleados}/{action=Index}/{id?}")
     .WithStaticAssets();
 
 app.Run();

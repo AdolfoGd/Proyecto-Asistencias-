@@ -12,6 +12,10 @@ namespace Infraestructure.Repository
     public class MatriculasRepository : IMatriculaRepository
     {
         private readonly DBConnectionFactory _connectionFactory;
+        public MatriculasRepository(DBConnectionFactory connectionFactory)
+        {
+            _connectionFactory = connectionFactory;
+        }
 
         public async Task<IEnumerable<Matriculas>> ListarMatriculasAsync()
         {
@@ -30,7 +34,7 @@ namespace Infraestructure.Repository
                             {
                                 IdMatricula = reader.GetInt32("IdMatricula"),
                                 IdEstudiante = reader.GetInt32("IdEstudiante"),
-                                CodigoGrupo = reader.GetString("CodigoGrupo"),
+                                CodigoGrupo = reader.GetString("CodidoGrupo"),
                                 FechaRegistro = DateOnly.FromDateTime((DateTime)reader["FechaRegistro"]),
                             };
                             lista.Add(grupos);
@@ -60,7 +64,7 @@ namespace Infraestructure.Repository
                             {
                                 IdMatricula = reader.GetInt32("IdMatricula"),
                                 IdEstudiante = reader.GetInt32("IdEstudiante"),
-                                CodigoGrupo = reader.GetString("CodigoGrupo"),
+                                CodigoGrupo = reader.GetString("CodidoGrupo"),
                                 FechaRegistro = DateOnly.FromDateTime((DateTime)reader["FechaRegistro"]),
                             };
                             lista.Add(matriculas);
@@ -81,7 +85,7 @@ namespace Infraestructure.Repository
                 cmd.CommandType = CommandType.StoredProcedure;
 
                 cmd.Parameters.Add(new MySqlParameter("@idEstudiante", matricula.IdEstudiante));
-                cmd.Parameters.Add(new MySqlParameter("@codigoGrupo", matricula.CodigoGrupo));
+                cmd.Parameters.Add(new MySqlParameter("@codidoGrupo", matricula.CodigoGrupo));
                 await cmd.ExecuteNonQueryAsync();
             }
             catch (Exception ex)
@@ -98,7 +102,7 @@ namespace Infraestructure.Repository
                 cmd.CommandType = CommandType.StoredProcedure;
                 cmd.Parameters.Add(new MySqlParameter("@idMatricula ", matricula.IdMatricula));
                 cmd.Parameters.Add(new MySqlParameter("@idEstudiante", matricula.IdEstudiante));
-                cmd.Parameters.Add(new MySqlParameter("@codigoGrupo", matricula.CodigoGrupo));  
+                cmd.Parameters.Add(new MySqlParameter("@codidoGrupo", matricula.CodigoGrupo));  
                 await cmd.ExecuteNonQueryAsync();
             }
         }

@@ -79,7 +79,7 @@ namespace Application.Service
             };
             await _docentesRepository.EditarDocentesAsync(docentes);
         }
-        public async Task EliminarDocente(int carnet)
+        public async Task EliminarDocente(string carnet)
         {
             await _docentesRepository.EliminarDocentesAsync(carnet);
         }
