@@ -12,53 +12,89 @@ build_property.EntryPointFilePath =
 build_property._SupportedPlatformList = Linux,macOS,Windows
 build_property.RootNamespace = Presentation
 build_property.RootNamespace = Presentation
-build_property.ProjectDir = C:\Users\DELL LATITUDE\source\repos\Proyecto Asistencias\Presentation\
+build_property.ProjectDir = C:\Users\victor\source\repos\Proyecto-Asistencias-\Presentation\
 build_property.EnableComHosting = 
 build_property.EnableGeneratedComInterfaceComImportInterop = 
 build_property.RazorLangVersion = 10.0
 build_property.SupportLocalizedComponentNames = 
 build_property.GenerateRazorMetadataSourceChecksumAttributes = 
-build_property.MSBuildProjectDirectory = C:\Users\DELL LATITUDE\source\repos\Proyecto Asistencias\Presentation
+build_property.MSBuildProjectDirectory = C:\Users\victor\source\repos\Proyecto-Asistencias-\Presentation
 build_property._RazorSourceGeneratorDebug = 
 build_property.EffectiveAnalysisLevelStyle = 10.0
 build_property.EnableCodeStyleSeverity = 
 
-[C:/Users/DELL LATITUDE/source/repos/Proyecto Asistencias/Presentation/Views/Asistencias/Editar.cshtml]
+[C:/Users/victor/source/repos/Proyecto-Asistencias-/Presentation/Views/Asistencias/Editar.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQXNpc3RlbmNpYXNcRWRpdGFyLmNzaHRtbA==
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/DELL LATITUDE/source/repos/Proyecto Asistencias/Presentation/Views/Asistencias/Index.cshtml]
+[C:/Users/victor/source/repos/Proyecto-Asistencias-/Presentation/Views/Asistencias/Index.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQXNpc3RlbmNpYXNcSW5kZXguY3NodG1s
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/DELL LATITUDE/source/repos/Proyecto Asistencias/Presentation/Views/Asistencias/NuevoAsistencia.cshtml]
+[C:/Users/victor/source/repos/Proyecto-Asistencias-/Presentation/Views/Asistencias/NuevoAsistencia.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQXNpc3RlbmNpYXNcTnVldm9Bc2lzdGVuY2lhLmNzaHRtbA==
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/DELL LATITUDE/source/repos/Proyecto Asistencias/Presentation/Views/Home/Index.cshtml]
+[C:/Users/victor/source/repos/Proyecto-Asistencias-/Presentation/Views/Empleados/EditarEmpleado.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcRW1wbGVhZG9zXEVkaXRhckVtcGxlYWRvLmNzaHRtbA==
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/victor/source/repos/Proyecto-Asistencias-/Presentation/Views/Empleados/Index.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcRW1wbGVhZG9zXEluZGV4LmNzaHRtbA==
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/victor/source/repos/Proyecto-Asistencias-/Presentation/Views/Empleados/nuevoempleado.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcRW1wbGVhZG9zXG51ZXZvZW1wbGVhZG8uY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/victor/source/repos/Proyecto-Asistencias-/Presentation/Views/Home/Index.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcSG9tZVxJbmRleC5jc2h0bWw=
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/DELL LATITUDE/source/repos/Proyecto Asistencias/Presentation/Views/Home/Privacy.cshtml]
+[C:/Users/victor/source/repos/Proyecto-Asistencias-/Presentation/Views/Home/Privacy.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcSG9tZVxQcml2YWN5LmNzaHRtbA==
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/DELL LATITUDE/source/repos/Proyecto Asistencias/Presentation/Views/Shared/Error.cshtml]
+[C:/Users/victor/source/repos/Proyecto-Asistencias-/Presentation/Views/Matriculas/EditarMatricula.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcTWF0cmljdWxhc1xFZGl0YXJNYXRyaWN1bGEuY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/victor/source/repos/Proyecto-Asistencias-/Presentation/Views/Matriculas/Index.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcTWF0cmljdWxhc1xJbmRleC5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/victor/source/repos/Proyecto-Asistencias-/Presentation/Views/Matriculas/NuevaMatricula.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcTWF0cmljdWxhc1xOdWV2YU1hdHJpY3VsYS5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/victor/source/repos/Proyecto-Asistencias-/Presentation/Views/SesionDeClase/Editar.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcU2VzaW9uRGVDbGFzZVxFZGl0YXIuY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/victor/source/repos/Proyecto-Asistencias-/Presentation/Views/SesionDeClase/Index.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcU2VzaW9uRGVDbGFzZVxJbmRleC5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/victor/source/repos/Proyecto-Asistencias-/Presentation/Views/SesionDeClase/NuevaSesion.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcU2VzaW9uRGVDbGFzZVxOdWV2YVNlc2lvbi5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/victor/source/repos/Proyecto-Asistencias-/Presentation/Views/Shared/Error.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcU2hhcmVkXEVycm9yLmNzaHRtbA==
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/DELL LATITUDE/source/repos/Proyecto Asistencias/Presentation/Views/Shared/_ValidationScriptsPartial.cshtml]
+[C:/Users/victor/source/repos/Proyecto-Asistencias-/Presentation/Views/Shared/_ValidationScriptsPartial.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcU2hhcmVkXF9WYWxpZGF0aW9uU2NyaXB0c1BhcnRpYWwuY3NodG1s
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/DELL LATITUDE/source/repos/Proyecto Asistencias/Presentation/Views/_ViewImports.cshtml]
+[C:/Users/victor/source/repos/Proyecto-Asistencias-/Presentation/Views/_ViewImports.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcX1ZpZXdJbXBvcnRzLmNzaHRtbA==
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/DELL LATITUDE/source/repos/Proyecto Asistencias/Presentation/Views/_ViewStart.cshtml]
+[C:/Users/victor/source/repos/Proyecto-Asistencias-/Presentation/Views/_ViewStart.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcX1ZpZXdTdGFydC5jc2h0bWw=
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/DELL LATITUDE/source/repos/Proyecto Asistencias/Presentation/Views/Shared/_Layout.cshtml]
+[C:/Users/victor/source/repos/Proyecto-Asistencias-/Presentation/Views/Shared/_Layout.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcU2hhcmVkXF9MYXlvdXQuY3NodG1s
 build_metadata.AdditionalFiles.CssScope = b-fhvjq1vla1
