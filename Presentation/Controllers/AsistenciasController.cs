@@ -65,7 +65,7 @@ namespace Presentation.Controllers
             var asistencia = await _service.ListarAsistenciasPorSesion(id);
             var lista = asistencia.FirstOrDefault();
 
-            if (asistencia == null)
+            if (asistencia == null||!asistencia.Any())
             {
                 return NotFound();
             }

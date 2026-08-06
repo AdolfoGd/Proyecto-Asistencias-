@@ -1,0 +1,87 @@
+﻿@model IEnumerable<Application.DTOs.EmpleadoDTO>
+
+@{
+    ViewData["Title"] = "Gestión de Empleados";
+}
+
+<div class="container-fluid py-4 min-vh-100" style="background-color: #0f172a; color: #e2e8f0;">
+    <div class="d-flex justify-content-between align-items-center mb-4 pb-3 border-bottom" style="border-color: #334155 !important;">
+        <div>
+            <h2 class="fw-bold text-white mb-1">Gestión de Empleados</h2>
+            <p class="text-secondary small mb-0">Administración del personal administrativo</p>
+        </div>
+        <a asp-action="NuevoEmpleado" class="btn btn-success px-3 py-2 rounded-3 shadow-sm fw-semibold">
+            + Registrar Empleado
+        </a>
+    </div>
+
+    <div class="card border-0 shadow-lg rounded-4 overflow-hidden" style="background-color: #1e293b; border: 1px solid #334155 !important;">
+        <div class="card-header py-3 border-bottom" style="background-color: #1e293b; border-color: #334155 !important;">
+            <form asp-action="Index" method="get" class="row g-2 align-items-center">
+                <div class="col-auto">
+                    <input type="text" name="departamento" class="form-control text-white"
+                           placeholder="Buscar por departamento..."
+                           value="@ViewBag.DepartamentoBuscado"
+                           style="background-color: #0f172a; border-color: #334155; max-width: 260px;" />
+                </div>
+                <div class="col-auto">
+                    <button type="submit" class="btn btn-primary px-4 fw-semibold">Filtrar</button>
+                </div>
+                @if (ViewBag.DepartamentoBuscado != null)
+                {
+                    <div class="col-auto">
+                        <a asp-action="Index" class="btn btn-outline-light">Ver Todos</a>
+                    </div>
+                }
+            </form>
+        </div>
+
+        <div class="table-responsive">
+            <table class="table table-dark table-hover align-middle mb-0" style="--bs-table-bg: transparent; --bs-table-hover-bg: #334155;">
+                <thead class="text-uppercase small text-secondary fw-bold" style="border-bottom: 2px solid #334155;">
+                    <tr>
+                        <th class="ps-4 py-3">Código</th>
+                        <th class="py-3">Nombre Completo</th>
+                        <th class="py-3">Departamento</th>
+                        <th class="text-center pe-4 py-3">Acciones</th>
+                    </tr>
+                </thead>
+                <tbody class="border-top-0 text-white">
+                    @if (Model != null && Model.Any())
+                    {
+                        @foreach (var item in Model)
+                        {
+                            <tr style="border-bottom: 1px solid #2a3749;">
+                                <td class="ps-4">
+                                    <span class="badge border px-2 py-1 font-monospace" style="background-color: #0f172a; color: #38bdf8; border-color: #0284c7 !important;">
+                                        @item.CodigoEmpleado
+                                    </span>
+                                </td>
+                                <td class="fw-semibold text-light">
+                                    @item.PrimerNombre @item.SegundoNombre @item.PrimerApellido @item.SegundoApellido
+                                </td>
+                                <td class="text-secondary">@item.Departamento</td>
+                                <td class="text-center pe-4">
+                                    <div class="d-flex justify-content-center gap-2">
+                                        <a asp-action="Editar" asp-route-id="@item.CodigoEmpleado" class="btn btn-sm btn-outline-warning fw-semibold px-3">Editar</a>
+                                        <form asp-action="Eliminar" asp-route-id="@item.CodigoEmpleado" method="post" onsubmit="return confirm('¿Está seguro de eliminar este empleado?');" class="d-inline">
+                                            <button type="submit" class="btn btn-sm btn-outline-danger fw-semibold px-3">Eliminar</button>
+                                        </form>
+                                    </div>
+                                </td>
+                            </tr>
+                        }
+                    }
+                    else
+                    {
+                        <tr>
+                            <td colspan="4" class="text-center text-secondary py-5">
+                                <p class="fs-5 mb-1 text-light">No se encontraron registros</p>
+                            </td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
