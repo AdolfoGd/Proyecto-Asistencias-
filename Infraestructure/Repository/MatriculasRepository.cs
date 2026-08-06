@@ -100,9 +100,9 @@ namespace Infraestructure.Repository
             using (MySqlCommand cmd = new MySqlCommand("sp_ActualizarMatricula", con))
             {
                 cmd.CommandType = CommandType.StoredProcedure;
-                cmd.Parameters.Add(new MySqlParameter("@idMatricula ", matricula.IdMatricula));
+                cmd.Parameters.Add(new MySqlParameter("@idMatricula", matricula.IdMatricula)); // <-- sin espacio
                 cmd.Parameters.Add(new MySqlParameter("@idEstudiante", matricula.IdEstudiante));
-                cmd.Parameters.Add(new MySqlParameter("@codidoGrupo", matricula.CodigoGrupo));  
+                cmd.Parameters.Add(new MySqlParameter("@codidoGrupo", matricula.CodigoGrupo));
                 await cmd.ExecuteNonQueryAsync();
             }
         }

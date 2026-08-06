@@ -33,7 +33,7 @@ namespace Infraestructure.Repository
                             var sesion = new Sesion_de_Classe
                             {
                                 IdSesion = reader.GetInt32("IdSesion"),
-                                CodigoGrupo = reader.GetInt32("CodigoGrupo"),
+                                CodigoGrupo = reader.GetString("CodigoGrupo"),
                                 TemaImpartido = reader.GetString("TemaImpartido"),
                                 FechaHoraInicio = reader.GetDateTime("FechaHoraInicio"),
                                 FechaHoraFin = reader.GetDateTime("FechaHoraFin"),
@@ -43,12 +43,12 @@ namespace Infraestructure.Repository
                             lista.Add(sesion);
                         }
                     }
-                }   
+                }
                 return lista;
             }
         }
 
-        public async Task<IEnumerable<Sesion_de_Classe>> ListarSesionDeClasePorIdGrupoAsync(int IdGrupo)
+        public async Task<IEnumerable<Sesion_de_Classe>> ListarSesionDeClasePorIdGrupoAsync(string CodigoGrupo)
         {
             var lista = new List<Sesion_de_Classe>();
             using (MySqlConnection con = (MySqlConnection)_connectionFactory.CreateConnection())
@@ -57,7 +57,7 @@ namespace Infraestructure.Repository
                 {
 
                     cmd.CommandType = CommandType.StoredProcedure;
-                    cmd.Parameters.AddWithValue("@idGrupo", IdGrupo);
+                    cmd.Parameters.AddWithValue("@idGrupo", CodigoGrupo);
 
                     await con.OpenAsync();
                     using (var reader = await cmd.ExecuteReaderAsync())
@@ -67,7 +67,7 @@ namespace Infraestructure.Repository
                             var matriculas = new Sesion_de_Classe
                             {
                                 IdSesion = reader.GetInt32("IdSesion"),
-                                CodigoGrupo = reader.GetInt32("CodigoGrupo"),
+                                CodigoGrupo = reader.GetString("CodigoGrupo"),
                                 TemaImpartido = reader.GetString("TemaImpartido"),
                                 FechaHoraInicio = reader.GetDateTime("FechaHoraInicio"),
                                 FechaHoraFin = reader.GetDateTime("FechaHoraFin"),
@@ -111,7 +111,7 @@ namespace Infraestructure.Repository
             using (MySqlCommand cmd = new MySqlCommand("sp_ActualizarSesion", con))
             {
                 cmd.CommandType = CommandType.StoredProcedure;
-                cmd.Parameters.Add(new MySqlParameter("@idSesion ", sesionDeClase.Seccion));
+                cmd.Parameters.Add(new MySqlParameter("@idSesion", sesionDeClase.IdSesion));
                 cmd.Parameters.Add(new MySqlParameter("@codigoGrupo", sesionDeClase.CodigoGrupo));
                 cmd.Parameters.Add(new MySqlParameter("@temaImpartido", sesionDeClase.TemaImpartido));
                 cmd.Parameters.Add(new MySqlParameter("@fechaHoraInicio", sesionDeClase.FechaHoraInicio));

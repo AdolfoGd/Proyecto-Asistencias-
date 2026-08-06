@@ -15,12 +15,19 @@
         </a>
     </div>
 
+    @if (TempData["Error"] != null)
+    {
+        <div class="alert alert-danger" role="alert">
+            @TempData["Error"]
+        </div>
+    }
+
     <div class="card border-0 shadow-lg rounded-4 overflow-hidden" style="background-color: #1e293b; border: 1px solid #334155 !important;">
         <div class="card-header py-3 border-bottom" style="background-color: #1e293b; border-color: #334155 !important;">
             <form asp-action="Index" method="get" class="row g-2 align-items-center">
                 <div class="col-auto">
-                    <input type="number" name="idGrupo" class="form-control text-white"
-                           placeholder="Buscar por ID Grupo..."
+                    <input type="text" name="idGrupo" class="form-control text-white"
+                           placeholder="Buscar por Código de Grupo..."
                            value="@ViewBag.IdGrupoBuscado"
                            style="background-color: #0f172a; border-color: #334155; max-width: 240px;" />
                 </div>
@@ -91,4 +98,3 @@
         </div>
     </div>
 </div>
-}

@@ -81,8 +81,7 @@ namespace Presentation.Controllers
         {
             try
             {
-                // ⚠ EmpleadoService.EliminarEmpleado espera int; se convierte el código.
-                await _service.EliminarEmpleado(Convert.ToInt32(id));
+                await _service.EliminarEmpleado(id);
                 return RedirectToAction(nameof(Index));
             }
             catch (Exception ex)

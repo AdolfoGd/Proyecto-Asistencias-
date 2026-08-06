@@ -8,7 +8,7 @@ namespace Application.Interface
     public interface ISeseionDeClaseRepository
     {
         public Task<IEnumerable<Sesion_de_Classe>> ListarSesionDeClaseAsync();
-        public Task<IEnumerable<Sesion_de_Classe>> ListarSesionDeClasePorIdGrupoAsync(int IdGrupo);
+        public Task<IEnumerable<Sesion_de_Classe>> ListarSesionDeClasePorIdGrupoAsync(string CodigoGrupo);
         Task GuardarSesionDeClaseAsync(Sesion_de_Classe sesionDeClase);
         Task EditarSesionDeClaseAsync(Sesion_de_Classe sesionDeClase);
         Task EliminarSesionDeClaseAsync(int id);

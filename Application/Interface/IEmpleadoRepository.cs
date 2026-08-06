@@ -1,7 +1,4 @@
 ﻿using Domain.Entities;
-using System;
-using System.Collections.Generic;
-using System.Text;
 
 namespace Application.Interface
 {
@@ -11,6 +8,6 @@ namespace Application.Interface
         Task<IEnumerable<Empleado>> ListarEmpleadosPorDepartamentoAsync(string departamento);
         Task GuardarEmpleadoAsync(Empleado empleado);
         Task EditarEmpleadoAsync(Empleado empleado);
-        Task EliminarEmpleadoAsync(int id);
+        Task EliminarEmpleadoAsync(string codigoEmpleado);
     }
 }

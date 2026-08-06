@@ -14,13 +14,13 @@ namespace Presentation.Controllers
         }
 
         [HttpGet]
-        public async Task<IActionResult> Index(int? idGrupo)
+        public async Task<IActionResult> Index(string? idGrupo)
         {
             IEnumerable<Sesion_de_ClaseDTO> sesiones;
-            if (idGrupo.HasValue && idGrupo.Value > 0)
+            if (!string.IsNullOrWhiteSpace(idGrupo))
             {
-                sesiones = await _service.ListarSesionDeClasePorIdGrupoAsync(idGrupo.Value);
-                ViewBag.IdGrupoBuscado = idGrupo.Value;
+                sesiones = await _service.ListarSesionDeClasePorIdGrupoAsync(idGrupo);
+                ViewBag.IdGrupoBuscado = idGrupo;
             }
             else
             {
@@ -57,7 +57,7 @@ namespace Presentation.Controllers
             var lista = await _service.ListarSesionDeClaseAsync();
             var sesion = lista.FirstOrDefault(s => s.IdSesion == id);
             if (sesion == null) return NotFound();
-            return View(sesion);
+            return View("EditarSesion", sesion);
         }
 
         [HttpPost]
@@ -65,14 +65,14 @@ namespace Presentation.Controllers
         {
             try
             {
-                if (!ModelState.IsValid) return View(sesion);
+                if (!ModelState.IsValid) return View("EditarSesion", sesion);
                 await _service.EditarSesion(sesion);
                 return RedirectToAction(nameof(Index));
             }
             catch (Exception ex)
             {
                 ModelState.AddModelError("", "Error al editar: " + ex.Message);
-                return View(sesion);
+                return View("EditarSesion", sesion);
             }
         }
 
@@ -86,7 +86,11 @@ namespace Presentation.Controllers
             }
             catch (Exception ex)
             {
-                TempData["Error"] = "Error al eliminar: " + ex.Message;
+                if (ex.Message.Contains("foreign key constraint") || ex.Message.Contains("a parent row"))
+                    TempData["Error"] = "No se puede eliminar esta sesión porque ya tiene asistencias registradas.";
+                else
+                    TempData["Error"] = "Error al eliminar: " + ex.Message;
+
                 return RedirectToAction(nameof(Index));
             }
         }

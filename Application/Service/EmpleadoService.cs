@@ -7,7 +7,7 @@ using System.Text;
 
 namespace Application.Service
 {
-    public class EmpleadoService 
+    public class EmpleadoService
     {
         private readonly IEmpleadoRepository _empleadoRepository;
 
@@ -73,7 +73,9 @@ namespace Application.Service
             };
             await _empleadoRepository.EditarEmpleadoAsync(empleado);
         }
-        public async Task EliminarEmpleado(int CodigoEmpleado)
+
+        // Corregido: ahora recibe string en vez de int
+        public async Task EliminarEmpleado(string CodigoEmpleado)
         {
             await _empleadoRepository.EliminarEmpleadoAsync(CodigoEmpleado);
         }
