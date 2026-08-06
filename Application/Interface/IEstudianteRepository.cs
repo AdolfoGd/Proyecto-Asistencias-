@@ -10,6 +10,6 @@ namespace Application.Interface
         Task<IEnumerable<Estudiante>> ListarEstudiantesPorCarnetAsync(string carnet);
         Task GuardarEstudianteAsync(Estudiante estudiante);
         Task EditarEstudianteAsync(Estudiante estudiante);
-        Task EliminarEstudianteAsync(string carnet);
+        Task EliminarEstudianteAsync(int carnet);
     }
 }

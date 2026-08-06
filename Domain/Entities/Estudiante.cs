@@ -7,8 +7,7 @@ namespace Domain.Entities
 {
     public class Estudiante
     {
-            public string? Carnet {  get; set; }
-            [StringLength(15)]
+            public int Carnet {  get; set; }
             [Display(Name = "Ingrese la contraseña")]
             [Required(ErrorMessage = "La contraseña es obligatoria")]
             public string? Contraseña { get; set; }
