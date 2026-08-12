@@ -18,7 +18,7 @@ namespace Application.Service
 
         public async Task<IEnumerable<Sesion_de_ClaseDTO>> ListarSesionDeClaseAsync()
         {
-           var lista = await _sesionDeClaseRepository.ListarSesionDeClaseAsync();
+            var lista = await _sesionDeClaseRepository.ListarSesionDeClaseAsync();
             return lista.Select(s => new Sesion_de_ClaseDTO
             {
                 IdSesion = s.IdSesion,
@@ -30,9 +30,9 @@ namespace Application.Service
                 Departamento = s.Departamento
             });
         }
-        public async Task<IEnumerable<Sesion_de_ClaseDTO>> ListarSesionDeClasePorIdGrupoAsync(int IdGrupo)
+        public async Task<IEnumerable<Sesion_de_ClaseDTO>> ListarSesionDeClasePorIdGrupoAsync(string CodigoGrupo)
         {
-            var lista = await _sesionDeClaseRepository.ListarSesionDeClasePorIdGrupoAsync(IdGrupo);
+            var lista = await _sesionDeClaseRepository.ListarSesionDeClasePorIdGrupoAsync(CodigoGrupo);
             return lista.Select(s => new Sesion_de_ClaseDTO
             {
                 IdSesion = s.IdSesion,

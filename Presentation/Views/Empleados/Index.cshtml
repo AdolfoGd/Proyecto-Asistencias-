@@ -10,9 +10,14 @@
             <h2 class="fw-bold text-white mb-1">Gestión de Empleados</h2>
             <p class="text-secondary small mb-0">Administración del personal administrativo</p>
         </div>
-        <a asp-action="NuevoEmpleado" class="btn btn-success px-3 py-2 rounded-3 shadow-sm fw-semibold">
-            + Registrar Empleado
-        </a>
+
+        <!-- Oculto para Estudiantes y Docentes -->
+        @if (User.IsInRole("Empleado"))
+        {
+            <a asp-action="NuevoEmpleado" class="btn btn-success px-3 py-2 rounded-3 shadow-sm fw-semibold">
+                + Registrar Empleado
+            </a>
+        }
     </div>
 
     <div class="card border-0 shadow-lg rounded-4 overflow-hidden" style="background-color: #1e293b; border: 1px solid #334155 !important;">
@@ -43,7 +48,10 @@
                         <th class="ps-4 py-3">Código</th>
                         <th class="py-3">Nombre Completo</th>
                         <th class="py-3">Departamento</th>
-                        <th class="text-center pe-4 py-3">Acciones</th>
+                        @if (User.IsInRole("Empleado"))
+                        {
+                            <th class="text-center pe-4 py-3">Acciones</th>
+                        }
                     </tr>
                 </thead>
                 <tbody class="border-top-0 text-white">
@@ -61,21 +69,27 @@
                                     @item.PrimerNombre @item.SegundoNombre @item.PrimerApellido @item.SegundoApellido
                                 </td>
                                 <td class="text-secondary">@item.Departamento</td>
-                                <td class="text-center pe-4">
-                                    <div class="d-flex justify-content-center gap-2">
-                                        <a asp-action="Editar" asp-route-id="@item.CodigoEmpleado" class="btn btn-sm btn-outline-warning fw-semibold px-3">Editar</a>
-                                        <form asp-action="Eliminar" asp-route-id="@item.CodigoEmpleado" method="post" onsubmit="return confirm('¿Está seguro de eliminar este empleado?');" class="d-inline">
-                                            <button type="submit" class="btn btn-sm btn-outline-danger fw-semibold px-3">Eliminar</button>
-                                        </form>
-                                    </div>
-                                </td>
+
+                                @if (User.IsInRole("Empleado"))
+                                {
+                                    <td class="text-center pe-4">
+                                        <div class="d-flex justify-content-center gap-2">
+                                            <a asp-action="Editar" asp-route-id="@item.CodigoEmpleado" class="btn btn-sm btn-outline-warning fw-semibold px-3">Editar</a>
+                                            <form asp-action="Eliminar" asp-route-codigoEmpleado="@item.CodigoEmpleado" method="post" onsubmit="return confirm('¿Está seguro de eliminar al empleado?');" class="d-inline">
+                                                <button type="submit" class="btn btn-sm btn-outline-danger fw-semibold px-3">
+                                                    Eliminar
+                                                </button>
+                                            </form>
+                                        </div>
+                                    </td>
+                                }
                             </tr>
                         }
                     }
                     else
                     {
                         <tr>
-                            <td colspan="4" class="text-center text-secondary py-5">
+                            <td colspan="@(User.IsInRole("Empleado") ? 4 : 3)" class="text-center text-secondary py-5">
                                 <p class="fs-5 mb-1 text-light">No se encontraron registros</p>
                             </td>
                         </tr>

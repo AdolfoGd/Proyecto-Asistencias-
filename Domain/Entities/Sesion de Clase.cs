@@ -10,7 +10,7 @@ namespace Domain.Entities
         public int IdSesion { get; set; }
         [Display(Name = "Ingrese su codido de grupo")]
         [Required(ErrorMessage = "Este campo es obligatorio")]
-        public int CodigoGrupo { get; set; }
+        public string? CodigoGrupo { get; set; } 
         [StringLength(25)]
         [Display(Name = "Ingrese el tema impartido")]
         [Required(ErrorMessage = "Este campo es obligatorio")]
@@ -24,8 +24,8 @@ namespace Domain.Entities
         [StringLength(10)]
         [Display(Name = "Ingrese la seccion")]
         [Required(ErrorMessage = "Este campo es obligatorio")]
-        public string? Seccion {  get; set; }
-        [StringLength(25)]
+        public string? Seccion { get; set; }
+        [StringLength(100)]
         [Display(Name = "Ingrese su departamento")]
         [Required(ErrorMessage = "Este campo es obligatorio")]
         public string? Departamento { get; set; }

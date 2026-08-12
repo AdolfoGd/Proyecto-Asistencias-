@@ -125,7 +125,7 @@ BEGIN
 END //
 
 CREATE PROCEDURE sp_LeerDocentesPorDepartamento(
-    IN departamento VARCHAR(100)
+    IN p_departamento VARCHAR(100)
 )
 BEGIN
     SELECT 
@@ -139,30 +139,36 @@ BEGIN
         Departamento AS Departamento,
         Cantidad_Faltas AS CantidadFaltas
     FROM Docentes
-    WHERE Departamento = departamento;
+    WHERE Departamento = p_departamento;
 END //
 
+DELIMITER //
+
 CREATE PROCEDURE sp_ActualizarDocente(
-    IN carnet VARCHAR(50),
-    IN contrasena VARCHAR(255),
-    IN primerNombre VARCHAR(100),
-    IN segundoNombre VARCHAR(100),
-    IN primerApellido VARCHAR(100),
-    IN segundoApellido VARCHAR(100),
-    IN departamento VARCHAR(100),
-    IN cantidadFaltas INT
+    IN p_carnet VARCHAR(50),
+    IN p_contrasena VARCHAR(255),
+    IN p_primerNombre VARCHAR(100),
+    IN p_segundoNombre VARCHAR(100),
+    IN p_primerApellido VARCHAR(100),
+    IN p_segundoApellido VARCHAR(100),
+    IN p_departamento VARCHAR(100),
+    IN p_cantidadFaltas INT
 )
 BEGIN
     UPDATE Docentes 
-    SET Contrasena = contrasena, 
-        Primer_Nombre = primerNombre, 
-        Segundo_Nombre = segundoNombre, 
-        Primer_Apellido = primerApellido, 
-        Segundo_Apellido = segundoApellido, 
-        Departamento = departamento, 
-        Cantidad_Faltas = cantidadFaltas
-    WHERE Carnet = carnet;
+    SET Contrasena = p_contrasena, 
+        Primer_Nombre = p_primerNombre, 
+        Segundo_Nombre = p_segundoNombre, 
+        Primer_Apellido = p_primerApellido, 
+        Segundo_Apellido = p_segundoApellido, 
+        Departamento = p_departamento, 
+        Cantidad_Faltas = p_cantidadFaltas
+    WHERE Carnet = p_carnet; 
 END //
+
+DELIMITER ;
+
+DELIMITER //
 
 CREATE PROCEDURE sp_EliminarDocente(
     IN id VARCHAR(50)
@@ -214,7 +220,7 @@ BEGIN
 END //
 
 CREATE PROCEDURE sp_LeerEmpleadosPorDepartamento(
-    IN departamento VARCHAR(100)
+    IN p_departamento VARCHAR(100)
 )
 BEGIN
     SELECT 
@@ -226,7 +232,7 @@ BEGIN
         Segundo_Apellido AS SegundoApellido,
         Departamento AS Departamento
     FROM Empleados
-    WHERE Departamento = departamento;
+    WHERE Departamento = p_departamento;
 END //
 
 CREATE PROCEDURE sp_ActualizarEmpleado(
@@ -250,7 +256,7 @@ BEGIN
 END //
 
 CREATE PROCEDURE sp_EliminarEmpleado(
-    IN id INT
+    IN id VARCHAR(10)
 )
 BEGIN
     DELETE FROM Empleados WHERE Codigo_Empleado = id;
@@ -288,23 +294,34 @@ BEGIN
     VALUES (carnet, contrasena, primerNombre, segundoNombre, primerApellido, segundoApellido, carrera, añoIngreso);
 END //
 
-CREATE PROCEDURE sp_LeerEstudiantes()
+DELIMITER //
+
+CREATE PROCEDURE sp_ActualizarEstudiante(
+    IN p_carnet VARCHAR(50),
+    IN p_contrasena VARCHAR(255),
+    IN p_primerNombre VARCHAR(100),
+    IN p_segundoNombre VARCHAR(100),
+    IN p_primerApellido VARCHAR(100),
+    IN p_segundoApellido VARCHAR(100),
+    IN p_carrera VARCHAR(100),
+    IN p_cantidadFaltas INT
+)
 BEGIN
-    SELECT 
-        Carnet AS Carnet,
-        Contrasena AS Contraseña,
-        Primer_Nombre AS PrimerNombre,
-        Segundo_Nombre AS SegundoNombre,
-        Primer_Apellido AS PrimerApellido,
-        Segundo_Apellido AS SegundoApellido,
-        Carrera AS Carrera,
-        Anio_Ingreso AS AñoIngreso,
-        Cantidad_Faltas AS CantidadFaltas
-    FROM Estudiantes;
+    UPDATE Estudiantes 
+    SET Contrasena = p_contrasena, 
+        Primer_Nombre = p_primerNombre, 
+        Segundo_Nombre = p_segundoNombre, 
+        Primer_Apellido = p_primerApellido, 
+        Segundo_Apellido = p_segundoApellido, 
+        Carrera = p_carrera,
+        Cantidad_Faltas = p_cantidadFaltas
+    WHERE Carnet = p_carnet;
 END //
 
+DELIMITER ;
+
 CREATE PROCEDURE sp_LeerEstudiantesPorCarnet(
-    IN carnet VARCHAR(50)
+    IN p_carnet VARCHAR(50)
 )
 BEGIN
     SELECT 
@@ -318,7 +335,7 @@ BEGIN
         Anio_Ingreso AS AñoIngreso,
         Cantidad_Faltas AS CantidadFaltas
     FROM Estudiantes
-    WHERE Carnet = carnet;
+    WHERE Carnet = p_carnet;
 END //
 
 CREATE PROCEDURE sp_ActualizarEstudiante(
@@ -333,14 +350,14 @@ CREATE PROCEDURE sp_ActualizarEstudiante(
 )
 BEGIN
     UPDATE Estudiantes 
-    SET Contrasena = contrasena, 
-        Primer_Nombre = primerNombre, 
-        Segundo_Nombre = segundoNombre, 
-        Primer_Apellido = primerApellido, 
-        Segundo_Apellido = segundoApellido, 
-        Carrera = carrera,
-        Cantidad_Faltas = cantidadFaltas
-    WHERE Carnet = carnet;
+    SET Contrasena = p_contrasena, 
+        Primer_Nombre = P_primerNombre, 
+        Segundo_Nombre = P_segundoNombre, 
+        Primer_Apellido = P_primerApellido, 
+        Segundo_Apellido = P_segundoApellido, 
+        Carrera = P_carrera,
+        Cantidad_Faltas = P_cantidadFaltas
+    WHERE Carnet = P_carnet;
 END //
 
 CREATE PROCEDURE sp_EliminarEstudiante(
@@ -419,7 +436,7 @@ BEGIN
 END //
 
 CREATE PROCEDURE sp_EliminarGrupo(
-    IN id INT
+    IN id varchar(20)
 )
 BEGIN
     DELETE FROM Grupos WHERE Codigo_Grupo = id;

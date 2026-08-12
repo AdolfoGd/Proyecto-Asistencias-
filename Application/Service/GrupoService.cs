@@ -28,7 +28,7 @@ namespace Application.Service
             });
         }
 
-        public async Task<IEnumerable<GruposDTO>> ListarEmpleadosPorCodigo(string codigo)
+        public async Task<IEnumerable<GruposDTO>> ListarGruposPorCodigo(string codigo)
         {
             var lista = await _gruposRepository.ListarGrupoporCodigoAsync(codigo);
             return lista.Select(g => new GruposDTO

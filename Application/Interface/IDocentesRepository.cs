@@ -12,7 +12,6 @@ namespace Application.Interface
         Task GuardarDocentesAsync(Docentes docentes);
         Task EditarDocentesAsync(Docentes docentes);
         Task EliminarDocentesAsync(string carnet);
-
-
+        Task<Docentes?> ValidarCredencialesAsync(string carnet, string contraseña);
     }
 }

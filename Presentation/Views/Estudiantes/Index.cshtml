@@ -11,11 +11,15 @@
             <h2 class="fw-bold text-white mb-1">Control de Estudiantes</h2>
             <p class="text-secondary small mb-0">Gestión del registro académico, carreras y faltas</p>
         </div>
-        <a asp-action="NuevoEstudiante" class="btn btn-success px-3 py-2 rounded-3 shadow-sm fw-semibold">
-            + Registrar Estudiante
-        </a>
-    </div>
 
+        <!-- El botón lo envolvemos en un div para que se mantenga a la derecha -->
+        <div>
+            @if (User.IsInRole("Empleado"))
+            {
+                <a asp-action="NuevoEstudiante" class="btn btn-primary">Registrar Estudiante</a>
+            }
+        </div>
+    </div> <!-- ¡Faltaban estos cierres de div! -->
     <!-- Contenedor Principal -->
     <div class="card border-0 shadow-lg rounded-4 overflow-hidden" style="background-color: #1e293b; border: 1px solid #334155 !important;">
 
@@ -57,7 +61,11 @@
                         <th class="py-3">Nombre Completo</th>
                         <th class="py-3">Carrera</th>
                         <th class="py-3 text-center">Faltas</th>
-                        <th class="text-center pe-4 py-3">Acciones</th>
+                        @if (User.IsInRole("Empleado"))
+                        {
+                            <!-- Solo un th al final -->
+                            <th class="text-center pe-4 py-3">Acciones</th>
+                        }
                     </tr>
                 </thead>
                 <tbody class="border-top-0 text-white">
@@ -70,7 +78,7 @@
                                     <span class="badge border px-2 py-1 font-monospace me-1" style="background-color: #0f172a; color: #38bdf8; border-color: #0284c7 !important;">
                                         @item.Carnet
                                     </span>
-                                    <small class="text-secondary">(Año: @item.AñoIngreso)</small>
+                                    <small class="text-secondary">(Año: @item.AnioIngreso)</small>
                                 </td>
                                 <td>
                                     <span class="fw-semibold text-light">
@@ -87,28 +95,28 @@
                                         @item.CantidadFaltas
                                     </span>
                                 </td>
-                                <td class="text-center pe-4">
-                                    <div class="d-flex justify-content-center gap-2">
-                                        <!-- Botón Editar -->
-                                        <a asp-action="Editar" asp-route-carnet="@item.Carnet" class="btn btn-sm btn-outline-warning fw-semibold px-3">
-                                            Editar
-                                        </a>
 
-                                        <!-- Botón Eliminar -->
-                                        <form asp-action="Eliminar" asp-route-carnet="@item.Carnet" method="post" onsubmit="return confirm('¿Está seguro de eliminar al estudiante con carnet @item.Carnet?');" class="d-inline">
-                                            <button type="submit" class="btn btn-sm btn-outline-danger fw-semibold px-3">
-                                                Eliminar
-                                            </button>
-                                        </form>
-                                    </div>
-                                </td>
+                                <!-- Arreglamos la celda de acciones -->
+                                @if (User.IsInRole("Empleado"))
+                                {
+                                    <td class="text-center pe-4">
+                                        <div class="d-flex justify-content-center gap-2">
+                                            <!-- Nota: asegurate que la ruta coincida con el parámetro de tu controlador (id o carnet) -->
+                                            <a asp-action="Editar" asp-route-carnet="@item.Carnet" class="btn btn-warning">Editar</a>
+                                            <form asp-action="Eliminar" asp-route-carnet="@item.Carnet" method="post" class="d-inline">
+                                                <button type="submit" class="btn btn-danger">Eliminar</button>
+                                            </form>
+                                        </div>
+                                    </td>
+                                }
                             </tr>
                         }
                     }
                     else
                     {
                         <tr>
-                            <td colspan="5" class="text-center text-secondary py-5">
+                            <!-- Ajustamos el colspan a 4 si no es empleado, o 5 si lo es, usando una pequeña jugada de razor -->
+                            <td colspan="@(User.IsInRole("Empleado") ? 5 : 4)" class="text-center text-secondary py-5">
                                 <p class="fs-5 mb-1 text-light">No se encontraron estudiantes registrados</p>
                                 <small class="text-secondary">Prueba buscando otro carnet o registra un nuevo estudiante.</small>
                             </td>

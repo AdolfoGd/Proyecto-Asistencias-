@@ -1,11 +1,14 @@
 ﻿using Application.DTOs;
 using Application.Service;
 using Google.Protobuf.Collections;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using System.Linq;
+using System.Security.Claims;
 
 namespace Presentation.Controllers
 {
+    [Authorize]
     public class AsistenciasController : Controller
     {
         private readonly AsistenciaService _service;
@@ -16,30 +19,46 @@ namespace Presentation.Controllers
         [HttpGet]
         public async Task<IActionResult> Index(int? idSesion)
         {
+            // Capturamos la identidad del usuario actual
+            var rol = User.FindFirst(ClaimTypes.Role)?.Value;
+            var idUsuario = User.FindFirst(ClaimTypes.NameIdentifier)?.Value;
+
             IEnumerable<AsistenciaDTO> asistencias;
 
-            // Si el usuario escribió un ID de sesión en el buscador
+            // 1. Obtenemos las asistencias base (con o sin filtro de sesión)
             if (idSesion.HasValue && idSesion.Value > 0)
             {
                 asistencias = await _service.ListarAsistenciasPorSesion(idSesion.Value);
-                // Guardamos el ID buscado para mantenerlo visible en el input
                 ViewBag.IdSesionBuscada = idSesion.Value;
             }
             else
             {
-                // Si no hay filtro, cargamos todas las asistencias
                 asistencias = await _service.ListarAsistencia();
             }
 
-            return View(asistencias);
+            // 2. Filtro estricto para Estudiantes: interceptamos la lista y dejamos solo las suyas
+            if (rol == "Estudiante")
+            {
+                // Convertimos el Carnet (int) a texto agregando .ToString() para compararlo con idUsuario (string)
+                asistencias = asistencias.Where(a => a.Carnet.ToString() == idUsuario).ToList();
+            }
+
+            return View("Index", asistencias);
         }
-        //metodo para insertar
+
+        // ==========================================
+        // SECCIÓN RESTRINGIDA: EMPLEADOS Y DOCENTES
+        // ==========================================
+
         [HttpGet]
+        [Authorize(Roles = "Empleado,Docente")]
         public async Task<IActionResult> NuevoAsistencia()
         {
             return View();
         }
+
         [HttpPost]
+        [Authorize(Roles = "Empleado,Docente")]
         public async Task<IActionResult> NuevoAsistencia(AsistenciaDTO asistencia)
         {
             try
@@ -50,7 +69,6 @@ namespace Presentation.Controllers
                 }
                 await _service.NuevaAsistencia(asistencia);
                 return RedirectToAction(nameof(Index));
-
             }
             catch (Exception ex)
             {
@@ -58,27 +76,28 @@ namespace Presentation.Controllers
                 return View(asistencia);
             }
         }
-        //metodo para editar
+
         [HttpGet]
+        [Authorize(Roles = "Empleado,Docente")]
         public async Task<IActionResult> Editar(int id)
         {
             var asistencia = await _service.ListarAsistenciasPorSesion(id);
             var lista = asistencia.FirstOrDefault();
 
-            if (asistencia == null||!asistencia.Any())
+            if (asistencia == null || !asistencia.Any())
             {
                 return NotFound();
             }
-            return View(lista);
+            return View("Editar", lista);
         }
 
-       
         [HttpPost]
+        [Authorize(Roles = "Empleado,Docente")]
         public async Task<IActionResult> Editar(int idAsistencia, string estado)
         {
             try
             {
-                await _service.EditarAsistencia(idAsistencia,estado);
+                await _service.EditarAsistencia(idAsistencia, estado);
                 return RedirectToAction(nameof(Index));
             }
             catch (Exception ex)
@@ -90,8 +109,8 @@ namespace Presentation.Controllers
             }
         }
 
-        //metodo para eliminar
         [HttpPost]
+        [Authorize(Roles = "Empleado,Docente")]
         public async Task<IActionResult> Eliminar(int id)
         {
             try

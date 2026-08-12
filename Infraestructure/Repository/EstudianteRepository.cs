@@ -34,14 +34,14 @@ namespace Infraestructure.Repository
                         {
                             var estudiante = new Estudiante
                             {
-                                Carnet = reader.GetInt32("Carnet"),
+                                Carnet = reader.GetString("Carnet"),
                                 Contraseña = reader.GetString("Contraseña"),
                                 PrimerNombre = reader.GetString("PrimerNombre"),
                                 SegundoNombre = reader.GetString("SegundoNombre"),
                                 PrimerApellido = reader.GetString("PrimerApellido"),
                                 SegundoApellido = reader.GetString("SegundoApellido"),
                                 Carrera = reader.GetString("Carrera"),
-                                AñoIngreso = new DateOnly(reader.GetInt32("AñoIngreso"), 1, 1),
+                                AnioIngreso = reader.GetInt32("AñoIngreso"),
                                 CantidadFaltas = reader.GetInt32("CantidadFaltas")
                             };
                             lista.Add(estudiante);
@@ -70,14 +70,14 @@ namespace Infraestructure.Repository
                         {
                             var estudiante = new Estudiante
                             {
-                                Carnet = reader.GetInt32("Carnet"),
+                                Carnet = reader.GetString("Carnet"),
                                 Contraseña = reader.GetString("Contraseña"),
                                 PrimerNombre = reader.GetString("PrimerNombre"),
                                 SegundoNombre = reader.GetString("SegundoNombre"),
                                 PrimerApellido = reader.GetString("PrimerApellido"),
                                 SegundoApellido = reader.GetString("SegundoApellido"),
                                 Carrera = reader.GetString("Carrera"),
-                                AñoIngreso = new DateOnly(reader.GetInt32("AñoIngreso"), 1, 1),
+                                AnioIngreso = reader.GetInt32("AñoIngreso"),
                                 CantidadFaltas = reader.GetInt32("CantidadFaltas")
                             };
                             lista.Add(estudiante);
@@ -90,46 +90,46 @@ namespace Infraestructure.Repository
 
         public async Task GuardarEstudianteAsync(Estudiante estudiante)
         {
-            using var conn = (MySqlConnection)_connectionFactory.CreateConnection();
-            await conn.OpenAsync();
-
-            using var cmd = new MySqlCommand("sp_InsertarEstudiante", conn)
+            using var con = (MySqlConnection)_connectionFactory.CreateConnection();
+            await con.OpenAsync();
+            try
             {
-                CommandType = CommandType.StoredProcedure
-            };
-
-            cmd.Parameters.AddWithValue("@carnet", estudiante.Carnet);
-            cmd.Parameters.AddWithValue("@contrasena", estudiante.Contraseña);
-            cmd.Parameters.AddWithValue("@primerNombre", estudiante.PrimerNombre);
-            cmd.Parameters.AddWithValue("@segundoNombre", (object?)estudiante.SegundoNombre);
-            cmd.Parameters.AddWithValue("@primerApellido", estudiante.PrimerApellido);
-            cmd.Parameters.AddWithValue("@segundoApellido", (object?)estudiante.SegundoApellido);
-            cmd.Parameters.AddWithValue("@carrera", estudiante.Carrera);
-            cmd.Parameters.AddWithValue("@añoIngreso", estudiante.AñoIngreso);
-
-            await cmd.ExecuteNonQueryAsync();
+                using var cmd = new MySqlCommand("sp_InsertarEstudiante", con);
+                cmd.CommandType = CommandType.StoredProcedure;
+                cmd.Parameters.AddWithValue("@carnet", estudiante.Carnet);
+                cmd.Parameters.AddWithValue("@contrasena", estudiante.Contraseña);
+                cmd.Parameters.AddWithValue("@primerNombre", estudiante.PrimerNombre);
+                cmd.Parameters.AddWithValue("@segundoNombre", estudiante.SegundoNombre);
+                cmd.Parameters.AddWithValue("@primerApellido", estudiante.PrimerApellido);
+                cmd.Parameters.AddWithValue("@segundoApellido", estudiante.SegundoApellido);
+                cmd.Parameters.AddWithValue("@carrera", estudiante.Carrera);
+                cmd.Parameters.AddWithValue("@añoIngreso", estudiante.AnioIngreso);
+                await cmd.ExecuteNonQueryAsync();
+            }
+            catch (Exception ex)
+            {
+                throw new Exception(ex.Message);
+            }
         }
 
         public async Task EditarEstudianteAsync(Estudiante estudiante)
         {
-            using var conn = (MySqlConnection)_connectionFactory.CreateConnection();
-            await conn.OpenAsync();
-
-            using var cmd = new MySqlCommand("sp_ActualizarEstudiante", conn)
+            using var con = (MySqlConnection)_connectionFactory.CreateConnection();
+            await con.OpenAsync();
+            using (MySqlCommand cmd = new MySqlCommand("sp_ActualizarEstudiante", con))
             {
-                CommandType = CommandType.StoredProcedure
-            };
-
-            cmd.Parameters.AddWithValue("@carnet", estudiante.Carnet);
-            cmd.Parameters.AddWithValue("@contrasena", estudiante.Contraseña);
-            cmd.Parameters.AddWithValue("@primerNombre", estudiante.PrimerNombre);
-            cmd.Parameters.AddWithValue("@segundoNombre", (object?)estudiante.SegundoNombre);
-            cmd.Parameters.AddWithValue("@primerApellido", estudiante.PrimerApellido);
-            cmd.Parameters.AddWithValue("@segundoApellido", (object?)estudiante.SegundoApellido);
-            cmd.Parameters.AddWithValue("@carrera", estudiante.Carrera);
-            cmd.Parameters.AddWithValue("@cantidadFaltas", estudiante.CantidadFaltas);
-
-            await cmd.ExecuteNonQueryAsync();
+                cmd.CommandType = CommandType.StoredProcedure;
+                cmd.Parameters.Add(new MySqlParameter("@p_carnet", estudiante.Carnet));
+                cmd.Parameters.Add(new MySqlParameter("@p_contrasena", estudiante.Contraseña));
+                cmd.Parameters.Add(new MySqlParameter("@p_primerNombre", estudiante.PrimerNombre));
+                cmd.Parameters.Add(new MySqlParameter("@p_segundoNombre", estudiante.SegundoNombre));
+                cmd.Parameters.Add(new MySqlParameter("@p_primerApellido", estudiante.PrimerApellido));
+                cmd.Parameters.Add(new MySqlParameter("@p_segundoApellido", estudiante.SegundoApellido));
+                cmd.Parameters.Add(new MySqlParameter("@p_carrera", estudiante.Carrera));
+                cmd.Parameters.Add(new MySqlParameter("@p_añoIngreso", estudiante.AnioIngreso));
+                cmd.Parameters.Add(new MySqlParameter("@p_cantidadFaltas", estudiante.CantidadFaltas));
+                await cmd.ExecuteNonQueryAsync();
+            }
         }
 
         public async Task EliminarEstudianteAsync(int carnet)
@@ -137,7 +137,7 @@ namespace Infraestructure.Repository
             using var conn = (MySqlConnection)_connectionFactory.CreateConnection();
             await conn.OpenAsync();
 
-            using (MySqlCommand cmd = new MySqlCommand("sp_EliminarDocente", conn))
+            using (MySqlCommand cmd = new MySqlCommand("sp_EliminarEstudiante", conn))
             {
                 cmd.CommandType = CommandType.StoredProcedure;
                 cmd.Parameters.AddWithValue("@id", carnet);
@@ -148,7 +148,34 @@ namespace Infraestructure.Repository
             
         }
 
-        
-        
+        public async Task<Estudiante?> ValidarCredencialesAsync(string carnet, string contraseña)
+        {
+            using (MySqlConnection conn = (MySqlConnection)_connectionFactory.CreateConnection())
+            {
+                string query = "SELECT Carnet, Primer_Nombre, Primer_Apellido FROM Estudiantes WHERE Carnet = @Carnet AND Contrasena = @Contrasena";
+
+                using (MySqlCommand cmd = new MySqlCommand(query, conn))
+                {
+                    cmd.CommandType = CommandType.Text;
+                    cmd.Parameters.AddWithValue("@Carnet", carnet);
+                    cmd.Parameters.AddWithValue("@Contrasena", contraseña);
+
+                    await conn.OpenAsync();
+                    using (var reader = await cmd.ExecuteReaderAsync())
+                    {
+                        if (await reader.ReadAsync())
+                        {
+                            return new Estudiante
+                            {
+                                Carnet = reader.GetString("Carnet"),
+                                PrimerNombre = reader.GetString("Primer_Nombre"),
+                                PrimerApellido = reader.GetString("Primer_Apellido")
+                            };
+                        }
+                    }
+                }
+                return null;
+            }
+        }
     }
 }

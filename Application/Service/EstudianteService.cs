@@ -29,7 +29,7 @@ namespace Application.Service
                 PrimerApellido = e.PrimerApellido,
                 SegundoApellido = e.SegundoApellido,
                 Carrera = e.Carrera,
-                AñoIngreso = e.AñoIngreso,
+                AnioIngreso = e.AnioIngreso,
                 CantidadFaltas = e.CantidadFaltas
             });
         }
@@ -47,7 +47,7 @@ namespace Application.Service
                 PrimerApellido = e.PrimerApellido,
                 SegundoApellido = e.SegundoApellido,
                 Carrera = e.Carrera,
-                AñoIngreso = e.AñoIngreso,
+                AnioIngreso = e.AnioIngreso,
                 CantidadFaltas = e.CantidadFaltas
             });
         }
@@ -63,7 +63,7 @@ namespace Application.Service
                 PrimerApellido = e.PrimerApellido,
                 SegundoApellido = e.SegundoApellido,
                 Carrera = e.Carrera,
-                AñoIngreso = e.AñoIngreso
+                AnioIngreso = e.AnioIngreso
             };
             await _estudianteRepository.GuardarEstudianteAsync(estudiante);
         }
@@ -87,5 +87,6 @@ namespace Application.Service
         {
             await _estudianteRepository.EliminarEstudianteAsync(carnet);
         }
+
     }
 }

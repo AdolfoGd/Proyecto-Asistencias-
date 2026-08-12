@@ -11,5 +11,6 @@ namespace Application.Interface
         Task GuardarEstudianteAsync(Estudiante estudiante);
         Task EditarEstudianteAsync(Estudiante estudiante);
         Task EliminarEstudianteAsync(int carnet);
+        Task<Estudiante?> ValidarCredencialesAsync(string carnet, string contraseña);
     }
 }

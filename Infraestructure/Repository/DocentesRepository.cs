@@ -1,10 +1,11 @@
-﻿using Application.Interface;
+﻿using Application.DTOs;
+using Application.Interface;
 using Domain.Entities;
 using Infraestructure.DataBase;
 using MySql.Data.MySqlClient;
-using System.Data;
 using System;
 using System.Collections.Generic;
+using System.Data;
 using System.Text;
 
 namespace Infraestructure.Repository
@@ -103,8 +104,6 @@ namespace Infraestructure.Repository
                 cmd.Parameters.Add(new MySqlParameter("@segundoApellido", docentes.SegundoApellido));
                 cmd.Parameters.Add(new MySqlParameter("@codigoEmpleado", docentes.CodigoEmpleado));
                 cmd.Parameters.Add(new MySqlParameter("@departamento", docentes.Departamento));
-
-
                 await cmd.ExecuteNonQueryAsync();
             }
             catch (Exception ex)
@@ -120,14 +119,14 @@ namespace Infraestructure.Repository
             using (MySqlCommand cmd = new MySqlCommand("sp_ActualizarDocente", con))
             {
                 cmd.CommandType = CommandType.StoredProcedure;
-                cmd.Parameters.Add(new MySqlParameter("@carnet", docentes.Carnet));
-                cmd.Parameters.Add(new MySqlParameter("@contrasena", docentes.Contraseña));
-                cmd.Parameters.Add(new MySqlParameter("@primerNombre", docentes.PrimerNombre));
-                cmd.Parameters.Add(new MySqlParameter("@segundoNombre", docentes.SegundoNombre));
-                cmd.Parameters.Add(new MySqlParameter("@primerApellido", docentes.PrimerApellido));
-                cmd.Parameters.Add(new MySqlParameter("@segundoApellido", docentes.SegundoApellido));
-                cmd.Parameters.Add(new MySqlParameter("@departamento", docentes.Departamento));
-                cmd.Parameters.Add(new MySqlParameter("@cantidadFaltas", docentes.CantidadFaltas));
+                cmd.Parameters.Add(new MySqlParameter("@p_carnet", docentes.Carnet));
+                cmd.Parameters.Add(new MySqlParameter("@p_contrasena", docentes.Contraseña));
+                cmd.Parameters.Add(new MySqlParameter("@p_primerNombre", docentes.PrimerNombre));
+                cmd.Parameters.Add(new MySqlParameter("@p_segundoNombre", docentes.SegundoNombre));
+                cmd.Parameters.Add(new MySqlParameter("@p_primerApellido", docentes.PrimerApellido));
+                cmd.Parameters.Add(new MySqlParameter("@p_segundoApellido", docentes.SegundoApellido));
+                cmd.Parameters.Add(new MySqlParameter("@p_departamento", docentes.Departamento));
+                cmd.Parameters.Add(new MySqlParameter("@p_cantidadFaltas", docentes.CantidadFaltas));
                 await cmd.ExecuteNonQueryAsync();
             }
         }
@@ -142,6 +141,38 @@ namespace Infraestructure.Repository
                 cmd.Parameters.AddWithValue("@id", carnet);
 
                 await cmd.ExecuteNonQueryAsync();
+            }
+        }
+
+
+
+        public async Task<Docentes?> ValidarCredencialesAsync(string carnet, string contraseña)
+        {
+            using (MySqlConnection conn = (MySqlConnection)_connectionFactory.CreateConnection())
+            {
+                string query = "SELECT Carnet, Primer_Nombre, Primer_Apellido FROM Docentes WHERE Carnet = @Carnet AND Contrasena = @Contrasena";
+
+                using (MySqlCommand cmd = new MySqlCommand(query, conn))
+                {
+                    cmd.CommandType = CommandType.Text;
+                    cmd.Parameters.AddWithValue("@Carnet", carnet);
+                    cmd.Parameters.AddWithValue("@Contrasena", contraseña);
+
+                    await conn.OpenAsync();
+                    using (var reader = await cmd.ExecuteReaderAsync())
+                    {
+                        if (await reader.ReadAsync())
+                        {
+                            return new Docentes
+                            {
+                                Carnet = reader.GetString("Carnet"),
+                                PrimerNombre = reader.GetString("Primer_Nombre"),
+                                PrimerApellido = reader.GetString("Primer_Apellido")
+                            };
+                        }
+                    }
+                }
+                return null;
             }
         }
     }

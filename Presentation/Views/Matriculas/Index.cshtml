@@ -10,9 +10,14 @@
             <h2 class="fw-bold text-white mb-1">Gestión de Matrículas</h2>
             <p class="text-secondary small mb-0">Registro de matrículas por estudiante y grupo</p>
         </div>
-        <a asp-action="NuevaMatricula" class="btn btn-success px-3 py-2 rounded-3 shadow-sm fw-semibold">
-            + Registrar Matrícula
-        </a>
+
+        <!-- Oculto para Estudiantes y Docentes -->
+        @if (User.IsInRole("Empleado"))
+        {
+            <a asp-action="NuevaMatricula" class="btn btn-success px-3 py-2 rounded-3 shadow-sm fw-semibold">
+                + Registrar Matrícula
+            </a>
+        }
     </div>
 
     <div class="card border-0 shadow-lg rounded-4 overflow-hidden" style="background-color: #1e293b; border: 1px solid #334155 !important;">
@@ -44,7 +49,10 @@
                         <th class="py-3">ID Estudiante</th>
                         <th class="py-3">Código de Grupo</th>
                         <th class="py-3">Fecha de Registro</th>
-                        <th class="text-center pe-4 py-3">Acciones</th>
+                        @if (User.IsInRole("Empleado"))
+                        {
+                            <th class="text-center pe-4 py-3">Acciones</th>
+                        }
                     </tr>
                 </thead>
                 <tbody class="border-top-0 text-white">
@@ -61,21 +69,25 @@
                                 <td class="fw-semibold text-light">@item.IdEstudiante</td>
                                 <td class="text-secondary">@item.CodigoGrupo</td>
                                 <td class="text-secondary small">📅 @item.FechaRegistro</td>
-                                <td class="text-center pe-4">
-                                    <div class="d-flex justify-content-center gap-2">
-                                        <a asp-action="Editar" asp-route-id="@item.IdMatricula" class="btn btn-sm btn-outline-warning fw-semibold px-3">Editar</a>
-                                        <form asp-action="Eliminar" asp-route-id="@item.IdMatricula" method="post" onsubmit="return confirm('¿Está seguro de eliminar esta matrícula?');" class="d-inline">
-                                            <button type="submit" class="btn btn-sm btn-outline-danger fw-semibold px-3">Eliminar</button>
-                                        </form>
-                                    </div>
-                                </td>
+
+                                @if (User.IsInRole("Empleado"))
+                                {
+                                    <td class="text-center pe-4">
+                                        <div class="d-flex justify-content-center gap-2">
+                                            <a asp-action="Editar" asp-route-id="@item.IdMatricula" class="btn btn-sm btn-outline-warning fw-semibold px-3">Editar</a>
+                                            <form asp-action="Eliminar" asp-route-id="@item.IdMatricula" method="post" onsubmit="return confirm('¿Está seguro de eliminar esta matrícula?');" class="d-inline">
+                                                <button type="submit" class="btn btn-sm btn-outline-danger fw-semibold px-3">Eliminar</button>
+                                            </form>
+                                        </div>
+                                    </td>
+                                }
                             </tr>
                         }
                     }
                     else
                     {
                         <tr>
-                            <td colspan="5" class="text-center text-secondary py-5">
+                            <td colspan="@(User.IsInRole("Empleado") ? 5 : 4)" class="text-center text-secondary py-5">
                                 <p class="fs-5 mb-1 text-light">No se encontraron registros</p>
                             </td>
                         </tr>

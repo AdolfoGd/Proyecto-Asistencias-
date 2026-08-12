@@ -1,10 +1,13 @@
 ﻿using Application.DTOs;
 using Application.Service;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using System.Linq;
+using System.Security.Claims;
 
 namespace Presentation.Controllers
 {
+    [Authorize]
     public class MatriculasController : Controller
     {
         private readonly MatriculasService _service;
@@ -16,7 +19,12 @@ namespace Presentation.Controllers
         [HttpGet]
         public async Task<IActionResult> Index(int? idEstudiante)
         {
+            // Capturamos la identidad del usuario actual
+            var rol = User.FindFirst(ClaimTypes.Role)?.Value;
+            var idUsuario = User.FindFirst(ClaimTypes.NameIdentifier)?.Value;
+
             IEnumerable<MatriculasDTO> matriculas;
+
             if (idEstudiante.HasValue && idEstudiante.Value > 0)
             {
                 matriculas = await _service.ListarMatriculasporIdEstudianteAsync(idEstudiante.Value);
@@ -26,16 +34,31 @@ namespace Presentation.Controllers
             {
                 matriculas = await _service.ListarMatriculasAsync();
             }
-            return View(matriculas);
+
+            // Filtro estricto para Estudiantes: interceptamos la lista y dejamos solo las suyas
+            if (rol == "Estudiante")
+            {
+                // Asumo que tu DTO tiene una propiedad "IdEstudiante" (o "Carnet").
+                // Lo convertimos a string para compararlo con el ID de la sesión.
+                matriculas = matriculas.Where(m => m.IdEstudiante.ToString() == idUsuario).ToList();
+            }
+
+            return View("Index", matriculas);
         }
 
+        // ==========================================
+        // SECCIÓN RESTRINGIDA: SOLO EMPLEADOS (ADMIN)
+        // ==========================================
+
         [HttpGet]
+        [Authorize(Roles = "Empleado")]
         public IActionResult NuevaMatricula()
         {
             return View();
         }
 
         [HttpPost]
+        [Authorize(Roles = "Empleado")]
         public async Task<IActionResult> NuevaMatricula(MatriculasDTO matricula)
         {
             try
@@ -52,15 +75,19 @@ namespace Presentation.Controllers
         }
 
         [HttpGet]
+        [Authorize(Roles = "Empleado")]
         public async Task<IActionResult> Editar(int id)
         {
             var lista = await _service.ListarMatriculasAsync();
             var matricula = lista.FirstOrDefault(m => m.IdMatricula == id);
+
             if (matricula == null) return NotFound();
+
             return View(matricula);
         }
 
         [HttpPost]
+        [Authorize(Roles = "Empleado")]
         public async Task<IActionResult> Editar(MatriculasDTO matricula)
         {
             try
@@ -77,6 +104,7 @@ namespace Presentation.Controllers
         }
 
         [HttpPost]
+        [Authorize(Roles = "Empleado")]
         public async Task<IActionResult> Eliminar(int id)
         {
             try

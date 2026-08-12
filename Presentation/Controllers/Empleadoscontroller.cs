@@ -1,10 +1,12 @@
 ﻿using Application.DTOs;
 using Application.Service;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using System.Linq;
 
 namespace Presentation.Controllers
 {
+    [Authorize]
     public class EmpleadosController : Controller
     {
         private readonly EmpleadoService _service;
@@ -26,16 +28,22 @@ namespace Presentation.Controllers
             {
                 empleados = await _service.ListarEmpleados();
             }
-            return View(empleados);
+            return View("Index", empleados);
         }
 
+        // ==========================================
+        // SECCIÓN RESTRINGIDA: SOLO EMPLEADOS (ADMIN)
+        // ==========================================
+
         [HttpGet]
+        [Authorize(Roles = "Empleado")] // Bloqueo estricto
         public IActionResult NuevoEmpleado()
         {
             return View();
         }
 
         [HttpPost]
+        [Authorize(Roles = "Empleado")]
         public async Task<IActionResult> NuevoEmpleado(EmpleadoDTO empleado)
         {
             try
@@ -52,15 +60,19 @@ namespace Presentation.Controllers
         }
 
         [HttpGet]
+        [Authorize(Roles = "Empleado")]
         public async Task<IActionResult> Editar(string id)
         {
             var lista = await _service.ListarEmpleados();
             var empleado = lista.FirstOrDefault(e => e.CodigoEmpleado == id);
+
             if (empleado == null) return NotFound();
+
             return View(empleado);
         }
 
         [HttpPost]
+        [Authorize(Roles = "Empleado")]
         public async Task<IActionResult> Editar(EmpleadoDTO empleado)
         {
             try
@@ -77,12 +89,12 @@ namespace Presentation.Controllers
         }
 
         [HttpPost]
-        public async Task<IActionResult> Eliminar(string id)
+        [Authorize(Roles = "Empleado")]
+        public async Task<IActionResult> Eliminar(string codigoEmpleado)
         {
             try
             {
-                // ⚠ EmpleadoService.EliminarEmpleado espera int; se convierte el código.
-                await _service.EliminarEmpleado(Convert.ToInt32(id));
+                await _service.EliminarEmpleado(codigoEmpleado);
                 return RedirectToAction(nameof(Index));
             }
             catch (Exception ex)

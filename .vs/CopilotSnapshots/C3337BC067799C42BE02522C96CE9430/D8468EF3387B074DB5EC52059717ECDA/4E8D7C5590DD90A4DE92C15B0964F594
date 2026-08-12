@@ -1,0 +1,101 @@
+﻿using Microsoft.AspNetCore.Authentication;
+using Microsoft.AspNetCore.Authentication.Cookies;
+using Microsoft.AspNetCore.Mvc;
+using System.Security.Claims;
+
+namespace Presentation.Controllers
+{
+    public class AccountController : Controller
+    {
+        [HttpGet]
+        public IActionResult Login()
+        {
+            // Si ya tiene sesión, lo mandamos al Home
+            if (User.Identity.IsAuthenticated)
+            {
+                return RedirectToAction("Index", "Home");
+            }
+            return View();
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> Login(string usuario, string contrasena)
+        {
+            string rol = "";
+            string nombre = "";
+            bool puedeIngresar = false;
+
+            // ==========================================
+            // USUARIOS DE PRUEBA (Luego se cambiará por BD)
+            // Validación de departamento para Empleados
+            // ==========================================
+            if (usuario == "admin" && contrasena == "123")
+            {
+                // Para Empleados, SIEMPRE verificar que sea del departamento "Administración"
+                // Aquí simulamos que "admin" es del departamento correcto
+                string departamento = "Administración";  // En la BD real, se consulta de la tabla Empleados
+
+                if (departamento != null && departamento.Equals("Administración", StringComparison.OrdinalIgnoreCase))
+                {
+                    rol = "Empleado";
+                    nombre = "Administrador del Sistema";
+                    puedeIngresar = true;
+                }
+                else
+                {
+                    ModelState.AddModelError("", "Acceso denegado. Solo empleados del departamento 'Administración' pueden ingresar como administradores.");
+                    return View();
+                }
+            }
+            else if (usuario == "docente" && contrasena == "123")
+            {
+                rol = "Docente";
+                nombre = "Profesor de Prueba";
+                puedeIngresar = true;
+            }
+            else if (usuario == "240101" && contrasena == "123")
+            {
+                rol = "Estudiante";
+                nombre = "Estudiante de Prueba";
+                puedeIngresar = true;
+            }
+            else
+            {
+                ModelState.AddModelError("", "Usuario o contraseña incorrectos.");
+                return View();
+            }
+
+            if (!puedeIngresar)
+            {
+                return View();
+            }
+
+            // Crear los datos de sesión (Claims)
+            var claims = new List<Claim>
+            {
+                new Claim(ClaimTypes.Name, nombre),
+                new Claim(ClaimTypes.NameIdentifier, usuario),  // Guardamos el carnet o usuario
+                new Claim(ClaimTypes.Role, rol)                 // Guardamos sus permisos
+            };
+
+            var claimsIdentity = new ClaimsIdentity(claims, CookieAuthenticationDefaults.AuthenticationScheme);
+
+            // Iniciar sesión
+            await HttpContext.SignInAsync(
+                CookieAuthenticationDefaults.AuthenticationScheme, 
+                new ClaimsPrincipal(claimsIdentity),
+                new AuthenticationProperties { IsPersistent = false }
+            );
+
+            // Redirigir al home o página inicial
+            return RedirectToAction("Index", "Home");
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> Logout()
+        {
+            await HttpContext.SignOutAsync(CookieAuthenticationDefaults.AuthenticationScheme);
+            return RedirectToAction("Login");
+        }
+    }
+}

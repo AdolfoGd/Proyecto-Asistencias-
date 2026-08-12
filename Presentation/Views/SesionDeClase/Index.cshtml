@@ -5,22 +5,36 @@
 }
 
 <div class="container-fluid py-4 min-vh-100" style="background-color: #0f172a; color: #e2e8f0;">
+    <!-- Encabezado -->
     <div class="d-flex justify-content-between align-items-center mb-4 pb-3 border-bottom" style="border-color: #334155 !important;">
         <div>
             <h2 class="fw-bold text-white mb-1">Sesiones de Clase</h2>
             <p class="text-secondary small mb-0">Registro y monitoreo de sesiones impartidas</p>
         </div>
-        <a asp-action="NuevaSesion" class="btn btn-success px-3 py-2 rounded-3 shadow-sm fw-semibold">
-            + Registrar Sesión
-        </a>
+
+        <!-- Ocultamos el botón si es Estudiante -->
+        @if (User.IsInRole("Empleado") || User.IsInRole("Docente"))
+        {
+            <a asp-action="NuevaSesion" class="btn btn-success px-3 py-2 rounded-3 shadow-sm fw-semibold">
+                + Registrar Sesión
+            </a>
+        }
     </div>
 
+    @if (TempData["Error"] != null)
+    {
+        <div class="alert alert-danger" role="alert">
+            @TempData["Error"]
+        </div>
+    }
+
+    <!-- Contenedor Principal -->
     <div class="card border-0 shadow-lg rounded-4 overflow-hidden" style="background-color: #1e293b; border: 1px solid #334155 !important;">
         <div class="card-header py-3 border-bottom" style="background-color: #1e293b; border-color: #334155 !important;">
             <form asp-action="Index" method="get" class="row g-2 align-items-center">
                 <div class="col-auto">
-                    <input type="number" name="idGrupo" class="form-control text-white"
-                           placeholder="Buscar por ID Grupo..."
+                    <input type="text" name="idGrupo" class="form-control text-white"
+                           placeholder="Buscar por Código de Grupo..."
                            value="@ViewBag.IdGrupoBuscado"
                            style="background-color: #0f172a; border-color: #334155; max-width: 240px;" />
                 </div>
@@ -36,6 +50,7 @@
             </form>
         </div>
 
+        <!-- Tabla -->
         <div class="table-responsive">
             <table class="table table-dark table-hover align-middle mb-0" style="--bs-table-bg: transparent; --bs-table-hover-bg: #334155;">
                 <thead class="text-uppercase small text-secondary fw-bold" style="border-bottom: 2px solid #334155;">
@@ -46,8 +61,10 @@
                         <th class="py-3">Inicio</th>
                         <th class="py-3">Fin</th>
                         <th class="py-3">Sección</th>
-                        <th class="py-3">Departamento</th>
-                        <th class="text-center pe-4 py-3">Acciones</th>
+                        @if (User.IsInRole("Empleado") || User.IsInRole("Docente"))
+                        {
+                            <th class="text-center pe-4 py-3">Acciones</th>
+                        }
                     </tr>
                 </thead>
                 <tbody class="border-top-0 text-white">
@@ -66,22 +83,27 @@
                                 <td class="text-secondary small">🕒 @item.FechaHoraInicio</td>
                                 <td class="text-secondary small">🕒 @item.FechaHoraFin</td>
                                 <td class="text-secondary">@item.Seccion</td>
-                                <td class="text-secondary">@item.Departamento</td>
-                                <td class="text-center pe-4">
-                                    <div class="d-flex justify-content-center gap-2">
-                                        <a asp-action="Editar" asp-route-id="@item.IdSesion" class="btn btn-sm btn-outline-warning fw-semibold px-3">Editar</a>
-                                        <form asp-action="Eliminar" asp-route-id="@item.IdSesion" method="post" onsubmit="return confirm('¿Está seguro de eliminar esta sesión?');" class="d-inline">
-                                            <button type="submit" class="btn btn-sm btn-outline-danger fw-semibold px-3">Eliminar</button>
-                                        </form>
-                                    </div>
-                                </td>
+
+                                <!-- Ocultamos las acciones si es Estudiante -->
+                                @if (User.IsInRole("Empleado") || User.IsInRole("Docente"))
+                                {
+                                    <td class="text-center pe-4">
+                                        <div class="d-flex justify-content-center gap-2">
+                                            <a asp-action="Editar" asp-route-id="@item.IdSesion" class="btn btn-sm btn-outline-warning fw-semibold px-3">Editar</a>
+                                            <form asp-action="Eliminar" asp-route-id="@item.IdSesion" method="post" onsubmit="return confirm('¿Está seguro de eliminar esta sesión?');" class="d-inline">
+                                                <button type="submit" class="btn btn-sm btn-outline-danger fw-semibold px-3">Eliminar</button>
+                                            </form>
+                                        </div>
+                                    </td>
+                                }
                             </tr>
                         }
                     }
                     else
                     {
                         <tr>
-                            <td colspan="8" class="text-center text-secondary py-5">
+                            <!-- Ajuste dinámico del colspan según el rol -->
+                            <td colspan="@(User.IsInRole("Estudiante") ? 6 : 7)" class="text-center text-secondary py-5">
                                 <p class="fs-5 mb-1 text-light">No se encontraron registros</p>
                             </td>
                         </tr>
@@ -91,4 +113,3 @@
         </div>
     </div>
 </div>
-}

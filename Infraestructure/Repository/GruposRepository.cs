@@ -35,7 +35,7 @@ namespace Infraestructure.Repository
                             {
                                 CodigoGrupo = reader.GetString("CodidoGrupo"),
                                 IdAsignatura = reader.GetString("IdAsignatura"),
-                                IdDocente = reader.IsDBNull(reader.GetOrdinal("IdDocente")) ? null : reader.GetString("IdDocente"),
+                                IdDocente = reader.GetString("IdDocente"),
                                 Seccion = reader.GetString("Seccion")
                             };
                             lista.Add(grupos);
@@ -64,8 +64,8 @@ namespace Infraestructure.Repository
                             var grupos = new Grupos
                             {
                                 CodigoGrupo = reader.GetString("CodidoGrupo"),
-                                IdAsignatura = reader.GetString("IdAsignatura"), // Corregido a GetString
-                                IdDocente = reader.IsDBNull(reader.GetOrdinal("IdDocente")) ? null : reader.GetString("IdDocente"),
+                                IdAsignatura = reader.GetString("IdAsignatura"), 
+                                IdDocente = reader.GetString("IdDocente"),
                                 Seccion = reader.GetString("Seccion")
                             };
                             lista.Add(grupos);

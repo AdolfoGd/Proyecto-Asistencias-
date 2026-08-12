@@ -1,9 +1,11 @@
 ﻿using Application.DTOs;
 using Application.Service;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace Presentation.Controllers
 {
+    [Authorize]
     public class DocentesController : Controller
     {
         private readonly DocentesServices _service;
@@ -16,10 +18,11 @@ namespace Presentation.Controllers
         {
             IEnumerable<DocentesDTO> docentes;
 
-            // Si el usuario escribió un ID de sesión en el buscador
+            // Si el usuario escribió un departamento en el buscador
             if (departamento != null && !string.IsNullOrEmpty(departamento))
             {
                 docentes = await _service.ListarDocentesPorDepartamento(departamento);
+                ViewBag.DepartamentoBuscado = departamento; // Sugerencia: guardarlo en el ViewBag para el input
             }
             else
             {
@@ -27,15 +30,22 @@ namespace Presentation.Controllers
                 docentes = await _service.ListarDocentes();
             }
 
-            return View(docentes);
+            return View("Index", docentes);
         }
-        //metodo para insertar
+
+        // ==========================================
+        // SECCIÓN RESTRINGIDA: SOLO EMPLEADOS (ADMIN)
+        // ==========================================
+
         [HttpGet]
+        [Authorize(Roles = "Empleado")]
         public async Task<IActionResult> NuevoDocente()
         {
             return View();
         }
+
         [HttpPost]
+        [Authorize(Roles = "Empleado")]
         public async Task<IActionResult> NuevoDocente(DocentesDTO docente)
         {
             try
@@ -46,7 +56,6 @@ namespace Presentation.Controllers
                 }
                 await _service.NuevoDocente(docente);
                 return RedirectToAction(nameof(Index));
-
             }
             catch (Exception ex)
             {
@@ -54,8 +63,9 @@ namespace Presentation.Controllers
                 return View(docente);
             }
         }
-        //metodo para editar
+
         [HttpGet]
+        [Authorize(Roles = "Empleado")]
         public async Task<IActionResult> Editar(string departamento)
         {
             if (string.IsNullOrEmpty(departamento))
@@ -76,8 +86,8 @@ namespace Presentation.Controllers
             return View("Editar", docente);
         }
 
-
         [HttpPost]
+        [Authorize(Roles = "Empleado")]
         public async Task<IActionResult> Editar(DocentesDTO docente)
         {
             try
@@ -94,8 +104,9 @@ namespace Presentation.Controllers
                 return View(docente);
             }
         }
-        //metodo para eliminar
+
         [HttpPost]
+        [Authorize(Roles = "Empleado")]
         public async Task<IActionResult> Eliminar(string carnet)
         {
             try

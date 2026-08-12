@@ -7,7 +7,8 @@ namespace Application.DTOs
 {
     public class EstudianteDTO
     {
-        public int Carnet { get; set; }
+        public string? Carnet { get; set; }
+        [StringLength(10)]
         [Display(Name = "Ingrese la contraseña")]
         [Required(ErrorMessage = "La contraseña es obligatoria")]
         public string? Contraseña { get; set; }
@@ -33,7 +34,7 @@ namespace Application.DTOs
         public string? Carrera { get; set; }
         [Display(Name = "Ingrese el año de ingreso ")]
         [Required(ErrorMessage = "Este campo es obligatorio")]
-        public DateOnly AñoIngreso { get; set; }
+        public int AnioIngreso { get; set; }
         [Display(Name = "Ingrese la cantidad de faltas")]
         [Required(ErrorMessage = "Este campo es obligatorio")]
         public int CantidadFaltas { get; set; }

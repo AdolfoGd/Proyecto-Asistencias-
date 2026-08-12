@@ -1,0 +1,123 @@
+﻿using Application.DTOs;
+using Application.Service;
+using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc;
+using System.Linq;
+
+namespace Presentation.Controllers
+{
+    /// <summary>
+    /// Controlador de Sesiones de Clase con autorización basada en roles
+    /// - Estudiante: Solo lectura (Index, Details)
+    /// - Docente: Acceso completo CRUD (Lectura, Insertar, Editar, Eliminar)
+    /// - Empleado: Acceso completo CRUD
+    /// </summary>
+    [Authorize]
+    public class SesionDeClaseController : Controller
+    {
+        private readonly SesionDeClaseService _service;
+        public SesionDeClaseController(SesionDeClaseService service)
+        {
+            _service = service;
+        }
+
+        /// <summary>
+        /// Todos los roles autenticados pueden ver la lista de sesiones
+        /// </summary>
+        [HttpGet]
+        public async Task<IActionResult> Index(string? idGrupo)
+        {
+            IEnumerable<Sesion_de_ClaseDTO> sesiones;
+            if (!string.IsNullOrWhiteSpace(idGrupo))
+            {
+                sesiones = await _service.ListarSesionDeClasePorIdGrupoAsync(idGrupo);
+                ViewBag.IdGrupoBuscado = idGrupo;
+            }
+            else
+            {
+                sesiones = await _service.ListarSesionDeClaseAsync();
+            }
+            return View(sesiones);
+        }
+
+        /// <summary>
+        /// Solo Docentes y Empleados pueden crear sesiones
+        /// </summary>
+        [Authorize(Roles = "Docente,Empleado")]
+        [HttpGet]
+        public IActionResult NuevaSesion()
+        {
+            return View();
+        }
+
+        [Authorize(Roles = "Docente,Empleado")]
+        [HttpPost]
+        public async Task<IActionResult> NuevaSesion(Sesion_de_ClaseDTO sesion)
+        {
+            try
+            {
+                if (!ModelState.IsValid) return View(sesion);
+                await _service.NuevaSesion(sesion);
+                return RedirectToAction(nameof(Index));
+            }
+            catch (Exception ex)
+            {
+                ModelState.AddModelError("", ex.Message);
+                return View(sesion);
+            }
+        }
+
+        /// <summary>
+        /// Solo Docentes y Empleados pueden editar sesiones
+        /// </summary>
+        [Authorize(Roles = "Docente,Empleado")]
+        [HttpGet]
+        public async Task<IActionResult> Editar(int id)
+        {
+            var lista = await _service.ListarSesionDeClaseAsync();
+            var sesion = lista.FirstOrDefault(s => s.IdSesion == id);
+            if (sesion == null) return NotFound();
+            return View(sesion);
+        }
+
+        [Authorize(Roles = "Docente,Empleado")]
+        [HttpPost]
+        public async Task<IActionResult> Editar(Sesion_de_ClaseDTO sesion)
+        {
+            try
+            {
+                if (!ModelState.IsValid) return View(sesion);
+                await _service.EditarSesion(sesion);
+                return RedirectToAction(nameof(Index));
+            }
+            catch (Exception ex)
+            {
+                ModelState.AddModelError("", "Error al editar: " + ex.Message);
+                return View(sesion);
+            }
+        }
+
+        /// <summary>
+        /// Solo Docentes y Empleados pueden eliminar sesiones
+        /// </summary>
+        [Authorize(Roles = "Docente,Empleado")]
+        [HttpPost]
+        public async Task<IActionResult> Eliminar(int id)
+        {
+            try
+            {
+                await _service.EliminarSesion(id);
+                return RedirectToAction(nameof(Index));
+            }
+            catch (Exception ex)
+            {
+                if (ex.Message.Contains("foreign key constraint") || ex.Message.Contains("a parent row"))
+                    TempData["Error"] = "No se puede eliminar esta sesión porque ya tiene asistencias registradas.";
+                else
+                    TempData["Error"] = "Error al eliminar: " + ex.Message;
+
+                return RedirectToAction(nameof(Index));
+            }
+        }
+    }
+}

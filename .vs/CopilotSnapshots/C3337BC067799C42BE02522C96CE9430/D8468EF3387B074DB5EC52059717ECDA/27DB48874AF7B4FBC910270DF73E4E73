@@ -1,0 +1,131 @@
+﻿using Application.DTOs;
+using Application.Service;
+using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc;
+
+namespace Presentation.Controllers
+{
+    /// <summary>
+    /// Controlador de Docentes con autorización basada en roles
+    /// - Estudiante: Solo lectura (Index, Details)
+    /// - Docente: Solo lectura (Index, Details)
+    /// - Empleado: Acceso completo CRUD
+    /// </summary>
+    [Authorize]
+    public class DocentesController : Controller
+    {
+        private readonly DocentesServices _service;
+        public DocentesController(DocentesServices service)
+        {
+            _service = service;
+        }
+
+        /// <summary>
+        /// Todos los roles autenticados pueden ver la lista de docentes
+        /// </summary>
+        [HttpGet]
+        public async Task<IActionResult> Index(string departamento)
+        {
+            IEnumerable<DocentesDTO> docentes;
+
+            if (departamento != null && !string.IsNullOrEmpty(departamento))
+            {
+                docentes = await _service.ListarDocentesPorDepartamento(departamento);
+            }
+            else
+            {
+                docentes = await _service.ListarDocentes();
+            }
+
+            return View(docentes);
+        }
+
+        /// <summary>
+        /// Solo Empleados pueden crear nuevos docentes
+        /// </summary>
+        [Authorize(Roles = "Empleado")]
+        [HttpGet]
+        public async Task<IActionResult> NuevoDocente()
+        {
+            return View();
+        }
+
+        [Authorize(Roles = "Empleado")]
+        [HttpPost]
+        public async Task<IActionResult> NuevoDocente(DocentesDTO docente)
+        {
+            try
+            {
+                if (!ModelState.IsValid)
+                {
+                    return View(docente);
+                }
+                await _service.NuevoDocente(docente);
+                return RedirectToAction(nameof(Index));
+            }
+            catch (Exception ex)
+            {
+                ModelState.AddModelError("", ex.Message);
+                return View(docente);
+            }
+        }
+
+        /// <summary>
+        /// Solo Empleados pueden editar docentes
+        /// </summary>
+        [Authorize(Roles = "Empleado")]
+        [HttpGet]
+        public async Task<IActionResult> Editar(string departamento)
+        {
+            if (string.IsNullOrEmpty(departamento))
+            {
+                return NotFound();
+            }
+
+            var docentes = await _service.ListarDocentesPorDepartamento(departamento);
+
+            if (docentes == null || !docentes.Any())
+            {
+                return NotFound();
+            }
+
+            var docente = docentes.FirstOrDefault();
+            return View("Editar", docente);
+        }
+
+        [Authorize(Roles = "Empleado")]
+        [HttpPost]
+        public async Task<IActionResult> Editar(DocentesDTO docente)
+        {
+            try
+            {
+                await _service.EditarDocente(docente);
+                return RedirectToAction(nameof(Index));
+            }
+            catch (Exception ex)
+            {
+                ModelState.AddModelError("", "Error al editar: " + ex.Message);
+                return View(docente);
+            }
+        }
+
+        /// <summary>
+        /// Solo Empleados pueden eliminar docentes
+        /// </summary>
+        [Authorize(Roles = "Empleado")]
+        [HttpPost]
+        public async Task<IActionResult> Eliminar(string carnet)
+        {
+            try
+            {
+                await _service.EliminarDocente(carnet);
+                return RedirectToAction(nameof(Index));
+            }
+            catch (Exception ex)
+            {
+                TempData["Error"] = "Error al eliminar: " + ex.Message;
+                return RedirectToAction(nameof(Index));
+            }
+        }
+    }
+}

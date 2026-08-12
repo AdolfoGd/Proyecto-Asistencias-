@@ -1,0 +1,143 @@
+﻿using Application.DTOs;
+using Application.Service;
+using Google.Protobuf.Collections;
+using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc;
+using System.Linq;
+using System.Security.Claims;
+
+namespace Presentation.Controllers
+{
+    /// <summary>
+    /// Controlador de Asistencias con autorización basada en roles
+    /// - Estudiante: Solo lectura de sus propias asistencias
+    /// - Docente: Acceso completo CRUD (Lectura, Insertar, Editar, Eliminar)
+    /// - Empleado: Acceso completo CRUD
+    /// </summary>
+    [Authorize]
+    public class AsistenciasController : Controller
+    {
+        private readonly AsistenciaService _service;
+        public AsistenciasController(AsistenciaService service)
+        {
+            _service = service;
+        }
+
+        /// <summary>
+        /// Index con filtrado de datos según el rol del usuario
+        /// - Estudiante: solo sus propias asistencias
+        /// - Docente/Empleado: todas las asistencias
+        /// </summary>
+        [HttpGet]
+        public async Task<IActionResult> Index(int? idSesion)
+        {
+            IEnumerable<AsistenciaDTO> asistencias;
+            var userRole = User.FindFirst(ClaimTypes.Role)?.Value;
+            var userId = User.FindFirst(ClaimTypes.NameIdentifier)?.Value;
+
+            if (idSesion.HasValue && idSesion.Value > 0)
+            {
+                asistencias = await _service.ListarAsistenciasPorSesion(idSesion.Value);
+                ViewBag.IdSesionBuscada = idSesion.Value;
+            }
+            else
+            {
+                asistencias = await _service.ListarAsistencia();
+            }
+
+            // Si el usuario es Estudiante, filtrar solo sus propias asistencias
+            if (userRole == "Estudiante" && !string.IsNullOrEmpty(userId))
+            {
+                asistencias = asistencias.Where(a => a.Carnet == userId).ToList();
+                ViewBag.CarnetFiltrado = userId;
+                ViewBag.EsEstudiante = true;
+            }
+
+            return View(asistencias);
+        }
+
+        /// <summary>
+        /// Solo Docentes y Empleados pueden crear asistencias
+        /// </summary>
+        [Authorize(Roles = "Docente,Empleado")]
+        [HttpGet]
+        public async Task<IActionResult> NuevoAsistencia()
+        {
+            return View();
+        }
+
+        [Authorize(Roles = "Docente,Empleado")]
+        [HttpPost]
+        public async Task<IActionResult> NuevoAsistencia(AsistenciaDTO asistencia)
+        {
+            try
+            {
+                if (!ModelState.IsValid)
+                {
+                    return View(asistencia);
+                }
+                await _service.NuevaAsistencia(asistencia);
+                return RedirectToAction(nameof(Index));
+            }
+            catch (Exception ex)
+            {
+                ModelState.AddModelError("", ex.Message);
+                return View(asistencia);
+            }
+        }
+
+        /// <summary>
+        /// Solo Docentes y Empleados pueden editar asistencias
+        /// </summary>
+        [Authorize(Roles = "Docente,Empleado")]
+        [HttpGet]
+        public async Task<IActionResult> Editar(int id)
+        {
+            var asistencia = await _service.ListarAsistenciasPorSesion(id);
+            var lista = asistencia.FirstOrDefault();
+
+            if (asistencia == null || !asistencia.Any())
+            {
+                return NotFound();
+            }
+            return View("Editar", lista);
+        }
+
+        [Authorize(Roles = "Docente,Empleado")]
+        [HttpPost]
+        public async Task<IActionResult> Editar(int idAsistencia, string estado)
+        {
+            try
+            {
+                await _service.EditarAsistencia(idAsistencia, estado);
+                return RedirectToAction(nameof(Index));
+            }
+            catch (Exception ex)
+            {
+                ModelState.AddModelError("", "Error al editar: " + ex.Message);
+                var asistencia = await _service.ListarAsistenciasPorSesion(idAsistencia);
+                var lista = asistencia.FirstOrDefault();
+                return View(lista);
+            }
+        }
+
+        /// <summary>
+        /// Solo Docentes y Empleados pueden eliminar asistencias
+        /// </summary>
+        [Authorize(Roles = "Docente,Empleado")]
+        [HttpPost]
+        public async Task<IActionResult> Eliminar(int id)
+        {
+            try
+            {
+                await _service.EliminarAsistencia(id);
+                return RedirectToAction(nameof(Index));
+            }
+            catch (Exception ex)
+            {
+                TempData["Error"] = "Error al eliminar: " + ex.Message;
+                return RedirectToAction(nameof(Index));
+            }
+        }
+    }
+}

@@ -1,0 +1,121 @@
+﻿@model IEnumerable<Application.DTOs.EstudianteDTO>
+
+@{
+    ViewData["Title"] = "Gestión de Estudiantes";
+}
+
+<div class="container-fluid py-4">
+    <!-- Encabezado -->
+    <div class="d-flex justify-content-between align-items-center mb-4 pb-3 border-bottom" style="border-color: #334155 !important;">
+        <div>
+            <h2 class="fw-bold text-white mb-1">Control de Estudiantes</h2>
+            <p class="text-secondary small mb-0">Gestión del registro académico, carreras y faltas</p>
+        </div>
+        <a asp-action="NuevoEstudiante" class="btn btn-success px-3 py-2 rounded-3 shadow-sm fw-semibold">
+            + Registrar Estudiante
+        </a>
+    </div>
+
+    <!-- Contenedor Principal -->
+    <div class="card border-0 shadow-lg rounded-4 overflow-hidden" style="background-color: #1e293b; border: 1px solid #334155 !important;">
+
+        <!-- Filtro de Búsqueda por Carnet -->
+        <div class="card-header py-3 border-bottom" style="background-color: #1e293b; border-color: #334155 !important;">
+            <form asp-action="Index" method="get" class="row g-2 align-items-center">
+                <div class="col-auto">
+                    <div class="input-group">
+                        <span class="input-group-text border-end-0 text-secondary" style="background-color: #0f172a; border-color: #334155;">
+                            🪪
+                        </span>
+                        <input type="text"
+                               name="carnet"
+                               class="form-control text-white border-start-0"
+                               placeholder="Buscar por carnet..."
+                               value="@ViewBag.CarnetBuscado"
+                               style="background-color: #0f172a; border-color: #334155; max-width: 260px;" />
+                    </div>
+                </div>
+                <div class="col-auto">
+                    <button type="submit" class="btn btn-primary px-4 fw-semibold">Buscar</button>
+                </div>
+
+                @if (ViewBag.CarnetBuscado != null)
+                {
+                    <div class="col-auto">
+                        <a asp-action="Index" class="btn btn-outline-light">Ver Todos</a>
+                    </div>
+                }
+            </form>
+        </div>
+
+        <!-- Tabla -->
+        <div class="table-responsive">
+            <table class="table table-dark table-hover align-middle mb-0" style="--bs-table-bg: transparent; --bs-table-hover-bg: #334155;">
+                <thead class="text-uppercase small text-secondary fw-bold" style="border-bottom: 2px solid #334155;">
+                    <tr>
+                        <th class="ps-4 py-3">Carnet / Ingreso</th>
+                        <th class="py-3">Nombre Completo</th>
+                        <th class="py-3">Carrera</th>
+                        <th class="py-3 text-center">Faltas</th>
+                        <th class="text-center pe-4 py-3">Acciones</th>
+                    </tr>
+                </thead>
+                <tbody class="border-top-0 text-white">
+                    @if (Model != null && Model.Any())
+                    {
+                        @foreach (var item in Model)
+                        {
+                            <tr style="border-bottom: 1px solid #2a3749;">
+                                <td class="ps-4">
+                                    <span class="badge border px-2 py-1 font-monospace me-1" style="background-color: #0f172a; color: #38bdf8; border-color: #0284c7 !important;">
+                                        @item.Carnet
+                                    </span>
+                                    <small class="text-secondary">(Año: @item.AnioIngreso)</small>
+                                </td>
+                                <td>
+                                    <span class="fw-semibold text-light">
+                                        @item.PrimerNombre @item.SegundoNombre @item.PrimerApellido @item.SegundoApellido
+                                    </span>
+                                </td>
+                                <td>
+                                    <span class="badge bg-info-subtle text-info-emphasis border border-info-subtle px-3 py-2 rounded-pill fw-semibold">
+                                        🎓 @item.Carrera
+                                    </span>
+                                </td>
+                                <td class="text-center">
+                                    <span class="badge @(item.CantidadFaltas > 3 ? "bg-danger" : item.CantidadFaltas > 0 ? "bg-warning text-dark" : "bg-secondary") rounded-circle px-2 py-1">
+                                        @item.CantidadFaltas
+                                    </span>
+                                </td>
+                                <td class="text-center pe-4">
+                                    <div class="d-flex justify-content-center gap-2">
+                                        <!-- Botón Editar -->
+                                        <a asp-action="Editar" asp-route-carnet="@item.Carnet" class="btn btn-sm btn-outline-warning fw-semibold px-3">
+                                            Editar
+                                        </a>
+
+                                        <!-- Botón Eliminar -->
+                                        <form asp-action="Eliminar" asp-route-carnet="@item.Carnet" method="post" onsubmit="return confirm('¿Está seguro de eliminar al estudiante con carnet @item.Carnet?');" class="d-inline">
+                                            <button type="submit" class="btn btn-sm btn-outline-danger fw-semibold px-3">
+                                                Eliminar
+                                            </button>
+                                        </form>
+                                    </div>
+                                </td>
+                            </tr>
+                        }
+                    }
+                    else
+                    {
+                        <tr>
+                            <td colspan="5" class="text-center text-secondary py-5">
+                                <p class="fs-5 mb-1 text-light">No se encontraron estudiantes registrados</p>
+                                <small class="text-secondary">Prueba buscando otro carnet o registra un nuevo estudiante.</small>
+                            </td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>

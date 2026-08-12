@@ -1,0 +1,148 @@
+﻿using Application.DTOs;
+using Application.Service;
+using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc;
+using System.Security.Claims;
+
+namespace Presentation.Controllers
+{
+    /// <summary>
+    /// Controlador de Estudiantes con autorización basada en roles
+    /// - Estudiante: Solo lectura (Index, Details) - filtrado a sus propios registros
+    /// - Docente: Solo lectura (Index, Details)
+    /// - Empleado: Acceso completo CRUD
+    /// </summary>
+    [Authorize]
+    public class EstudiantesController : Controller
+    {
+        private readonly EstudianteService _service;
+
+        public EstudiantesController(EstudianteService service)
+        {
+            _service = service;
+        }
+
+        /// <summary>
+        /// Index con filtrado de datos según el rol del usuario
+        /// - Estudiante: solo sus propios registros
+        /// - Docente/Empleado: todos los registros
+        /// </summary>
+        [HttpGet]
+        public async Task<IActionResult> Index(string carnet)
+        {
+            IEnumerable<EstudianteDTO> estudiantes;
+            var userRole = User.FindFirst(ClaimTypes.Role)?.Value;
+            var userId = User.FindFirst(ClaimTypes.NameIdentifier)?.Value;
+
+            // Si el usuario es Estudiante, filtrar solo sus propios registros
+            if (userRole == "Estudiante" && !string.IsNullOrEmpty(userId))
+            {
+                // El Estudiante solo puede ver sus propios registros
+                estudiantes = await _service.ListarEstudiantesPorCarnet(userId);
+                ViewBag.CarnetFiltrado = userId;
+                ViewBag.EsEstudiante = true;
+            }
+            else if (!string.IsNullOrEmpty(carnet))
+            {
+                // Docente y Empleado pueden filtrar por carnet
+                estudiantes = await _service.ListarEstudiantesPorCarnet(carnet);
+                ViewBag.CarnetBuscado = carnet;
+            }
+            else
+            {
+                // Docente y Empleado ven todos los registros
+                estudiantes = await _service.ListarEstudiantes();
+            }
+
+            return View(estudiantes);
+        }
+
+        /// <summary>
+        /// Solo Empleados pueden crear nuevos estudiantes
+        /// </summary>
+        [Authorize(Roles = "Empleado")]
+        [HttpGet]
+        public async Task<IActionResult> NuevoEstudiante()
+        {
+            return View();
+        }
+
+        [Authorize(Roles = "Empleado")]
+        [HttpPost]
+        public async Task<IActionResult> NuevoEstudiante(EstudianteDTO estudiante)
+        {
+            try
+            {
+                if (!ModelState.IsValid)
+                {
+                    return View(estudiante);
+                }
+                await _service.NuevoEstudiante(estudiante);
+                return RedirectToAction(nameof(Index));
+            }
+            catch (Exception ex)
+            {
+                ModelState.AddModelError("", ex.Message);
+                return View(estudiante);
+            }
+        }
+
+        /// <summary>
+        /// Solo Empleados pueden editar estudiantes
+        /// </summary>
+        [Authorize(Roles = "Empleado")]
+        [HttpGet]
+        public async Task<IActionResult> Editar(int carnet)
+        {
+            if (carnet <= 0)
+            {
+                return NotFound();
+            }
+
+            var estudiantes = await _service.ListarEstudiantesPorCarnet(carnet.ToString());
+
+            if (estudiantes == null || !estudiantes.Any())
+            {
+                return NotFound();
+            }
+
+            var estudiante = estudiantes.FirstOrDefault();
+            return View("EditarEstudiante", estudiante);
+        }
+
+        [Authorize(Roles = "Empleado")]
+        [HttpPost]
+        public async Task<IActionResult> Editar(EstudianteDTO estudiante)
+        {
+            try
+            {
+                await _service.EditarEstudiante(estudiante);
+                return RedirectToAction(nameof(Index));
+            }
+            catch (Exception ex)
+            {
+                ModelState.AddModelError("", "Error al editar: " + ex.Message);
+                return View("EditarEstudiante", estudiante);
+            }
+        }
+
+        /// <summary>
+        /// Solo Empleados pueden eliminar estudiantes
+        /// </summary>
+        [Authorize(Roles = "Empleado")]
+        [HttpPost]
+        public async Task<IActionResult> Eliminar(int carnet)
+        {
+            try
+            {
+                await _service.EliminarEstudiante(carnet);
+                return RedirectToAction(nameof(Index));
+            }
+            catch (Exception ex)
+            {
+                TempData["Error"] = "Error al eliminar: " + ex.Message;
+                return RedirectToAction(nameof(Index));
+            }
+        }
+    }
+}

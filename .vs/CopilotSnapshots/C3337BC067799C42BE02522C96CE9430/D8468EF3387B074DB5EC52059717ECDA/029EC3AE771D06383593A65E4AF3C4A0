@@ -1,0 +1,116 @@
+﻿using Application.DTOs;
+using Application.Service;
+using Microsoft.AspNetCore.Mvc;
+
+namespace Presentation.Controllers
+{
+    public class GruposController : Controller
+    {
+        private readonly GrupoService _service;
+        public GruposController(GrupoService service)
+        {
+            _service = service;
+        }
+        [HttpGet]
+        public async Task<IActionResult> Index(string codigoGrupo)
+        {
+            IEnumerable<GruposDTO> grupos;
+
+            // Si el usuario escribió un ID de sesión en el buscador
+            if (!string.IsNullOrEmpty(codigoGrupo))
+            {
+                grupos = await _service.ListarGruposPorCodigo(codigoGrupo);
+                // Guardamos el código de grupo buscado para mantenerlo visible en el input
+                ViewBag.CodigoGrupoBuscado = codigoGrupo;
+            }
+            else
+            {
+                // Si no hay filtro, cargamos todos los grupos
+                grupos = await _service.ListarGrupoAsync();
+            }
+
+            return View(grupos);
+        }
+        //metodo para insertar
+        [HttpGet]
+        public async Task<IActionResult> NuevoGrupo()
+        {
+            return View();
+        }
+        [HttpPost]
+        public async Task<IActionResult> NuevoGrupo(GruposDTO grupo)
+        {
+            try
+            {
+                if (!ModelState.IsValid)
+                {
+                    return View(grupo);
+                }
+                await _service.NuevoGrupo(grupo);
+                return RedirectToAction(nameof(Index));
+
+            }
+            catch (Exception ex)
+            {
+                ModelState.AddModelError("", ex.Message);
+                return View(grupo);
+            }
+        }
+        //metodo para editar
+        [HttpGet]
+        public async Task<IActionResult> Editar(string codigoGrupo)
+        {
+            // 1. Validación correcta para entero
+            if (string.IsNullOrEmpty(codigoGrupo))
+            {
+                return NotFound();
+            }
+
+            var grupos = await _service.ListarGruposPorCodigo(codigoGrupo);
+
+            if (grupos == null || !grupos.Any())
+            {
+                return NotFound();
+            }
+
+            var estudiante = grupos.FirstOrDefault();
+
+            // 2. Se especifica "EditarEstudiante" para que encuentre el archivo EditarEstudiante.cshtml
+            return View(estudiante);
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> Editar(GruposDTO grupo)
+        {
+            try
+            {
+                await _service.EditarGrupo(grupo);
+                return RedirectToAction(nameof(Index));
+            }
+            catch (Exception ex)
+            {
+                ModelState.AddModelError("", "Error al editar: " + ex.Message);
+
+                // Si falla, se vuelve a especificar la vista correcta
+                return View(grupo);
+            }
+        }
+
+        //metodo para eliminar
+        [HttpPost]
+        public async Task<IActionResult> Eliminar(string codigoGrupo)
+        {
+            try
+            {
+                await _service.EliminarGrupo(codigoGrupo);
+                return RedirectToAction(nameof(Index));
+            }
+            catch (Exception ex)
+            {
+                TempData["Error"] = "Error al eliminar: " + ex.Message;
+                return RedirectToAction(nameof(Index));
+            }
+        }
+    }
+    
+}

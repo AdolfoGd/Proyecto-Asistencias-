@@ -33,34 +33,25 @@ builder.Services.AddScoped<SesionDeClaseService>();
 
 builder.Services.AddControllersWithViews();
 
-// Autenticación por Cookies
 builder.Services.AddAuthentication(CookieAuthenticationDefaults.AuthenticationScheme)
     .AddCookie(options =>
     {
-        options.LoginPath = "/Account/Login";
-        options.ExpireTimeSpan = TimeSpan.FromMinutes(60);
-        options.AccessDeniedPath = "/Account/Login";
+        options.LoginPath = "/Account/Login"; // A dónde va si intenta entrar a una vista protegida
+        options.AccessDeniedPath = "/Account/AccesoDenegado"; // A dónde va si no tiene permisos
+        options.ExpireTimeSpan = TimeSpan.FromHours(8); // Tiempo que dura la sesión
     });
 
 var app = builder.Build();
-
-// Configure the HTTP request pipeline.
-if (!app.Environment.IsDevelopment())
-{
-    app.UseExceptionHandler("/Home/Error");
-}
-
+app.UseHttpsRedirection();
 app.UseStaticFiles();
 app.UseRouting();
 
-app.UseAuthentication();
-app.UseAuthorization();
-
-app.MapStaticAssets();
+// 2. ACTIVAR AUTENTICACIÓN Y AUTORIZACIÓN (El orden es obligatorio)
+app.UseAuthentication(); // Siempre va PRIMERO
+app.UseAuthorization();  // Siempre va DESPUÉS
 
 app.MapControllerRoute(
     name: "default",
-    pattern: "{controller=Estudiantes}/{action=Index}/{id?}")
-    .WithStaticAssets();
+    pattern: "{controller=Home}/{action=Index}/{id?}");
 
 app.Run();

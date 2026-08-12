@@ -1,0 +1,137 @@
+﻿@model IEnumerable<Application.DTOs.GruposDTO>
+@{
+    ViewData["Title"] = "Gestión de Grupos";
+}
+
+<div class="container-fluid py-4">
+    <!-- Encabezado -->
+    <div class="d-flex justify-content-between align-items-center mb-4 pb-3 border-bottom" style="border-color: #334155 !important;">
+        <div>
+            <h2 class="fw-bold text-white mb-1">Control de Grupos</h2>
+            <p class="text-secondary small mb-0">Gestión de asignaturas, docentes y secciones por grupo</p>
+        </div>
+
+        <!-- Ocultamos el botón si es Estudiante -->
+        @if (User.IsInRole("Empleado") || User.IsInRole("Docente"))
+        {
+            <a asp-action="NuevoGrupo" class="btn btn-success px-3 py-2 rounded-3 shadow-sm fw-semibold">
+                + Registrar Grupo
+            </a>
+        }
+    </div>
+
+    @if (TempData["Error"] != null)
+    {
+        <div class="alert alert-danger alert-dismissible fade show border-0 shadow-sm mb-4" role="alert">
+            <strong>Error:</strong> @TempData["Error"]
+            <button type="button" class="btn-close btn-close-white" data-bs-dismiss="alert" aria-label="Close"></button>
+        </div>
+    }
+
+    <!-- Contenedor Principal -->
+    <div class="card border-0 shadow-lg rounded-4 overflow-hidden" style="background-color: #1e293b; border: 1px solid #334155 !important;">
+
+        <!-- Filtro de Búsqueda -->
+        <div class="card-header py-3 border-bottom" style="background-color: #1e293b; border-color: #334155 !important;">
+            <form asp-action="Index" method="get" class="row g-2 align-items-center">
+                <div class="col-auto">
+                    <div class="input-group">
+                        <span class="input-group-text border-end-0 text-secondary" style="background-color: #0f172a; border-color: #334155;">
+                            🏫
+                        </span>
+                        <input type="text"
+                               name="codigoGrupo"
+                               class="form-control text-white border-start-0"
+                               placeholder="Buscar por código de grupo..."
+                               value="@ViewBag.CodigoGrupoBuscado"
+                               style="background-color: #0f172a; border-color: #334155; max-width: 280px;" />
+                    </div>
+                </div>
+                <div class="col-auto">
+                    <button type="submit" class="btn btn-primary px-4 fw-semibold">Buscar</button>
+                </div>
+
+                @if (ViewBag.CodigoGrupoBuscado != null)
+                {
+                    <div class="col-auto">
+                        <a asp-action="Index" class="btn btn-outline-light">Ver Todos</a>
+                    </div>
+                }
+            </form>
+        </div>
+
+        <!-- Tabla -->
+        <div class="table-responsive">
+            <table class="table table-dark table-hover align-middle mb-0" style="--bs-table-bg: transparent; --bs-table-hover-bg: #334155;">
+                <thead class="text-uppercase small text-secondary fw-bold" style="border-bottom: 2px solid #334155;">
+                    <tr>
+                        <th class="ps-4 py-3">Código Grupo</th>
+                        <th class="py-3">ID Asignatura</th>
+                        <th class="py-3">ID Docente</th>
+                        <th class="py-3 text-center">Sección</th>
+                        @if (User.IsInRole("Empleado") || User.IsInRole("Docente"))
+                        {
+                            <th class="text-center pe-4 py-3">Acciones</th>
+                        }
+                    </tr>
+                </thead>
+                <tbody class="border-top-0 text-white">
+                    @if (Model != null && Model.Any())
+                    {
+                        @foreach (var item in Model)
+                        {
+                            <tr style="border-bottom: 1px solid #2a3749;">
+                                <td class="ps-4">
+                                    <span class="badge border px-2 py-1 font-monospace" style="background-color: #0f172a; color: #38bdf8; border-color: #0284c7 !important;">
+                                        @item.CodigoGrupo
+                                    </span>
+                                </td>
+                                <td>
+                                    <span class="fw-semibold text-light">@item.IdAsignatura</span>
+                                </td>
+                                <td>
+                                    <span class="fw-semibold text-light">@item.IdDocente</span>
+                                </td>
+                                <td class="text-center">
+                                    <span class="badge bg-info-subtle text-info-emphasis border border-info-subtle px-3 py-2 rounded-pill fw-semibold">
+                                        📌 @item.Seccion
+                                    </span>
+                                </td>
+
+                                <!-- Ocultamos las acciones si es Estudiante -->
+                                @if (User.IsInRole("Empleado") || User.IsInRole("Docente"))
+                                {
+                                    <td class="text-center pe-4">
+                                        <div class="d-flex justify-content-center gap-2">
+                                            <!-- Botón Editar -->
+                                            <a asp-action="Editar" asp-route-codigoGrupo="@item.CodigoGrupo" class="btn btn-sm btn-outline-warning fw-semibold px-3">
+                                                Editar
+                                            </a>
+
+                                            <!-- Botón Eliminar -->
+                                            <form asp-action="Eliminar" asp-route-codigoGrupo="@item.CodigoGrupo" method="post" onsubmit="return confirm('¿Está seguro de eliminar el grupo @item.CodigoGrupo?');" class="d-inline">
+                                                <button type="submit" class="btn btn-sm btn-outline-danger fw-semibold px-3">
+                                                    Eliminar
+                                                </button>
+                                            </form>
+                                        </div>
+                                    </td>
+                                }
+                            </tr>
+                        }
+                    }
+                    else
+                    {
+                        <tr>
+                            <!-- Ajuste de columnas en caso de vacío -->
+                            <td colspan="@(User.IsInRole("Estudiante") ? 4 : 5)" class="text-center text-secondary py-5">
+                                <p class="fs-5 mb-1 text-light">No se encontraron grupos registrados</p>
+                                <small class="text-secondary">Prueba buscando otro código o registra un nuevo grupo.</small>
+                            </td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
